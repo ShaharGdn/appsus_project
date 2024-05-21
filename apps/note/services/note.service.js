@@ -64,13 +64,30 @@ function _createNotes() {
     if (!notes || !notes.length) {
         notes = []
         for (let i = 0; i < 5; i++) {
+
+            const colors = [
+                '#fff',
+                '#faafa8',
+                '#f39f76',
+                '#fff8b8',
+                '#e2f6d3',
+                '#b4ddd3',
+                '#d4e4ed',
+                '#aeccdc',
+                '#d3bfdb',
+                '#f6e2dd',
+                '#e9e3d4',
+                '#f6e2dd',
+                '#efeff1',
+            ]
+
             const note = {
                 id: utilService.makeId(5),
                 createdAt: utilService.randomPastTime().toLocaleString(),
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
-                    backgroundColor: utilService.getRandomColor()
+                    backgroundColor: colors[utilService.getRandomIntInclusive(0, colors.length-1)]
                 },
                 info: {
                     title: utilService.makeLorem(2),

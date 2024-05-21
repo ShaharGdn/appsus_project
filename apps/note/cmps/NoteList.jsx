@@ -17,3 +17,4 @@ export function NoteList({ notes, onRemove }) {
         </ul>
     </section>
 }
+
