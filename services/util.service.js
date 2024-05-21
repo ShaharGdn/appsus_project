@@ -6,6 +6,7 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    getRandomTimestamp
 }
 
 function makeId(length = 6) {
@@ -60,3 +61,14 @@ function getMonthName(date) {
     ]
     return monthNames[date.getMonth()]
 }
+
+function getRandomTimestamp(start, end) {
+    const startDate = new Date(start).getTime();
+    const endDate = new Date(end).getTime();
+  
+    const randomTimestamp = Math.floor(Math.random() * (endDate - startDate + 1)) + startDate;
+  
+    return new Date(randomTimestamp);
+  }
+  
+  
