@@ -6,6 +6,7 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    randomPastTime,
 }
 
 function makeId(length = 6) {
@@ -59,4 +60,13 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function randomPastTime() {
+    const HOUR = 1000 * 60 * 60
+    // const DAY = 1000 * 60 * 60 * 24
+    const WEEKS = 1000 * 60 * 60 * 24 * 7 * 2
+    
+    const pastRandomTimestamp = Date.now() - getRandomIntInclusive(HOUR, WEEKS)
+    return new Date(pastRandomTimestamp)
 }
