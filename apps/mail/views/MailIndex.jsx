@@ -2,7 +2,6 @@ import { mailService } from "../services/mail.service.js";
 
 import { MailFilter } from "../cmps/MailFilter.jsx";
 import { MailList } from "../cmps/MailList.jsx";
-import { mailService } from "../services/mail.service.js";
 
 const { useState, useEffect } = React
 

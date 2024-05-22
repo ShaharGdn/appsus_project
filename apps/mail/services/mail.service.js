@@ -1,4 +1,4 @@
-import { storageService } from '../../../services/async-storage.service.js'
+import { asyncStorageService } from '../../../services/async-storage.service.js'
 import { utilService } from "../../../services/util.service.js"
 
 const MAIL_KEY = 'emailsDB'
@@ -23,19 +23,19 @@ window.cs = mailService
 
 // get the mails from ls then filter by .... using filter. return the mails
 function query(filterBy = {}) {
-    return storageService.query(MAIL_KEY)
+    return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
-            if (filterBy.subject) {
-                const regExp = new RegExp(filterBy.subject, 'i')
-                mails = mails.filter(mail => regExp.test(mail.subject))
-            }
+            // if (filterBy.subject) {
+            //     const regExp = new RegExp(filterBy.subject, 'i')
+            //     mails = mails.filter(mail => regExp.test(mail.subject))
+            // }
             return mails
         })
 }
 
 // using the async service get function to get a specific mail and adding next prev on the mail obj. return the mail
 function get(mailId) {
-    return storageService.get(MAIL_KEY, mailId)
+    return asyncStorageService.get(MAIL_KEY, mailId)
         .then(mail => {
             mail = _setNextPrevmailId(mail)
             return mail
@@ -44,15 +44,15 @@ function get(mailId) {
 
 // using the storage service remove with the mail key and ID
 function remove(mailId) {
-    return storageService.remove(MAIL_KEY, mailId)
+    return asyncStorageService.remove(MAIL_KEY, mailId)
 }
 
 // depending on whether we have a mail.id we will decide if using put or post from storage service 
 function save(mail) {
     if (mail.id) {
-        return storageService.put(MAIL_KEY, mail)
+        return asyncStorageService.put(MAIL_KEY, mail)
     } else {
-        return storageService.post(MAIL_KEY, mail)
+        return asyncStorageService.post(MAIL_KEY, mail)
     }
 }
 
@@ -120,7 +120,7 @@ function _createEmail() {
 
 // set next prev mail id
 function _setNextPrevEmailId(mail) {
-    return storageService.query(MAIL_KEY).then((mails) => {
+    return asyncStorageService.query(MAIL_KEY).then((mails) => {
         const mailIdx = mails.findIndex((currmail) => currmail.id === mail.id)
         const nextEmail = mails[mailIdx + 1] ? mails[mailIdx + 1] : mails[0]
         const prevEmail = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
