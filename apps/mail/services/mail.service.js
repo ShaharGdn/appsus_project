@@ -25,13 +25,22 @@ window.cs = mailService
 function query(filterBy = {}) {
     return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
-            // if (filterBy.subject) {
-            //     const regExp = new RegExp(filterBy.subject, 'i')
-            //     mails = mails.filter(mail => regExp.test(mail.subject))
-            // }
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                mails = mails.filter(mail => 
+                    regExp.test(mail.subject) || 
+                    regExp.test(mail.from) || 
+                    regExp.test(mail.body)
+                )
+            }
+
+            // Default sorting by sentAt in descending order (newest first)
+            mails.sort((p1, p2) => p2.sentAt - p1.sentAt)
+
             return mails
         })
 }
+
 
 // using the async service get function to get a specific mail and adding next prev on the mail obj. return the mail
 function get(mailId) {
@@ -71,8 +80,13 @@ function getEmptyEmail() {
 }
 
 // an empty filter to initialize the filter settings
-function getDefaultFilter(filterBy = { subject: '' }) {
-    return { subject: filterBy.subject }
+function getDefaultFilter(filterBy = { txt: '' }) {
+    return { txt: filterBy.txt }
+}
+
+function getDefaultSort(SortBy = { date: '' }) {
+    sortBy[prop] = (isDesc) ? -1 : 1
+    return { date: SortBy.date }
 }
 
 // create 19 random mails. save to storage
@@ -87,7 +101,7 @@ function _createEmails() {
                 subject: utilService.makeEmailLorem(1),
                 body: utilService.makeEmailLorem(50),
                 isRead: false,
-                sentAt: utilService.getRandomTimestamp('2022-01-01', '2024-05-21'),
+                sentAt: utilService.getRandomTimestamp('2024-01-01', '2024-05-22'),
                 removedAt: null,
                 from: utilService.makeNamesLorem(1),
                 to: utilService.makeNamesLorem(1),
@@ -109,7 +123,7 @@ function _createEmail() {
         subject: utilService.makeEmailLorem(1),
         body: utilService.makeEmailLorem(50),
         isRead: false,
-        sentAt: utilService.getRandomTimestamp('2022-01-01', '2024-05-21'),
+        sentAt: utilService.getRandomTimestamp('2024-01-01', '2024-05-21'),
         removedAt: null,
         from: utilService.makeNamesLorem(1),
         to: utilService.makeNamesLorem(1),

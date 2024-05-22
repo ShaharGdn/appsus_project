@@ -2,9 +2,27 @@
     font-weight: 600;
 }
 
-.mail-preview {
-    display: flex;
+.mail-preview  {
+    width: 100%;
+    font-weight: 300;
+    font-size: 0.85em;
+    text-align: start;
+    display: grid;
+    grid-auto-flow: column;
     align-items: baseline;
-    flex-direction: row;
-    column-gap: 1em;
+    column-gap: 0.5em;
+    grid-template-columns: 
+      minmax(auto, 0.5fr)
+      minmax(auto, 0.5fr)
+      minmax(auto, 0.5fr)
+      minmax(auto, 2fr)
+      minmax(auto, 3fr)
+      minmax(auto, 5fr)
+      minmax(auto, 2fr);
 }
+
+
+.mail-preview .upper {
+    text-transform: capitalize;
+}
+
