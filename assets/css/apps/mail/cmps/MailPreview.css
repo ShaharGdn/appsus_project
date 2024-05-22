@@ -1,0 +1,10 @@
+.mail-preview .from {
+    font-weight: 600;
+}
+
+.mail-preview {
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+    column-gap: 1em;
+}

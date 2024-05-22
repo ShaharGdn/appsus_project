@@ -84,13 +84,13 @@ function _createEmails() {
         for (let i = 0; i < 20; i++) {
             const mail = {
                 id: utilService.makeId(),
-                subject: utilService.makeLorem(2),
-                body: utilService.makeLorem(50),
+                subject: utilService.makeEmailLorem(1),
+                body: utilService.makeEmailLorem(50),
                 isRead: false,
                 sentAt: utilService.getRandomTimestamp('2022-01-01', '2024-05-21'),
                 removedAt: null,
-                from: utilService.makeLorem(2),
-                to: utilService.makeLorem(2),
+                from: utilService.makeNamesLorem(1),
+                to: utilService.makeNamesLorem(1),
                 labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]]
             }
             mails.push(mail)
@@ -106,13 +106,13 @@ function _createEmail() {
 
     const mail = {
         id: utilService.makeId(),
-        subject: utilService.makeLorem(2),
-        body: utilService.makeLorem(50),
+        subject: utilService.makeEmailLorem(1),
+        body: utilService.makeEmailLorem(50),
         isRead: false,
         sentAt: utilService.getRandomTimestamp('2022-01-01', '2024-05-21'),
         removedAt: null,
-        from: utilService.makeLorem(2),
-        to: utilService.makeLorem(2),
+        from: utilService.makeNamesLorem(1),
+        to: utilService.makeNamesLorem(1),
         labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]]
     }
     return mail

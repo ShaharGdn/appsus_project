@@ -1,5 +1,4 @@
 header {
-
     background: lightcyan;
     border-bottom: 2px solid white;
 }
@@ -8,6 +7,10 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
+}
+
+.app-header h3 {
+    margin-inline-start: 1em;
 }
 
 nav a {

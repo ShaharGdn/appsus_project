@@ -8,7 +8,7 @@
 
 .content-grid {
     --main-width: 1800px;
-    --side-width: 300px;
+    --side-width: 100px;
     --min-margin: 1em;
 
     display: grid;
