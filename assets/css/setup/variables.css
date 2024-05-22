@@ -1,3 +1,11 @@
 :root {
-    --main-bg-color: lightblue;
+    /* gmail */
+    --main-gm-bg-color: #F6F8FD;
+    --gm-button-bg: #C2E7FF;
+    --gm-active-color: #D3E3FD;
+    --gm-input-bg: #EAF1FB;
+    --gm-star-color: #F7CB66;
+    --gm-green-sent: #66CB87;
+
+    /* notes */
 }

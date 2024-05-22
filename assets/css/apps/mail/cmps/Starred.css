@@ -1,0 +1,29 @@
+.starred span {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: default;
+    padding: 0;
+}
+
+.starred.edit span {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.starred button:hover {
+    background-color: inherit;
+}
+
+.starred .star {
+    font-size: 1.3rem;
+}
+
+.starred .on {
+    color: gold;
+}
+
+.starred .off {
+    color: #ffffff;
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+}
