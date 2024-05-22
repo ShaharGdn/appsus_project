@@ -21,7 +21,7 @@ export function MailIndex() {
             .then(fetchedEmails => {
                 fetchedEmails.sort((p1, p2) => new Date(p2.sentAt) - new Date(p1.sentAt))
                 setEmails(fetchedEmails)
-            })
+            });
     }, [filterBy])
 
     function onSetFilterBy(newFilter) {
