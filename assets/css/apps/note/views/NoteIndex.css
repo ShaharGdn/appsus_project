@@ -1,5 +1,8 @@
 .note-index  {
     height: 100vh;
+    font-family: roboto, arial, sans-serif;
+    
+    color: #202124;
 }
 .note-index h2 {
     text-align: center;
