@@ -1,7 +1,8 @@
 const { useState, useEffect } = React
 
-import { mailService } from "../../../services/email-service.js";
+// import { mailService } from "../../../services/email-service.js";
 import { MailList } from "../cmps/MailList.jsx";
+import { mailService } from "../services/mail.service.js";
 
 export function MailIndex() {
     const [emails, setEmails] = useState([])
