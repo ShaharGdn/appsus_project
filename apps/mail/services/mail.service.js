@@ -25,9 +25,9 @@ window.cs = mailService
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            if (filterBy.title) {
-                const regExp = new RegExp(filterBy.title, 'i')
-                mails = mails.filter(mail => regExp.test(mail.title))
+            if (filterBy.subject) {
+                const regExp = new RegExp(filterBy.subject, 'i')
+                mails = mails.filter(mail => regExp.test(mail.subject))
             }
             return mails
         })
@@ -71,8 +71,8 @@ function getEmptyEmail() {
 }
 
 // an empty filter to initialize the filter settings
-function getDefaultFilter(filterBy = { title: '' }) {
-    return { title: filterBy.title }
+function getDefaultFilter(filterBy = { subject: '' }) {
+    return { subject: filterBy.subject }
 }
 
 // create 19 random mails. save to storage

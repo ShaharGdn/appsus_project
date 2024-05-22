@@ -1,11 +1,9 @@
  /* mail index  */
 
- .mail-index h1 {
-    grid-column: 2;
+ .mail-index .mail-list {
+   grid-column: 3;
  }
 
- .mail-index h2 {
-    grid-column: 3;
+ .mail-index .mail-filter {
+   grid-column: 3;
  }
-
- 
