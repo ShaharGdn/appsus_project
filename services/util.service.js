@@ -6,6 +6,8 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    loadFromStorage,
+    saveToStorage,
     randomPastTime,
 }
 
@@ -62,11 +64,20 @@ function getMonthName(date) {
     return monthNames[date.getMonth()]
 }
 
+function saveToStorage(key, val) {
+    localStorage.setItem(key, JSON.stringify(val))
+}
+
+function loadFromStorage(key) {
+    var val = localStorage.getItem(key)
+    return JSON.parse(val)
+}
+
 function randomPastTime() {
     const HOUR = 1000 * 60 * 60
     // const DAY = 1000 * 60 * 60 * 24
     const WEEKS = 1000 * 60 * 60 * 24 * 7 * 2
-    
+
     const pastRandomTimestamp = Date.now() - getRandomIntInclusive(HOUR, WEEKS)
     return new Date(pastRandomTimestamp)
 }

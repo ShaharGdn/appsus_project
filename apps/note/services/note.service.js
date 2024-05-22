@@ -1,5 +1,4 @@
 import { utilService } from '../../../services/util.service.js'
-import { storageService } from '../../../services/storage.service.js'
 import { asyncStorageService } from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
@@ -60,7 +59,7 @@ function getFilterFromSearchParams(searchParams) {
 }
 
 function _createNotes() {
-    let notes = storageService.loadFromStorage(NOTE_KEY)
+    let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = []
         for (let i = 0; i < 5; i++) {
@@ -96,7 +95,7 @@ function _createNotes() {
             }
             notes.push(note)
         }
-        storageService.saveToStorage(NOTE_KEY, notes)
+        utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
 
