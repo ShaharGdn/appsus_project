@@ -10,7 +10,8 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     makeEmailLorem,
-    makeNamesLorem
+    makeNamesLorem,
+    elapsedTime
 }
 
 function makeId(length = 6) {
@@ -170,4 +171,30 @@ function saveToStorage(key, val) {
 function loadFromStorage(key) {
     var val = localStorage.getItem(key)
     return JSON.parse(val)
+}
+
+function elapsedTime(pastMs) {
+    const now = new Date()
+    const pastDate = new Date(pastMs)
+    const secondsPast = Math.round((now - pastDate) / 1000)
+
+    if (secondsPast < 60 * 5) return 'just now'
+
+    const minutesPast = Math.floor(secondsPast / 60)
+    if (minutesPast < 60) return pastDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+
+    const hoursPast = Math.floor(minutesPast / 60)
+    if (hoursPast < 24) return pastDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+
+    const nowYear = now.getFullYear()
+    const pastYear = pastDate.getFullYear()
+
+    if (nowYear === pastYear) {
+        return `${getMonthName(pastDate)} ${pastDate.getDate()}`
+    } else {
+        const day = String(pastDate.getDate()).padStart(2, '0')
+        const month = String(pastDate.getMonth() + 1).padStart(2, '0')
+        const year = String(pastDate.getFullYear()).slice(-2)
+        return `${day}/${month}/${year}`
+    }
 }
