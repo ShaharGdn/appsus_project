@@ -1,6 +1,12 @@
  /* mail list */
 
- .mail-list ul{
+.mail-list {
+   background-color: white;
+   padding: 1em;
+   border-radius: 1em;
+}
+
+ .mail-list ul {
     list-style: none;
     padding: 0;
  }

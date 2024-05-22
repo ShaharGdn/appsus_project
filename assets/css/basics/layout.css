@@ -1,20 +1,11 @@
-/* .wrapper {
-    --max-width: 980px;
-    --min-margin: 1em;
-
-    width: min(var(--max-width), 100% - 2 * var(--min-margin));
-    margin-inline: auto;
-} */
-
 .content-grid {
     --main-width: 1800px;
-    --side-width: 100px;
+    --side-width: 250px;
     --min-margin: 1em;
 
     display: grid;
     grid-template-columns: 
-        minmax(auto, var(--min-margin))
-        minmax(var(--side-width), 1fr)
+        var(--side-width)
         minmax(auto, var(--main-width))
         minmax(auto, var(--min-margin));
 }
