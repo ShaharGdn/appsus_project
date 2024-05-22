@@ -1,0 +1,9 @@
+@font-face {
+    font-family: roboto;
+    src: url(/assets/fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: google sans;
+    src: url(/assets/fonts/ProductSans-Regular.ttf);
+}

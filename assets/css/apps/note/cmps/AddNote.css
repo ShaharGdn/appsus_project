@@ -1,0 +1,45 @@
+.add-note {
+    /* background-color: red; */
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 598px;
+    height: 46px;
+
+    margin: 100px auto;
+    padding: 0.75em 1em;
+    border-radius: 8px;
+
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 2px 6px 2px rgba(60, 64, 67, 0.149);
+    cursor: text;
+}
+
+.add-note h3 {
+    font-weight: 400;
+}
+
+.note-type button{
+    color: #5f6368;
+    margin-inline-start: 0.5em;
+    font-size: 1.4em;
+    padding: 0.35em 0.5em;
+    background-color: transparent;
+    border: none;
+    /* border: 1px solid black; */
+    border-radius: 50%;
+    /* width: 46px; */
+    
+}
+/* .note-type button:hover {
+    background-color: gray;
+}
+.note-type button:hover i {
+    background-color: white;
+} */
+
+.add-note i {
+    cursor: pointer;
+}
