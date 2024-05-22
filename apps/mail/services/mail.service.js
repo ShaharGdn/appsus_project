@@ -22,12 +22,12 @@ window.cs = mailService
 
 
 // get the mails from ls then filter by .... using filter. return the mails
-function query(filterBy = {}, sortBy = {}) {
+function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.from) || regExp.test(mail.body))
+            if (filterBy.subject) {
+                const regExp = new RegExp(filterBy.subject, 'i')
+                mails = mails.filter(mail => regExp.test(mail.subject))
             }
             return mails
         })
@@ -71,8 +71,8 @@ function getEmptyEmail() {
 }
 
 // an empty filter to initialize the filter settings
-function getDefaultFilter(filterBy = { txt: '' }) {
-    return { txt: filterBy.txt }
+function getDefaultFilter(filterBy = { subject: '' }) {
+    return { subject: filterBy.subject }
 }
 
 // create 19 random mails. save to storage
@@ -143,7 +143,7 @@ function saveLabel(mailId, label) {
 function removeLabel(mailId, labelName) {
     return query().then(mails => {
         const mail = mails.find((mail) => mail.id === mailId)
-        const labelIdx = mail.labels.findIndex((label) => label === labelName)
+        const labelIdx = mail.labels.findIndex((label)=> label === labelName)
         if (labelIdx !== -1) {
             mail.reviews.splice(labelIdx, 1)
             _saveEmailsToStorage(mails)

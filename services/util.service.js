@@ -11,7 +11,17 @@ export const utilService = {
     loadFromStorage,
     makeEmailLorem,
     makeNamesLorem,
-    elapsedTime
+    elapsedTime,
+    randomPastTime,
+}
+
+function saveToStorage(key, val) {
+    localStorage.setItem(key, JSON.stringify(val))
+}
+
+function loadFromStorage(key) {
+    var val = localStorage.getItem(key)
+    return JSON.parse(val)
 }
 
 function makeId(length = 6) {
@@ -92,7 +102,7 @@ function makeEmailLorem(size = 100) {
     return txt
 }
 
-function makeNamesLorem(size = 1 ){
+function makeNamesLorem(size = 1) {
     var names = [
         'Alice Johnson',
         'Bob Smith',
@@ -114,13 +124,13 @@ function makeNamesLorem(size = 1 ){
         'Rachel King',
         'Samuel Young',
         'Tina Baker'
-      ]
-      var txt = ''
-      while (size > 0) {
-          size--
-          txt += names[Math.floor(Math.random() * names.length)] + ' '
-      }
-      return txt
+    ]
+    var txt = ''
+    while (size > 0) {
+        size--
+        txt += names[Math.floor(Math.random() * names.length)] + ' '
+    }
+    return txt
 }
 
 function getRandomIntInclusive(min, max) {
@@ -153,6 +163,15 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function randomPastTime() {
+    const HOUR = 1000 * 60 * 60
+    // const DAY = 1000 * 60 * 60 * 24
+    const WEEKS = 1000 * 60 * 60 * 24 * 7 * 2
+
+    const pastRandomTimestamp = Date.now() - getRandomIntInclusive(HOUR, WEEKS)
+    return new Date(pastRandomTimestamp)
 }
 
 function getRandomTimestamp(start, end) {

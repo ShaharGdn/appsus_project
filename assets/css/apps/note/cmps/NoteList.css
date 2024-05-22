@@ -1,1 +1,54 @@
- /* note list */
+.note-list ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 238px);
+    gap: 20px;
+    justify-content: center;
+
+    max-width: 80vw;
+    margin: 100px auto;
+    padding: 0;
+}
+
+.note-list li {
+    position: relative;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: space-between; */
+    /* background-color: antiquewhite; */
+
+    /* max-width: 500px; */
+    /* margin: 0 auto; */
+
+    list-style: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.8em 1em;
+    line-height: 1.25rem;
+    letter-spacing: .01428571em;
+
+}
+
+.note-list li:hover {
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
+}
+
+.note-list .remove-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+
+    font-size: 1.5em;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.note-list .remove-btn:hover {
+    cursor: pointer;
+    background-color: rgb(205, 204, 204);
+}
+
+.note-list li:hover .remove-btn {
+    opacity: 1;
+}

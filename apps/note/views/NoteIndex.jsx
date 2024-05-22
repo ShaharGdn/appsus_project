@@ -1,4 +1,38 @@
+const { useState, useEffect } = React
+
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
+import { noteService } from "../services/note.service.js";
+import { NoteList } from "../cmps/NoteList.jsx";
+
+
 
 export function NoteIndex() {
-    return <div>note app</div>
+
+    const [notes, setNotes] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+        noteService.query()
+            .then(notes => setNotes(notes))
+
+    }, [])
+
+    function removeNote(noteId) {
+        setIsLoading(true)
+        noteService.remove(noteId)
+            .then(() => {
+                setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+                showSuccessMsg('Note removed successfully.')
+            })
+            .catch(err => {
+                console.log('error:', err)
+                showErrorMsg('Could not remove note.')
+            })
+            .finally(() => setIsLoading(false))
+    }
+
+    return <section className="note-index">
+        {notes.length > 0 && <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading}/>}
+        {!notes.length && <h2> Notes you add appear here</h2>}
+    </section >
 }
