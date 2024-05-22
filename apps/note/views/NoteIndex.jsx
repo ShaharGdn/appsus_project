@@ -3,6 +3,7 @@ const { useState, useEffect } = React
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
 import { noteService } from "../services/note.service.js";
 import { NoteList } from "../cmps/NoteList.jsx";
+import { AddNote } from "../cmps/AddNote.jsx";
 
 
 
@@ -32,7 +33,8 @@ export function NoteIndex() {
     }
 
     return <section className="note-index">
-        {notes.length > 0 && <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading}/>}
+        <AddNote />
+        {notes.length > 0 && <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading} />}
         {!notes.length && <h2> Notes you add appear here</h2>}
     </section >
 }
