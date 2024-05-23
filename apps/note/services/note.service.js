@@ -38,16 +38,28 @@ function remove(noteId) {
     return asyncStorageService.remove(NOTE_KEY, noteId)
 }
 
-function save(note) {
+function save(note, createdAt) {
     if (note.id) {
-        return asyncStorageService.put(BOOK_KEY, note)
+        return asyncStorageService.put(NOTE_KEY, note)
     } else {
-        return asyncStorageService.post(BOOK_KEY, note)
+        note.createdAt = createdAt
+        return asyncStorageService.post(NOTE_KEY, note)
     }
 }
 
-function getEmptyNote(type = '', title = '') {
-    return { type, title }
+function getEmptyNote() {
+    return {
+        id: '',
+        createdAt: '',
+        type: 'NoteTxt',
+        isPinned: false,
+        style: {
+            backgroundColor: '#fff'
+        },
+        info: {
+            title: '',
+        }
+    }
 }
 
 function getFilterFromSearchParams(searchParams) {
@@ -86,7 +98,7 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
-                    backgroundColor: colors[utilService.getRandomIntInclusive(0, colors.length-1)]
+                    backgroundColor: colors[utilService.getRandomIntInclusive(0, colors.length - 1)]
                 },
                 info: {
                     title: utilService.makeLorem(2),

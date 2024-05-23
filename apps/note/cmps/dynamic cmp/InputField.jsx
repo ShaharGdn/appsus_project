@@ -1,13 +1,13 @@
 import { InputActionBar } from "../InputActionBar.jsx"
 
-export function InputField({ inputType }) {
+export function InputField({ inputType, note, onChange, onClose }) {
     return <section className="input-field-container">
-        <input className="title-input" type="text"
-            placeholder="Title" />
-        <DynamicInput cmpType={inputType} />
+        <input className="title-input" type="text" name="info.title"
+            placeholder="Title" value={note.info.title || ''} onChange={onChange} />
+        <DynamicInput cmpType={inputType} note={note} onChange={onChange} />
         {/* <input className="txt-input" autoFocus type="text"
             placeholder="Take a note..." /> */}
-        <InputActionBar />
+        <InputActionBar onClose={onClose}/>
         <button><i className="fa-regular fa-thumbtack"></i></button>
     </section>
 }
@@ -15,22 +15,22 @@ export function InputField({ inputType }) {
 function DynamicInput(props) {
     // console.log('props:', props)
     switch (props.cmpType) {
-        case 'txt':
-            console.log('txt input');
+        case 'NoteText':
             return <TxtInput {...props} />
-        case 'todos':
+        case 'NoteTodos':
             return <TodosInput {...props} />
-        case 'img':
+        case 'NoteImg':
             return <ImgInput {...props} />
-        case 'video':
+        case 'NoteVideo':
             return <VideoInput {...props} />
     }
 }
 
-function TxtInput({ name }) {
+function TxtInput({ note, onChange }) {
     // console.log('props inside TxtInput:', props)
     return <input className="txt-input" autoFocus type="text"
-        placeholder="Take a note..." name="info.txt"/>
+        placeholder="Take a note..." name="info.txt"
+        value={note.info.txt || ''} onChange={onChange} />
 }
 
 function TodosInput({ name, handleClick }) {
@@ -44,3 +44,5 @@ function ImgInput({ name }) {
 function VideoInput({ name }) {
     return <h1>Welcome back <u>{name}</u></h1>
 }
+
+

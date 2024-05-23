@@ -5,17 +5,13 @@ import { noteService } from "../services/note.service.js";
 import { NoteList } from "../cmps/NoteList.jsx";
 import { AddNote } from "../cmps/AddNote.jsx";
 
-
-
 export function NoteIndex() {
-
     const [notes, setNotes] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         noteService.query()
             .then(notes => setNotes(notes))
-
     }, [])
 
     function removeNote(noteId) {
