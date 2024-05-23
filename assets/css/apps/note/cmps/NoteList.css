@@ -37,7 +37,7 @@
     right: -10px;
 
     font-size: 1.5em;
-    background-color: white;
+    background-color: var(--n-page-bg-default);
     border-radius: 50%;
     opacity: 0;
     transition: 0.2s;

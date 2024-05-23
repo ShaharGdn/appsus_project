@@ -5,5 +5,10 @@
 
 @font-face {
     font-family: google-sans;
+    src: url(/assets/fonts/ProductSans-Medium.ttf);
+}
+
+@font-face {
+    font-family: google-sans-regular;
     src: url(/assets/fonts/ProductSans-Regular.ttf);
 }

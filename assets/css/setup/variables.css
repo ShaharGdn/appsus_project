@@ -9,4 +9,27 @@
     --gm-hover-link: #EAEBEF;
 
     /* notes */
+    --n-font-clr: #202124;
+    --n-font-empty-clr: #5f6368;
+    --n-marked-bg-clr: #f1f3f4;
+    --n-menu-bg-active-clr: #feefc3;
+    --n-btn-hover-clr: rgba(60, 64, 67, .1);
+    --n-border-clr: #e0e0e0;
+    --n-page-bg-default: #fff;
+
+    /* notes clr selection */
+    --n-bg-1: #faafa8;
+    --n-bg-2: #f39f76;
+    --n-bg-3: #fff8b8;
+    --n-bg-4: #e2f6d3;
+    --n-bg-5: #b4ddd3;
+    --n-bg-6: #d4e4ed;
+    --n-bg-7: #aeccdc;
+    --n-bg-8: #d3bfdb;
+    --n-bg-9: #f6e2dd;
+    --n-bg-10: #e9e3d4;
+    --n-bg-11: #f6e2dd;
+    --n-bg-12: #efef;
+    --n-chosen-border: #a142f4;
+
 }

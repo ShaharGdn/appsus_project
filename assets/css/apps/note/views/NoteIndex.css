@@ -2,7 +2,7 @@
     height: 100vh;
     font-family: roboto, arial, sans-serif;
     
-    color: #202124;
+    color: var(--n-font-clr);
 }
 .note-index h2 {
     text-align: center;
