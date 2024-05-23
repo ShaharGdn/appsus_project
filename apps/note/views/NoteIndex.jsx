@@ -11,7 +11,12 @@ export function NoteIndex() {
 
     useEffect(() => {
         noteService.query()
-            .then(notes => setNotes(notes))
+            // .then(notes => setNotes(notes))
+            .then(notes => {
+                setNotes(notes)
+                console.log(notes)
+
+            })
     }, [])
 
     function removeNote(noteId) {

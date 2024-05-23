@@ -2,11 +2,11 @@ import { InputActionBar } from "../InputActionBar.jsx"
 
 export function InputField({ inputType, note, onChange, onClose }) {
 
-    return <section className="input-field-container">
+    return <section className="input-field-container" style={note.style}>
         <input className="title-input" type="text" name="info.title"
             placeholder="Title" value={note.info.title || ''} onChange={onChange} />
         <DynamicInput cmpType={inputType} note={note} onChange={onChange} />
-        <InputActionBar onClose={onClose} />
+        <InputActionBar onClose={onClose} note={note} onChange={onChange}/>
         <button><i className="fa-regular fa-thumbtack"></i></button>
     </section>
 }
@@ -25,7 +25,6 @@ function DynamicInput(props) {
 }
 
 function TxtInput({ note, onChange }) {
-    console.log('props inside TxtInput:', note)
     return <input className="txt-input" autoFocus type="text"
         placeholder="Take a note..." name="info.txt"
         value={note.info.txt || ''} onChange={onChange} />

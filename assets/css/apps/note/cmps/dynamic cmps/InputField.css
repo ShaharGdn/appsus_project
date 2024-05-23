@@ -19,6 +19,7 @@
 
     line-height: 1.5rem;
     font-family: google-sans, roboto, Arial, sans-serif;
+    background-color: transparent;
 }
 
 .input-field-container input::placeholder {
