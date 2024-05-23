@@ -4,9 +4,32 @@
    background-color: white;
    padding: 1em;
    border-radius: 1em;
+   min-height: 80vh;
+   margin-block-end: 2em;
 }
 
  .mail-list ul {
     list-style: none;
     padding: 0;
+ }
+
+ .mail-list h3 {
+   display: flex;
+   align-items: baseline;
+   gap: 0.7em;
+   font-size: 1em;
+   color: #202124;
+   font-weight: 400;
+   cursor: pointer;
+   width: max-content;
+   padding: 0.7em;
+ }
+
+ .mail-list h3 i{
+   font-size: 0.9em;
+ }
+
+ .mail-list h3:hover {
+   border-radius: 0.5em;
+   background-color: var(--gm-hover-btn);
  }

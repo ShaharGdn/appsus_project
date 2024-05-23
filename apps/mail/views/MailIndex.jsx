@@ -38,7 +38,7 @@ export function MailIndex() {
             </section>
             <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
             <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-            <MailList emails={emails} />
+            <MailList emails={emails} filterBy={filterBy}/>
         </section>
     )
 }

@@ -55,7 +55,13 @@ function query(filterBy = {}) {
                 mails = mails.filter(mail =>
                     mail.isStarred
                 )
-            }
+            } 
+            // if (filterBy.trash) {
+            //     mails = mails.filter(mail =>
+            //         mail.isStarred
+            //     )
+            // } 
+            
 
             // function getClassName() {
             //     let className = ''
@@ -130,7 +136,7 @@ function _createEmails() {
                 id: utilService.makeId(),
                 subject: utilService.makeEmailLorem(1),
                 body: utilService.makeEmailLorem(50),
-                isRead: false,
+                isRead: Math.random() > 0.5 ? false : true,
                 sentAt: utilService.getRandomTimestamp('2024-01-01', '2024-05-22'),
                 removedAt: null,
                 from: Math.random() > 0.1 ? mailUtilService.createSender() : loggedInUser,

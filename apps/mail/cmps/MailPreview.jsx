@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { utilService } from "../../../services/util.service.js"
 import { mailService } from "../services/mail.service.js"
 import { LongTxt } from "./LongTxt.jsx"
@@ -10,20 +11,24 @@ const loggedInUser = {
     fullname: 'Mahatma Appsus'
 }
 
-export function MailPreview({ mail }) {
+export function MailPreview({ mail, type, isFold }) {
     const { subject, body, isRead, sentAt, removedAt, from, isStarred, to } = mail
     const { email: fromEmail, fullname } = from
 
     const [newMail, setMail] = useState(mail)
 
-    // function getClassName() {
-    //     let className = ''
-    //     if (isRead) className += ' read'
-    //     if (removedAt) className += ' trash'
-    //     if (fromEmail === loggedInUser.email) className += ' sent'
-    //     if (to === loggedInUser.email) className += ' received'
-    //     return className
-    // }
+    if (type === 'read' && !isRead || type === 'read' && isFold.readFold) return
+    if (type === 'unread' && isRead || type === 'unread' && isFold.unreadFold) return
+
+    function getClassName() {
+        let className = '';
+        (isRead) ? className += ' read' : className += ' unread'
+        if (removedAt) className += ' trash'
+        if (fromEmail === loggedInUser.email) className += ' sent'
+        if (to === loggedInUser.email) className += ' received'
+
+        return className
+    }
 
     function handleChange(state) {
         setMail(prevMail => {
@@ -34,8 +39,7 @@ export function MailPreview({ mail }) {
     }
 
     return (
-        <article className={`mail-preview`}>
-        {/* <article className={`mail-preview ${getClassName()}`}> */}
+        <article className={`mail-preview ${getClassName()}`}>
             <input type="checkbox" />
             <StarredMail isStarred={newMail.isStarred} handleChange={handleChange} />
             <i className="fa-light fa-circle-user"></i>

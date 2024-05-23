@@ -1,6 +1,6 @@
-.mail-preview .from {
+/* .mail-preview .from {
     font-weight: 600;
-}
+} */
 
 .mail-preview  {
     width: 100%;
@@ -10,18 +10,26 @@
     display: grid;
     grid-auto-flow: column;
     align-items: baseline;
-    column-gap: 0.5em;
+    column-gap: 0.7em;
     grid-template-columns: 
       minmax(auto, 0.5fr)
       minmax(auto, 0.5fr)
       minmax(auto, 0.5fr)
       minmax(auto, 2fr)
-      minmax(auto, 3fr)
-      minmax(auto, 5fr)
+      minmax(auto, 4fr)
+      minmax(auto, 6fr)
       minmax(auto, 2fr);
 }
 
 
 .mail-preview .upper {
     text-transform: capitalize;
+}
+
+.mail-preview.unread > span:not(.body){
+    font-weight: 600;
+}
+
+.mail-preview .sentAt {
+    text-align: end;
 }
