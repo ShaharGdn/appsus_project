@@ -105,7 +105,9 @@ function _createEmails() {
                 removedAt: null,
                 from: utilService.makeNamesLorem(1),
                 to: utilService.makeNamesLorem(1),
-                labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]]
+                labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]],
+                isStarred: true,
+                isDraft: false,
             }
             mails.push(mail)
         }
@@ -127,7 +129,9 @@ function _createEmail() {
         removedAt: null,
         from: utilService.makeNamesLorem(1),
         to: utilService.makeNamesLorem(1),
-        labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]]
+        labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]],
+        isStarred: false,
+        isDraft: false,
     }
     return mail
 }

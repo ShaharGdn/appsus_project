@@ -17,7 +17,7 @@ export function TopMailFilter({ filterBy, onFilter }) {
     return <section className="mail-top-filter">
         <section className="search-container">
             <input id="txt" onChange={handleChange} autoFocus name="txt" type="text" placeholder="Search mail" />
-            <button type="submit"><i class="fa-light fa-magnifying-glass"></i></button>
+            <button type="submit"><i className="fa-light fa-magnifying-glass"></i></button>
         </section>
     </section>
 }
@@ -42,27 +42,27 @@ export function SideMailFilter({ filterBy, onFilter }) {
             Compose
         </button>
 
-        <a href="#" className="side-link">
+        <a className="side-link">
             <i className="fa-light fa-inbox"></i>
             Inbox
         </a>
-        <a href="#" className="side-link">
+        <a className="side-link">
             <i className="fa-light fa-star"></i>
             Starred
         </a>
-        <a href="#" className="side-link">
+        <a className="side-link">
             <i className="fa-light fa-clock"></i>
             Snoozed
         </a>
-        <a href="#" className="side-link">
+        <a className="side-link">
             <i className="fa-light fa-paper-plane-top"></i>
             Sent
         </a>
-        <a href="#" className="side-link">
+        <a className="side-link">
             <i className="fa-light fa-file"></i>
             Drafts
         </a>
-        <a href="#" className="side-link">
+        <a className="side-link">
             <i className="fa-solid fa-tag"></i>
             Labels
         </a>
