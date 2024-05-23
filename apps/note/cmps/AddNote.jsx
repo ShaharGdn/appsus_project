@@ -1,5 +1,4 @@
 const { useState, useEffect } = React
-const { useNavigate } = ReactRouter
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
@@ -12,8 +11,6 @@ export function AddNote() {
 
     const [isInputActive, setIsInputActive] = useState(false)
     const [inputType, setInputType] = useState('NoteText')
-
-    const navigate = useNavigate()
 
     function showInputBox({ target }) {
         if (target.value === '' || target.value.length > 1 || isInputActive === true) return
@@ -37,30 +34,25 @@ export function AddNote() {
     }
 
     function onAddNote() {
-        if (!note.info.txt && !note.info.todos && !note.info.url) return
+        if (!note.info.txt && !note.info.todos && !note.info.url) {
+            resetMainInput()
+            return
+        }
         const createdAt = utilService.getCurrentDateTime()
         noteService.save(note, createdAt)
             .then(() => {
                 console.log(note);
                 showSuccessMsg('Note added successfully.')
+                resetMainInput()
                 window.location.reload()
             })
             .catch(() => showErrorMsg('Could not add note.'))
     }
 
-    // id: '',
-    // createdAt: '',
-    // type: '',
-    // isPinned: false,
-    // style: {
-    //     backgroundColor: '#fff'
-    // },
-    // info: {
-    //     title: '',
-    // }
-
-
-    //   after adding:  setByType(NoteTxt)
+    function resetMainInput() {
+        setIsInputActive(false)
+        setByType('NoteText')
+    }
 
     return <section>
         {!isInputActive && <section className="add-note">
@@ -75,9 +67,6 @@ export function AddNote() {
                     <i className="fa-regular fa-image"></i></button>
                 <button onClick={() => setByType('NoteVideo')}>
                     <i className="fa-brands fa-youtube"></i></button>
-                {/* <button onClick={() => setInputType('todos')}><i className="fa-regular fa-square-check"></i></button>
-                <button onClick={() => setInputType('img')}><i className="fa-regular fa-image"></i></button>
-                <button onClick={() => setInputType('video')}><i className="fa-brands fa-youtube"></i></button> */}
             </div>
         </section>}
         {isInputActive && <InputField inputType={inputType} note={note}
