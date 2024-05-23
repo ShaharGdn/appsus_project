@@ -5,18 +5,25 @@ import { StarredMail } from "./StarredMail.jsx"
 
 const { useState } = React
 
+const loggedInUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
+}
+
 export function MailPreview({ mail }) {
-    const { subject, body, isRead, sentAt, removedAt, from, isStarred } = mail
+    const { subject, body, isRead, sentAt, removedAt, from, isStarred, to } = mail
+    const { email: fromEmail, fullname } = from
 
     const [newMail, setMail] = useState(mail)
 
-    function getClassName() {
-        let className = ''
-        if (isRead) className += ' read'
-        if (removedAt) className += ' trash'
-        if (sentAt) className += ' sent'
-        return className
-    }
+    // function getClassName() {
+    //     let className = ''
+    //     if (isRead) className += ' read'
+    //     if (removedAt) className += ' trash'
+    //     if (fromEmail === loggedInUser.email) className += ' sent'
+    //     if (to === loggedInUser.email) className += ' received'
+    //     return className
+    // }
 
     function handleChange(state) {
         setMail(prevMail => {
@@ -27,11 +34,12 @@ export function MailPreview({ mail }) {
     }
 
     return (
-        <article className={`mail-preview ${getClassName()}`}>
+        <article className={`mail-preview`}>
+        {/* <article className={`mail-preview ${getClassName()}`}> */}
             <input type="checkbox" />
             <StarredMail isStarred={newMail.isStarred} handleChange={handleChange} />
             <i className="fa-light fa-circle-user"></i>
-            <span className="from">{from}</span>
+            <span className="from">{fullname}</span>
             <span className="subject">{subject}</span>
             <span className="body"><LongTxt txt={body} /></span>
             <span className="sentAt">{utilService.elapsedTime(sentAt)}</span>

@@ -83,7 +83,7 @@
     background: var(--gm-hover-link);
 }
 
-.mail-side-filter .side-link:active, .side-link:active > i {
+.mail-side-filter .side-link.active, .side-link.active > i {
     background: var(--gm-active-color);
     font-weight: 700;
 }

@@ -1,4 +1,5 @@
 const { useState, useEffect } = React
+const { Link, NavLink } = ReactRouterDOM
 
 export function TopMailFilter({ filterBy, onFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
@@ -23,17 +24,15 @@ export function TopMailFilter({ filterBy, onFilter }) {
 }
 
 export function SideMailFilter({ filterBy, onFilter }) {
-    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+    const [filterByToEdit, setFilterByToEdit] = useState(filterBy || {})
 
     useEffect(() => {
         onFilter(filterByToEdit)
+        console.log('filterByToEdit:', filterByToEdit)
     }, [filterByToEdit])
 
-    function handleChange({ target }) {
-        const { name, type } = target
-        const value = (type === 'number') ? +target.value : target.value
-
-        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [name]: value }))
+    function handleChange(type) {
+        setFilterByToEdit(({ [type]: true }))
     }
 
     return <section className="mail-side-filter">
@@ -42,29 +41,29 @@ export function SideMailFilter({ filterBy, onFilter }) {
             Compose
         </button>
 
-        <a className="side-link">
+        <NavLink to='/mail/inbox' className="side-link" onClick={() => handleChange('inbox')}>
             <i className="fa-light fa-inbox"></i>
             Inbox
-        </a>
-        <a className="side-link">
+        </NavLink>
+        <NavLink to='/mail/starred' className="side-link" onClick={() => handleChange('starred')}>
             <i className="fa-light fa-star"></i>
             Starred
-        </a>
-        <a className="side-link">
+        </NavLink>
+        <NavLink to='/mail/snoozed' className="side-link" onClick={() => handleChange('snoozed')}>
             <i className="fa-light fa-clock"></i>
             Snoozed
-        </a>
-        <a className="side-link">
+        </NavLink>
+        <NavLink to='/mail/sent' className="side-link" onClick={() => handleChange('sent')}>
             <i className="fa-light fa-paper-plane-top"></i>
             Sent
-        </a>
-        <a className="side-link">
+        </NavLink>
+        <NavLink to='/mail/drafts' className="side-link" onClick={() => handleChange('drafts')}>
             <i className="fa-light fa-file"></i>
             Drafts
-        </a>
-        <a className="side-link">
+        </NavLink>
+        <NavLink to='/mail/labels' className="side-link">
             <i className="fa-solid fa-tag"></i>
             Labels
-        </a>
+        </NavLink>
     </section>
 }
