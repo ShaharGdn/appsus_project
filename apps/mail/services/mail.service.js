@@ -36,7 +36,9 @@ function query(filterBy = {}) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail =>
                     regExp.test(mail.subject) ||
-                    regExp.test(mail.from) ||
+                    regExp.test(mail.from.email) ||
+                    regExp.test(mail.from.fullname) ||
+                    regExp.test(mail.to.fullname) ||
                     regExp.test(mail.body)
                 )
             }
@@ -56,19 +58,12 @@ function query(filterBy = {}) {
                     mail.isStarred
                 )
             } 
-            // if (filterBy.trash) {
-            //     mails = mails.filter(mail =>
-            //         mail.isStarred
-            //     )
-            // } 
-            
+            if (filterBy.trash) {
+                mails = mails.filter(mail =>
+                    mail.removedAt
+                )
+            } 
 
-            // function getClassName() {
-            //     let className = ''
-            //     if (isRead) className += ' read'
-            //     if (removedAt) className += ' trash'
-            //     return className
-            // }
 
             // Default sorting by sentAt in descending order (newest first)
             mails.sort((p1, p2) => p2.sentAt - p1.sentAt)
@@ -138,7 +133,7 @@ function _createEmails() {
                 body: utilService.makeEmailLorem(50),
                 isRead: Math.random() > 0.5 ? false : true,
                 sentAt: utilService.getRandomTimestamp('2024-01-01', '2024-05-22'),
-                removedAt: null,
+                removedAt: Math.random() > 0.1 ? null : utilService.getRandomTimestamp('2024-01-01', '2024-05-22'),
                 from: Math.random() > 0.1 ? mailUtilService.createSender() : loggedInUser,
                 to: Math.random() > 0.1 ? loggedInUser : mailUtilService.createSender(),
                 labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]],

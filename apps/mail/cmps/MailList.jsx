@@ -1,10 +1,9 @@
+import { mailService } from "../services/mail.service.js";
 import { MailPreview } from "./MailPreview.jsx";
 
 const { useState } = React
 
-export function MailList({ emails, filterBy }) {
-
-    const [emailList, setEmailList] = useState(emails)
+export function MailList({ emails, filterBy, onRemove, onStateChange }) {
     const [isFold, setFold] = useState({ readFold: false, unreadFold: false })
 
     if (!emails.length) {
@@ -19,28 +18,40 @@ export function MailList({ emails, filterBy }) {
         })
     }
 
+    function onMailRemove(mail) {
+        onRemove(mail)
+    }
+
+    function onNewStateChange(updatedMail) {
+        mailService.save(updatedMail)
+        const updatedEmails = emails.map(mail =>
+            mail.id === updatedMail.id ? updatedMail : mail
+        )
+        onStateChange(updatedEmails)
+    }
+
     return (
         filterBy.inbox ? (
             <section className="mail-list">
                 <h3 onClick={() => onToggleFold('unreadFold')}>
-                    {isFold.unreadFold? <i className="fa-light fa-chevron-down"></i> : <i class="fa-light fa-chevron-up"></i>}
+                    {isFold.unreadFold ? <i className="fa-light fa-chevron-down"></i> : <i className="fa-light fa-chevron-up"></i>}
                     Unread
                 </h3>
                 <ul>
                     {emails.map(mail => (
                         <li key={mail.id}>
-                            <MailPreview mail={mail} filterBy={filterBy} type={'unread'} isFold={isFold}/>
+                            <MailPreview mail={mail} filterBy={filterBy} type={'unread'} isFold={isFold} onMailRemove={onMailRemove} onStateChange={onNewStateChange} />
                         </li>
                     ))}
                 </ul>
                 <h3 onClick={() => onToggleFold('readFold')}>
-                {isFold.readFold? <i className="fa-light fa-chevron-down"></i> : <i class="fa-light fa-chevron-up"></i>}
+                    {isFold.readFold ? <i className="fa-light fa-chevron-down"></i> : <i className="fa-light fa-chevron-up"></i>}
                     Everything else
                 </h3>
                 <ul>
                     {emails.map(mail => (
                         <li key={mail.id}>
-                            <MailPreview mail={mail} filterBy={filterBy} type={'read'} isFold={isFold}/>
+                            <MailPreview mail={mail} filterBy={filterBy} type={'read'} isFold={isFold} onMailRemove={onMailRemove} onStateChange={onNewStateChange} />
                         </li>
                     ))}
                 </ul>
@@ -50,7 +61,7 @@ export function MailList({ emails, filterBy }) {
                 <ul>
                     {emails.map(mail => (
                         <li key={mail.id}>
-                            <MailPreview mail={mail} filterBy={filterBy} />
+                            <MailPreview mail={mail} filterBy={filterBy} onMailRemove={onMailRemove} onStateChange={onNewStateChange} />
                         </li>
                     ))}
                 </ul>

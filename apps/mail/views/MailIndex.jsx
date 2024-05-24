@@ -1,3 +1,4 @@
+
 import { mailService } from "../services/mail.service.js";
 
 import { SideMailFilter, TopMailFilter } from "../cmps/MailFilter.jsx";
@@ -28,6 +29,19 @@ export function MailIndex() {
         setFilterBy(newFilter)
     }
 
+    function onRemove(email) {
+        const removedEmailId = email.id
+        mailService.remove(removedEmailId)
+            .then(() => {
+                setEmails(prevEmails => prevEmails.filter(email => email.id !== removedEmailId))
+                // showSuccessMsg(`Successfully removed book ${removedEmailId}!`)
+                // navigate('/', { replace: true })
+            })
+    }
+
+    function onStateChange(updatedEmails) {
+        setEmails(updatedEmails)
+    }
     return (
         <section className="content-grid mail-index">
             <section className="menu-bar">
@@ -38,7 +52,7 @@ export function MailIndex() {
             </section>
             <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
             <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-            <MailList emails={emails} filterBy={filterBy}/>
+            <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onStateChange={onStateChange} />
         </section>
     )
 }

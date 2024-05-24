@@ -22,6 +22,7 @@ export function App() {
                 <Route path="/mail/drafts" element={<MailIndex />} />
                 <Route path="/mail/snoozed" element={<MailIndex />} />
                 <Route path="/mail/labels" element={<MailIndex />} />
+                <Route path="/mail/trash" element={<MailIndex />} />
                 <Route path="/note" element={<NoteIndex />} />
             </Routes>
             <UserMsg />

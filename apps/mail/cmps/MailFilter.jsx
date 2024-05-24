@@ -57,6 +57,10 @@ export function SideMailFilter({ filterBy, onFilter }) {
             <i className="fa-light fa-paper-plane-top"></i>
             Sent
         </NavLink>
+        <NavLink to='/mail/trash' className="side-link" onClick={() => handleChange('trash')}>
+            <i className="fa-light fa-trash-can"></i>
+            Trash
+        </NavLink>
         <NavLink to='/mail/drafts' className="side-link" onClick={() => handleChange('drafts')}>
             <i className="fa-light fa-file"></i>
             Drafts

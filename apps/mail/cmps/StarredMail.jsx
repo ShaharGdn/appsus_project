@@ -2,7 +2,7 @@ import { utilService } from "../../../services/util.service.js"
 const { useState, useEffect } = React
 
 export function StarredMail({ isStarred, handleChange }) {
-    
+
     const [isStarOn, setIsStar] = useState(isStarred)
 
     useEffect(() => {
@@ -12,7 +12,7 @@ export function StarredMail({ isStarred, handleChange }) {
     function onToggleStar() {
         const newStarState = !isStarOn
         setIsStar(newStarState)
-        handleChange(newStarState)
+        handleChange({ type: 'isStarred', state: newStarState })
     }
 
     return (
