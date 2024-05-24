@@ -1,8 +1,8 @@
-.mail-preview .from {
+/* .mail-preview .from {
     font-weight: 600;
-}
+} */
 
-.mail-preview  {
+.mail-preview {
     width: 100%;
     font-weight: 300;
     font-size: 0.85em;
@@ -10,19 +10,105 @@
     display: grid;
     grid-auto-flow: column;
     align-items: baseline;
-    column-gap: 0.5em;
-    grid-template-columns: 
-      minmax(auto, 0.5fr)
-      minmax(auto, 0.5fr)
-      minmax(auto, 0.5fr)
-      minmax(auto, 2fr)
-      minmax(auto, 3fr)
-      minmax(auto, 5fr)
-      minmax(auto, 2fr);
+    column-gap: 0.7em;
+    grid-template-columns:
+        minmax(auto, 0.5fr) minmax(auto, 0.5fr) minmax(auto, 2fr) minmax(auto, 4fr) minmax(auto, 6fr) minmax(auto, 2fr);
 }
 
+/* return (
+    <article className={`mail-preview ${getClassName()}`}>
+        <input type="checkbox" />
+        {filterBy.trash ? <i className="fa-light fa-trash-can"></i> : <StarredMail isStarred={newMail.isStarred} handleChange={handleChange} />}
+        <i className="fa-light fa-circle-user"></i>
+        <span className="from">{fullname}</span>
+        <span className="subject">{subject}</span>
+        <span className="body"><LongTxt txt={body} /></span>
+        <span className="sentAt">{utilService.elapsedTime(sentAt)}</span>
+
+        <section className="inline-action">
+            <span className="trash hidden"><i className="fa-light fa-trash-can"></i></span>
+            <span className="toggleRead hidden">{isRead ? <i className="fa-solid fa-envelope"></i> : <i className="fa-light fa-envelope-open"></i>}</span>
+            <span className="snooze hidden"><i className="fa-light fa-clock"></i></span>
+        </section>
+    </article>
+) */
+
+
+.mail-preview input {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.mail-preview .second,.starred {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.mail-preview .from {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.mail-preview .subject {
+    grid-column: 4;
+    grid-row: 1;
+}
+
+.mail-preview .body {
+    grid-column: 5;
+    grid-row: 1;
+}
+
+.mail-preview .sentAt {
+    grid-column: 6;
+    grid-row: 1;
+    text-align: end;
+}
 
 .mail-preview .upper {
     text-transform: capitalize;
 }
 
+.mail-preview .inline-action {
+    grid-column: 6;
+    grid-row: 1;
+    display: flex;
+    cursor: pointer;
+    place-self: end;
+    align-self: center;
+    gap: 1em;
+}
+
+.mail-preview .inline-action i {
+    padding: 0.5em;
+    border-radius: 100%;
+}
+
+.mail-preview .inline-action i:hover{
+    background: var(--gm-hover-link);
+}
+
+.mail-preview.unread>span:not(.body) {
+    font-weight: 600;
+}
+
+.mail-preview .fa-trash-can:nth-child(even) {
+    color: rgb(47, 47, 47);
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.mail-preview:hover .inline-action>span {
+    font-size: 1em;
+}
+
+.mail-preview:hover .sentAt {
+    display: none;
+}
+
+.mail-preview:hover .body {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
