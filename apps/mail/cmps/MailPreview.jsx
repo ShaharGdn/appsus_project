@@ -1,5 +1,5 @@
+import { LongTxt } from "../../../cmps/LongTxt.jsx"
 import { utilService } from "../../../services/util.service.js"
-import { LongTxt } from "./LongTxt.jsx"
 import { StarredMail } from "./StarredMail.jsx"
 
 const { useState } = React
