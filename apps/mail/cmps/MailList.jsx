@@ -5,6 +5,7 @@ const { useState } = React
 
 export function MailList({ emails, filterBy, onRemove, onStateChange }) {
     const [isFold, setFold] = useState({ readFold: false, unreadFold: false })
+    const [emailList, setEmails] = useState(emails)
 
     if (!emails.length) {
         return <p>No emails to display</p>
@@ -13,7 +14,6 @@ export function MailList({ emails, filterBy, onRemove, onStateChange }) {
     function onToggleFold(type) {
         setFold(prevFoldState => {
             const updatedState = { ...prevFoldState, [type]: !prevFoldState[type] }
-            console.log('updatedState:', updatedState)
             return updatedState
         })
     }
