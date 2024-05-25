@@ -1,0 +1,16 @@
+.action-bar-container {
+    display: flex;
+    cursor: pointer;
+    place-self: end;
+    align-self: center;
+    gap: 1em;
+}
+
+.action-bar-container i {
+    padding: 0.8em;
+    border-radius: 100%;
+}
+
+.action-bar-container i:hover{
+    background: var(--gm-hover-link);
+}

@@ -3,6 +3,7 @@ import { utilService } from "../../../services/util.service.js"
 import { StarredMail } from "./StarredMail.jsx"
 
 const { useState } = React
+const { useNavigate } = ReactRouter
 
 const loggedInUser = {
     email: 'user@appsus.com',
@@ -14,6 +15,8 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     const { email: fromEmail, fullname } = from
 
     const [newMail, setMail] = useState(mail)
+
+    const navigate = useNavigate()
 
     if (type === 'read' && !isRead || type === 'read' && isFold.readFold) return
     if (type === 'unread' && isRead || type === 'unread' && isFold.unreadFold) return
@@ -39,14 +42,14 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     // }
 
     function handleChange({ type, state }) {
-            const updatedMail = { ...mail, [type]: state }
-            onStateChange(updatedMail)
+        const updatedMail = { ...mail, [type]: state }
+        onStateChange(updatedMail)
     }
 
 
     function onTrashClick() {
         if (filterBy.trash) {
-            onMailRemove(newMail)
+            onMailRemove(mail)
         } else {
             handleChange({ type: 'removedAt', state: new Date() })
         }
@@ -70,9 +73,9 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
         <article className={`mail-preview ${getClassName()}`}>
             <input type="checkbox" />
             {filterBy.trash ? <i className="fa-light fa-trash-can second"></i> : <StarredMail className="second" isStarred={newMail.isStarred} handleChange={handleChange} />}
-            <span className="from">{fullname}</span>
-            <span className="subject">{subject}</span>
-            <span className="body"><LongTxt txt={body} /></span>
+            <span className="from" onClick={() => navigate(`/mail/${mail.id}`)}>{fullname}</span>
+            <span className="subject" onClick={() => navigate(`/mail/${mail.id}`)}>{subject}</span>
+            <span className="body" onClick={() => navigate(`/mail/${mail.id}`)}><LongTxt txt={body} /></span>
             <span className="sentAt">{utilService.elapsedTime(sentAt)}</span>
 
             <section className="inline-action">

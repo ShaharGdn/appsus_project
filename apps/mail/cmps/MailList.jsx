@@ -1,5 +1,6 @@
 import { mailService } from "../services/mail.service.js";
 import { MailPreview } from "./MailPreview.jsx";
+import { MailActionBar } from "./MailActionBar.jsx";
 
 const { useState } = React
 
@@ -58,6 +59,7 @@ export function MailList({ emails, filterBy, onRemove, onStateChange }) {
             </section>
         ) : (
             <section className="mail-list">
+                <MailActionBar />
                 <ul>
                     {emails.map(mail => (
                         <li key={mail.id}>
