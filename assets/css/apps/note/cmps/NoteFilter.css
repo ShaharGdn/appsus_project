@@ -1,0 +1,64 @@
+.note-filter {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 20px;
+    color: var(--n-font-clr);
+    font-family: roboto, Arial, sans-serif;
+}
+
+.note-filter .content-container {
+    position: relative;
+    background-color: var(--n-marked-bg-clr);
+    border-radius: 8px;
+    max-width: 722px;
+    min-width: 180px;
+    flex-grow: 1;
+}
+
+.content-container button {
+    position: fixed;
+    border: none;
+    height: 42px;
+    width: 42px;
+    padding: 0.5em;
+    margin: 3px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.content-container button i {
+    font-size: 1.2em;
+    color: var(--n-font-clr);
+}
+
+.note-filter input {
+    font-family: roboto, Arial, sans-serif;
+    font-size: 1em;
+    background-color: transparent;
+    border: none;
+    height: 48px;
+    width: 100%;
+    margin-inline-start: 46px;
+}
+
+.note-filter input:focus {
+    outline: none;
+}
+
+.type-container {}
+
+.type-container select {
+    cursor: pointer;
+    border: none;
+    background-color: var(--n-marked-bg-clr);
+    height: 48px;
+    border-radius: 8px;
+    font-size: 1em;
+    color: var(--n-font-clr-1);
+    text-align: center;
+}
+
+.type-container select:focus {
+    outline: none;
+}

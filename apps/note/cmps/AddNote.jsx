@@ -56,7 +56,7 @@ export function AddNote() {
         setNote(prevNote => ({ ...noteService.getEmptyNote() }))
     }
 
-    return <section>
+    return <section className="add-note-container">
         {!isInputActive && <section className="add-note">
             <div className="input-container">
                 <input className="main-input" autoFocus type="text" placeholder="Take a note..."

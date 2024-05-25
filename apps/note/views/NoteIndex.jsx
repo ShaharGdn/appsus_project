@@ -4,6 +4,7 @@ import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.servic
 import { noteService } from "../services/note.service.js";
 import { NoteList } from "../cmps/NoteList.jsx";
 import { AddNote } from "../cmps/AddNote.jsx";
+import { NoteFilter } from "../cmps/NoteFilter.jsx";
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
@@ -33,9 +34,21 @@ export function NoteIndex() {
             .finally(() => setIsLoading(false))
     }
 
-    return <section className="note-index">
+    return <section className="note-index content-grid">
+
+        <section className="top-nav content-grid">
+            <section className="menu-bar">
+                <button className="menu-btn">
+                    <i className="fa-light fa-bars"></i>
+                </button>
+                <img src="assets/imgs/google_keep_logo.png" alt="logo" />
+                <span>Keep</span>
+            </section>
+            <NoteFilter />
+        </section>
         <AddNote />
         {notes.length > 0 && <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading} />}
         {!notes.length && <h2> Notes you add appear here</h2>}
     </section >
 }
+
