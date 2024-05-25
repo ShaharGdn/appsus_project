@@ -1,14 +1,22 @@
-
 import { mailService } from "../services/mail.service.js";
 
 import { SideMailFilter, TopMailFilter } from "../cmps/MailFilter.jsx";
 import { MailList } from "../cmps/MailList.jsx";
+import { showSuccessMsg } from "../../../services/event-bus.service.js";
+import { MailDetails } from "../views/MailDetails.jsx";
+
+const { useParams, useNavigate } = ReactRouter
+
+const { Link } = ReactRouterDOM
 
 const { useState, useEffect } = React
 
 export function MailIndex() {
     const [emails, setEmails] = useState([])
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
+
+    const params = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         mailService.query().then(fetchedEmails => {
@@ -34,8 +42,7 @@ export function MailIndex() {
         mailService.remove(removedEmailId)
             .then(() => {
                 setEmails(prevEmails => prevEmails.filter(email => email.id !== removedEmailId))
-                // showSuccessMsg(`Successfully removed book ${removedEmailId}!`)
-                // navigate('/', { replace: true })
+                showSuccessMsg(`Successfully removed mail ${removedEmailId}!`)
             })
     }
 
@@ -52,7 +59,7 @@ export function MailIndex() {
             </section>
             <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
             <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-            <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onStateChange={onStateChange} />
+            {params.mailId && <MailDetails /> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onStateChange={onStateChange} />}
         </section>
     )
 }

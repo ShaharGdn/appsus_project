@@ -82,7 +82,7 @@ function query(filterBy = {}) {
 function get(mailId) {
     return asyncStorageService.get(MAIL_KEY, mailId)
         .then(mail => {
-            mail = _setNextPrevmailId(mail)
+            mail = _setNextPrevEmailId(mail)
             return mail
         })
 }

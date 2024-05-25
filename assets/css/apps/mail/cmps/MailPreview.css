@@ -9,6 +9,8 @@
     column-gap: 0.7em;
     grid-template-columns:
         minmax(auto, 0.5fr) minmax(auto, 0.5fr) minmax(auto, 2fr) minmax(auto, 4fr) minmax(auto, 6fr) minmax(auto, 2fr);
+
+    cursor: pointer;
 }
 
 .mail-preview input {
