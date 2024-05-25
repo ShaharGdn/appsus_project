@@ -31,6 +31,8 @@
     letter-spacing: .01428571em;
 
     height: max-content;
+
+    cursor: pointer;
     /* width: 238px; */
 }
 

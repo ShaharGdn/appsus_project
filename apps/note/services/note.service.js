@@ -41,10 +41,10 @@ function remove(noteId) {
 }
 
 function save(note, createdAt) {
+    note.createdAt = createdAt
     if (note.id) {
         return asyncStorageService.put(NOTE_KEY, note)
     } else {
-        note.createdAt = createdAt
         return asyncStorageService.post(NOTE_KEY, note)
     }
 }

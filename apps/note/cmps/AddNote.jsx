@@ -71,7 +71,7 @@ export function AddNote() {
                     <i className="fa-brands fa-youtube"></i></button>
             </div>
         </section>}
-        {isInputActive && <InputField inputType={inputType} note={note}
+        {isInputActive && <InputField isEditable={false} inputType={inputType} note={note}
             onChange={handleChange} onClose={onAddNote} />}
     </section>
 }

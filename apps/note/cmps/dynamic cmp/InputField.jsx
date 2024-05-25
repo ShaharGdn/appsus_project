@@ -1,12 +1,14 @@
 import { InputActionBar } from "../InputActionBar.jsx"
 
-export function InputField({ inputType, note, onChange, onClose }) {
+export function InputField({ isEditable, inputType, note, onChange, onClose }) {
 
     return <section className="input-field-container" style={note.style}>
         <input className="title-input" type="text" name="info.title"
             placeholder="Title" value={note.info.title || ''} onChange={onChange} />
         <DynamicInput cmpType={inputType} note={note} onChange={onChange} />
-        <InputActionBar onClose={onClose} note={note} onChange={onChange}/>
+        {isEditable && <span className="edit-time">Edited: {note.createdAt}</span>}
+        <InputActionBar onClose={onClose} note={note} onChange={onChange} />
+
         <button><i className="fa-regular fa-thumbtack"></i></button>
     </section>
 }

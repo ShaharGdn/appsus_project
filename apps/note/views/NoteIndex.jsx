@@ -14,7 +14,6 @@ export function NoteIndex() {
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
 
     useEffect(() => {
-        console.log('filterBy:', filterBy);
         // params?
         noteService.query(filterBy)
             // .then(notes => setNotes(notes))
