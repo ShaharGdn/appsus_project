@@ -6,7 +6,7 @@ const MAIL_KEY = 'emailsDB'
 
 const loggedInUser = {
     email: 'user@appsus.com',
-    fullname: 'Mahatma Appsus'
+    fullname: 'Michal Shahar'
 }
 
 _createEmails()
@@ -61,6 +61,11 @@ function query(filterBy = {}) {
             if (filterBy.trash) {
                 mails = mails.filter(mail =>
                     mail.removedAt
+                )
+            } 
+            if (filterBy.snoozed) {
+                mails = mails.filter(mail =>
+                    mail.isSnoozed
                 )
             } 
 
@@ -139,6 +144,8 @@ function _createEmails() {
                 labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]],
                 isStarred: Math.random() > 0.8 ? true : false,
                 isDraft: false,
+                isSnoozed: false,
+                isSelected: false,
             }
             mails.push(mail)
         }
@@ -163,6 +170,8 @@ function _createEmail() {
         labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]],
         isStarred: false,
         isDraft: false,
+        isSnoozed: false,
+        isSelected: false,
     }
     return mail
 }
