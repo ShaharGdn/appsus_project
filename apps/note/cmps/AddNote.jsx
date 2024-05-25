@@ -11,7 +11,7 @@ export function AddNote() {
     const [note, setNote] = useState(noteService.getEmptyNote())
 
     const [isInputActive, setIsInputActive] = useState(false)
-    const [inputType, setInputType] = useState('NoteText')
+    const [inputType, setInputType] = useState('NoteTxt')
 
     function showInputBox({ target }) {
         if (target.value === '' || target.value.length > 1 || isInputActive === true) return
@@ -52,7 +52,7 @@ export function AddNote() {
 
     function resetMainInput() {
         setIsInputActive(false)
-        setInputType('NoteText')
+        setInputType('NoteTxt')
         setNote(prevNote => ({ ...noteService.getEmptyNote() }))
     }
 

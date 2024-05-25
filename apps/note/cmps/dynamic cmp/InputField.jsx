@@ -13,7 +13,7 @@ export function InputField({ inputType, note, onChange, onClose }) {
 
 function DynamicInput(props) {
     switch (props.cmpType) {
-        case 'NoteText':
+        case 'NoteTxt':
             return <TxtInput {...props} />
         case 'NoteTodos':
             return <TodosInput {...props} />

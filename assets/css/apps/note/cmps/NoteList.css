@@ -1,15 +1,17 @@
 .note-list {
     grid-column: 2;
+    margin: 0 auto;
 }
 
 .note-list ul {
+    /* grid-column: 2; */
     display: grid;
     grid-template-columns: repeat(auto-fit, 238px);
     grid-auto-flow: dense;
     gap: 20px;
     justify-content: center;
 
-    max-width: 80vw;
+    max-width: 70vw;
     margin: 10px auto;
     margin: 0;
     padding: 0;

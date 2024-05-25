@@ -11,17 +11,19 @@ export const noteService = {
     save,
     getEmptyNote,
     getFilterFromSearchParams,
+    getDefaultFilter,
 }
 
 function query(filterBy = {}) {
     return asyncStorageService.query(NOTE_KEY)
         .then(notes => {
-            if (filterBy.title) {
-                const regExp = new RegExp(filterBy.title, 'i')
-                notes = notes.filter(note => regExp.test(note.title))
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                notes = notes.filter(note => (regExp.test(note.info.txt) || regExp.test(note.info.title)) )
             }
             if (filterBy.type) {
-                notes = notes.filter(note => note.type >= filterBy.type)
+                const regExp = new RegExp(filterBy.type, 'i')
+                notes = notes.filter(note => regExp.test(note.type))
             }
             return notes
         })
@@ -68,6 +70,10 @@ function getFilterFromSearchParams(searchParams) {
         color: searchParams.get('color') || '',
         color: searchParams.get('title') || '',
     }
+}
+
+function getDefaultFilter(filterBy = { txt: '', type: '' }) {
+    return { txt: filterBy.txt, type: filterBy.type }
 }
 
 function _createNotes() {
