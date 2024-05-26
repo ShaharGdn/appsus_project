@@ -27,9 +27,10 @@ function DynamicInput(props) {
 }
 
 function TxtInput({ note, onChange }) {
-    return <input className="txt-input" autoFocus type="text"
-        placeholder="Take a note..." name="info.txt"
-        value={note.info.txt || ''} onChange={onChange} />
+    return <textarea className="txt-input" autoFocus type="text"
+        name="info.txt" placeholder="Take a note..."
+        id="rating" rows={note.info.txt ? note.info.txt.length / 60 : null}
+        value={note.info.txt || ''} onChange={onChange}></textarea>
 }
 
 function TodosInput({ name, handleClick }) {

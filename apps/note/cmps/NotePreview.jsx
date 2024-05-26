@@ -1,5 +1,3 @@
-import { LongTxt } from "../cmps/LongTxt.jsx";
-
 export function NotePreview({ note }) {
     const { txt, title } = note.info
     const isLongText = txt.length > 250

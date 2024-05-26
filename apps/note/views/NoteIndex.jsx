@@ -27,7 +27,10 @@ export function NoteIndex() {
         setFilterBy({ ...newFilterBy })
     }
 
-    function removeNote(noteId) {
+    function removeNote(ev, noteId) {
+        ev.preventDefault()
+        ev.stopPropagation()
+
         setIsLoading(true)
         noteService.remove(noteId)
             .then(() => {
