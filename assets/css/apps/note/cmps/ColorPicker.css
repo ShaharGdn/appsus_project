@@ -1,0 +1,23 @@
+.color-input .color-container {
+    display: flex;
+}
+
+.color-input .color {
+    padding: 5px;
+    margin: 2px;
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    outline: none;
+    cursor: pointer;
+    transition: .2s border-width;
+}
+
+.color-input .color:hover {
+    border-color: rgba(0, 0, 0, .87);
+}
+
+.color-input .chosen {
+    border-color: var(--n-chosen-border);
+}

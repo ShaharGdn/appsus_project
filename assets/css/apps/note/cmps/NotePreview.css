@@ -1,3 +1,16 @@
 .note-preview h3 {
     font-weight: 400;
 }
+
+.note-preview {
+    /* display: flex;
+    flex-direction: column; */
+    height: 100%;
+
+    overflow: hidden;
+}
+
+.note-preview p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}

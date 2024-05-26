@@ -1,4 +1,4 @@
-const { useState, useEffect } = React
+const { useState } = React
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
@@ -7,10 +7,11 @@ import { InputField } from "./dynamic cmp/InputField.jsx"
 
 
 export function AddNote() {
+
     const [note, setNote] = useState(noteService.getEmptyNote())
 
     const [isInputActive, setIsInputActive] = useState(false)
-    const [inputType, setInputType] = useState('NoteText')
+    const [inputType, setInputType] = useState('NoteTxt')
 
     function showInputBox({ target }) {
         if (target.value === '' || target.value.length > 1 || isInputActive === true) return
@@ -23,6 +24,7 @@ export function AddNote() {
     }
 
     function handleChange({ target }) {
+        console.log('target', target);
         const { name, value } = target
         const props = name.split('.')
 
@@ -41,7 +43,6 @@ export function AddNote() {
         const createdAt = utilService.getCurrentDateTime()
         noteService.save(note, createdAt)
             .then(() => {
-                console.log(note);
                 showSuccessMsg('Note added successfully.')
                 resetMainInput()
                 window.location.reload()
@@ -51,10 +52,11 @@ export function AddNote() {
 
     function resetMainInput() {
         setIsInputActive(false)
-        setByType('NoteText')
+        setInputType('NoteTxt')
+        setNote(prevNote => ({ ...noteService.getEmptyNote() }))
     }
 
-    return <section>
+    return <section className="add-note-container">
         {!isInputActive && <section className="add-note">
             <div className="input-container">
                 <input className="main-input" autoFocus type="text" placeholder="Take a note..."
@@ -69,7 +71,7 @@ export function AddNote() {
                     <i className="fa-brands fa-youtube"></i></button>
             </div>
         </section>}
-        {isInputActive && <InputField inputType={inputType} note={note}
+        {isInputActive && <InputField isEditable={false} inputType={inputType} note={note}
             onChange={handleChange} onClose={onAddNote} />}
     </section>
 }

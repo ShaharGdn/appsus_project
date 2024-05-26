@@ -1,0 +1,88 @@
+.note-filter {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: roboto, Arial, sans-serif;
+}
+
+.note-filter .reset-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    height: 48px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    color: var(--n-font-clr-1);
+    background-color: var(--n-marked-bg-clr);
+}
+
+.note-filter .reset-btn:hover{
+    background-color: var(--n-btn-hover-clr);
+    color: var(--n-font-clr);
+}
+
+.note-filter span {
+    font-family: google-sans,roboto, Arial, sans-serif;
+    font-size: 1em;
+    color: var(--n-font-clr-1);
+}
+
+.note-filter .content-container {
+    position: relative;
+    display: flex;
+    background-color: var(--n-marked-bg-clr);
+    border-radius: 8px;
+    max-width: 722px;
+    min-width: 180px;
+    flex-grow: 1;
+}
+
+.content-container button {
+    position: absolute;
+    border: none;
+    height: 42px;
+    width: 42px;
+    padding: 0.5em;
+    margin: 3px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.content-container button i {
+    font-size: 1.2em;
+    color: var(--n-font-clr);
+}
+
+.note-filter input {
+    font-family: roboto, Arial, sans-serif;
+    font-size: 1em;
+    background-color: transparent;
+    border: none;
+    height: 48px;
+    flex-grow: 1;
+    margin-inline-start: 46px;
+}
+
+.note-filter input:focus {
+    outline: none;
+}
+
+.type-container select {
+    cursor: pointer;
+    border: none;
+    background-color: var(--n-marked-bg-clr);
+    height: 48px;
+    border-radius: 8px;
+    font-size: 1em;
+    color: var(--n-font-clr-1);
+    text-align: center;
+    font-family: roboto, Arial, sans-serif;
+    text-align: start;
+    padding-inline-start: 7px;
+}
+
+.type-container select:focus {
+    outline: none;
+}
