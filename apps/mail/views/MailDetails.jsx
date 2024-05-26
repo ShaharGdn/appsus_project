@@ -1,6 +1,7 @@
 import { mailService } from "../services/mail.service.js"
 import { mailUtilService } from "../services/mail.utilService.js"
 import { MailActionBar } from "../cmps/MailActionBar.jsx"
+import { showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
@@ -21,7 +22,7 @@ export function MailDetails({ onUpdatedEmail, onRemove }) {
                 setMail(mail)
             })
             .catch(() => {
-                alert('Couldnt get mail...')
+                alert(`couldn't get mail...`)
                 navigate('/mail/inbox')
             })
     }, [params.mailId])
@@ -32,8 +33,8 @@ export function MailDetails({ onUpdatedEmail, onRemove }) {
     const { email: fromEmail, fullname } = from
 
 
-    function onReadToggle() {
-        const updatedMail = { ...mail, isRead: !isRead }
+    function handleChange({ type, state }) {
+        const updatedMail = { ...mail, [type]: state }
         setMail(updatedMail)
         onUpdatedEmail(updatedMail)
     }
@@ -51,10 +52,20 @@ export function MailDetails({ onUpdatedEmail, onRemove }) {
         </section>
     }
 
+    function onTrashClick() {
+        if (mail.removedAt) {
+            onRemove(mail)
+        } else {
+            handleChange({ type: 'removedAt', state: new Date() })
+            showSuccessMsg(`Successfully sent to trash`)
+        }
+        navigate('/mail/inbox')
+    }
+
     return <section className="mail-details">
         <div className="controls-details">
             <i className="fa-light fa-arrow-left" onClick={() => navigate('/mail/inbox')}></i>
-            <MailActionBar isRead={isRead} onReadToggle={onReadToggle} />
+            <MailActionBar mail={mail} handleChange={handleChange} onTrashClick={onTrashClick} />
         </div>
         <h1>{subject}</h1>
         {senderDetails()}

@@ -1,4 +1,5 @@
 import { LongTxt } from "../../../cmps/LongTxt.jsx"
+import { showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { StarredMail } from "./StarredMail.jsx"
 
@@ -52,6 +53,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
             onMailRemove(mail)
         } else {
             handleChange({ type: 'removedAt', state: new Date() })
+            showSuccessMsg(`Successfully sent to trash`)
         }
     }
 
