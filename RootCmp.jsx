@@ -10,6 +10,7 @@ import { UserMsg } from "./cmps/UserMsg.jsx"
 import { MailDetails } from "./apps/mail/views/MailDetails.jsx"
 import { NoteDetails } from "./apps/note/cmps/NoteDetails.jsx"
 
+
 export function App() {
     return <Router>
         <section className="app">
@@ -30,8 +31,15 @@ export function App() {
                 <Route path="/mail/:mailId" element={ <MailIndex /> }/>
 
 
+                {/* note */}
+                {/* <Route path="/note" element={<NoteIndex />} /> */}
+                <Route path="/mail/:mailId" element={ <MailIndex /> }/>
+
+
                 {/* note */}                
-                <Route path="/note" element={<NoteIndex />} />
+                <Route path="/note" element={<NoteIndex />} >
+                    <Route path="/note/:noteId" element={<NoteDetails />} />
+                </Route >
             </Routes>
             <UserMsg />
         </section>
