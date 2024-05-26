@@ -46,9 +46,19 @@ export function MailIndex() {
             })
     }
 
+    function onUpdatedEmail(updatedMail) {
+        mailService.save(updatedMail)
+        const updatedEmails = emails.map(mail =>
+            mail.id === updatedMail.id ? updatedMail : mail
+        )
+        setEmails(updatedEmails)
+    }
+
+
     function onStateChange(updatedEmails) {
         setEmails(updatedEmails)
     }
+
     return (
         <section className="content-grid mail-index">
             <section className="menu-bar">
@@ -59,7 +69,7 @@ export function MailIndex() {
             </section>
             <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
             <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-            {params.mailId && <MailDetails /> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onStateChange={onStateChange} />}
+            {params.mailId && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail}/> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onStateChange={onStateChange} />}
         </section>
     )
 }
