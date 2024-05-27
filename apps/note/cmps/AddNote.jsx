@@ -3,7 +3,7 @@ const { useState } = React
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { noteService } from "../services/note.service.js"
-import { InputField } from "./dynamic cmp/InputField.jsx"
+import { NotePreview } from "./NotePreview.jsx"
 
 export function AddNote({ onAddNote }) {
     const [note, setNote] = useState(noteService.getEmptyNote())
@@ -70,7 +70,7 @@ export function AddNote({ onAddNote }) {
                     <i className="fa-brands fa-youtube"></i></button>
             </div>
         </section>}
-        {isInputActive && <InputField isEditable={false} inputType={inputType} note={note}
+        {isInputActive && <NotePreview inputType={inputType} note={note}
             onChange={handleChange} onClose={addNote} />}
     </section>
 }

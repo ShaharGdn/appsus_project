@@ -1,6 +1,6 @@
 const { Link, Outlet } = ReactRouterDOM
 
-import { NotePreview } from "../cmps/NotePreview.jsx"
+import { NotePreview } from "./NotePreview.jsx"
 
 export function NoteList({ notes, onRemove, isLoading }) {
     if (!notes.length) {
@@ -12,7 +12,7 @@ export function NoteList({ notes, onRemove, isLoading }) {
             {notes.map(note =>
                 <Link to={`/note/${note.id}`} key={note.id}>
                     <li style={{ ...note.style, opacity: isLoading ? 0.5 : 1 }}>
-                        <NotePreview note={note} />
+                        <NotePreview isPreview={true} note={note} />
                         <i className="remove-btn fa-sharp fa-solid fa-circle-xmark"
                             onClick={(ev) => onRemove(ev, note.id)}></i>
                         <div className="actions"></div>

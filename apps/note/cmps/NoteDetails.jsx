@@ -4,7 +4,7 @@ const { useParams, useNavigate } = ReactRouter
 import { noteService } from "../services/note.service.js"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
-import { InputField } from "./dynamic cmp/InputField.jsx"
+import { NotePreview } from "./NotePreview.jsx"
 
 export function NoteDetails() {
     const [note, setNote] = useState(null)
@@ -72,21 +72,8 @@ export function NoteDetails() {
 
     return <section className="details-container">
         <section className="details-screen"></section>
-        <InputField isEditable={true} inputType={note.type} note={note}
+        <NotePreview isEditable={true} inputType={note.type} note={note}
             onChange={handleChange} onClose={onCloseEdit} />
     </section>
 
-
-
-    // return <section className="details-container">
-    //     <section className="details-screen"></section>
-    //     <div className="note-details">
-    //         <h3>{title || 'Title'}</h3>
-    //         {txt && <p>{txt || 'Note'}</p>}
-    //         {url && <p>{url || 'Image'}</p>}
-    //         <span className="edit-time">Edited: {note.createdAt}</span>
-    //         <InputActionBar note={note} />
-    //         <button><i className="fa-regular fa-thumbtack"></i></button>
-    //     </div>
-    // </section>
 }
