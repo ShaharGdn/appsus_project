@@ -52,7 +52,7 @@ export function NoteDetails() {
                 showSuccessMsg('Note edited successfully.')
                 navigate('/note')
                 // resetMainInput()
-                window.location.reload()
+                // window.location.reload()
             })
             .catch(() => showErrorMsg('Could not edit note.'))
     }

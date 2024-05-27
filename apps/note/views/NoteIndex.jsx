@@ -27,6 +27,10 @@ export function NoteIndex() {
         setFilterBy({ ...newFilterBy })
     }
 
+    function onAddNote(note) {
+        setNotes(prevNotes => ([...prevNotes, note]))
+    }
+
     function removeNote(ev, noteId) {
         ev.preventDefault()
         ev.stopPropagation()
@@ -53,7 +57,7 @@ export function NoteIndex() {
             </section>
             <NoteFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         </section>
-        <AddNote />
+        <AddNote onAddNote={onAddNote}/>
         {notes.length > 0 && <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading} />}
         {!notes.length && <h2> Notes you add appear here</h2>}
     </section >
