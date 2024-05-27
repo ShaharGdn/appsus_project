@@ -47,7 +47,7 @@ export function NoteDetails() {
 
     function saveEditedNote() {
         const createdAt = utilService.getCurrentDateTime()
-        noteService.save(note, createdAt)
+        noteService.save({ ...note, createdAt: createdAt })
             .then(() => {
                 showSuccessMsg('Note edited successfully.')
                 navigate('/note')
@@ -56,6 +56,17 @@ export function NoteDetails() {
             })
             .catch(() => showErrorMsg('Could not edit note.'))
     }
+    // function saveEditedNote() {
+    //     const createdAt = utilService.getCurrentDateTime()
+    //     noteService.save(note, createdAt)
+    //         .then(() => {
+    //             showSuccessMsg('Note edited successfully.')
+    //             navigate('/note')
+    //             // resetMainInput()
+    //             // window.location.reload()
+    //         })
+    //         .catch(() => showErrorMsg('Could not edit note.'))
+    // }
 
     if (isLoading) return <span className="note-loader">Loading Note... </span>
 

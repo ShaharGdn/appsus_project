@@ -38,11 +38,13 @@ export function AddNote({ onAddNote }) {
             return
         }
         const createdAt = utilService.getCurrentDateTime()
-        noteService.save(note, createdAt)
+        noteService.save({ ...note, createdAt: createdAt })
             .then(() => {
+                console.log('note id from AddNote:', note.id);
                 onAddNote(note)
                 resetMainInput()
                 showSuccessMsg('Note added successfully.')
+                
             })
             .catch(() => showErrorMsg('Could not add note.'))
     }

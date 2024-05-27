@@ -1,4 +1,6 @@
 const { useState, useEffect } = React
+// const { useSearchParams } = ReactRouterDOM
+
 
 import { utilService } from "../../../services/util.service.js";
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
@@ -11,7 +13,13 @@ export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     // filterBy from searchParams?
+    // const [searchParams, setSearchParams] = useSearchParams()
+
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
+
+    // useEffect(() => {
+    //     onSetFilterBy(noteService.getDefaultFilter())
+    // }, [])
 
     useEffect(() => {
         // params?
@@ -28,7 +36,9 @@ export function NoteIndex() {
     }
 
     function onAddNote(note) {
-        setNotes(prevNotes => ([...prevNotes, note]))
+        setNotes(prevNotes => ([...prevNotes, note])) // can do without but works better with
+        
+        onSetFilterBy(noteService.getDefaultFilter()) // patch for refresh problem
     }
 
     function removeNote(ev, noteId) {
@@ -41,7 +51,9 @@ export function NoteIndex() {
                 setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
                 showSuccessMsg('Note removed successfully.')
             })
-            .catch(() => showErrorMsg('Could not remove note.'))
+            .catch((err) => {
+                console.log('error:',err)
+                showErrorMsg('Could not remove note.')})
             .finally(() => setIsLoading(false))
     }
 
@@ -57,9 +69,8 @@ export function NoteIndex() {
             </section>
             <NoteFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         </section>
-        <AddNote onAddNote={onAddNote}/>
-        {notes.length > 0 && <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading} />}
-        {!notes.length && <h2> Notes you add appear here</h2>}
+        <AddNote onAddNote={onAddNote} />
+        <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading} />
     </section >
 }
 

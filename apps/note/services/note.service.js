@@ -40,14 +40,21 @@ function remove(noteId) {
     return asyncStorageService.remove(NOTE_KEY, noteId)
 }
 
-function save(note, createdAt) {
-    note.createdAt = createdAt
+function save(note) {
     if (note.id) {
         return asyncStorageService.put(NOTE_KEY, note)
     } else {
         return asyncStorageService.post(NOTE_KEY, note)
     }
 }
+// function save(note, createdAt) {
+//     note.createdAt = createdAt
+//     if (note.id) {
+//         return asyncStorageService.put(NOTE_KEY, note)
+//     } else {
+//         return asyncStorageService.post(NOTE_KEY, note)
+//     }
+// }
 
 function getEmptyNote() {
     return {

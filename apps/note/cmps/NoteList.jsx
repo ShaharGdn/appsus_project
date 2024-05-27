@@ -3,6 +3,9 @@ const { Link, Outlet } = ReactRouterDOM
 import { NotePreview } from "../cmps/NotePreview.jsx"
 
 export function NoteList({ notes, onRemove, isLoading }) {
+    if (!notes.length) {
+        return <h2> Notes you add appear here</h2>
+    }
 
     return <section className="note-list">
         <ul>
