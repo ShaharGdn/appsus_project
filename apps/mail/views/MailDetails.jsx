@@ -15,7 +15,6 @@ export function MailDetails({ onUpdatedEmail, onRemove }) {
     const [mail, setMail] = useState(null)
     // const [isLoading, setIsLoading] = useState(true)
 
-
     useEffect(() => {
         mailService.get(params.mailId)
             .then(mail => {

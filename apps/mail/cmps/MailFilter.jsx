@@ -1,6 +1,7 @@
 const { useState, useEffect } = React
 const { Link, NavLink } = ReactRouterDOM
 
+
 export function TopMailFilter({ filterBy, onFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
@@ -36,10 +37,13 @@ export function SideMailFilter({ filterBy, onFilter }) {
     }
 
     return <section className="mail-side-filter">
-        <button className="compose-btn">
-            <i className="fa-light fa-pencil"></i>
-            Compose
-        </button>
+        <Link replace to='/mail/compose'>
+            <button className="compose-btn">
+                <i className="fa-light fa-pencil"></i>
+                Compose
+            </button>
+        </Link>
+
 
         <NavLink to='/mail/inbox' className="side-link" onClick={() => handleChange('inbox')}>
             <i className="fa-light fa-inbox"></i>

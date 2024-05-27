@@ -5,10 +5,8 @@ import { MailList } from "../cmps/MailList.jsx";
 import { showSuccessMsg } from "../../../services/event-bus.service.js";
 import { MailDetails } from "../views/MailDetails.jsx";
 
-const { useParams, useNavigate } = ReactRouter
-
-const { Link } = ReactRouterDOM
-
+const { useParams } = ReactRouter
+const { Outlet } = ReactRouterDOM
 const { useState, useEffect } = React
 
 export function MailIndex() {
@@ -16,11 +14,12 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
 
     const params = useParams()
-    const navigate = useNavigate()
+    const mail = mailService.getEmptyEmail()
+
 
     useEffect(() => {
         mailService.query().then(fetchedEmails => {
-            fetchedEmails.sort((p1, p2) => new Date(p2.sentAt) - new Date(p1.sentAt))
+            fetchedEmails.sort((e1, e2) => new Date(e2.sentAt) - new Date(e1.sentAt))
             setEmails(fetchedEmails)
         })
     }, [])
@@ -28,9 +27,9 @@ export function MailIndex() {
     useEffect(() => {
         mailService.query(filterBy)
             .then(fetchedEmails => {
-                fetchedEmails.sort((p1, p2) => new Date(p2.sentAt) - new Date(p1.sentAt))
+                fetchedEmails.sort((e1, e2) => new Date(e2.sentAt) - new Date(e1.sentAt))
                 setEmails(fetchedEmails)
-            });
+            })
     }, [filterBy])
 
     function onSetFilterBy(newFilter) {
@@ -54,7 +53,6 @@ export function MailIndex() {
         setEmails(updatedEmails)
     }
 
-
     function onStateChange(updatedEmails) {
         setEmails(updatedEmails)
     }
@@ -70,6 +68,7 @@ export function MailIndex() {
             <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
             <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
             {params.mailId && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail}/> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onStateChange={onStateChange} />}
+            <Outlet context={[onUpdatedEmail, onStateChange, mail]}/>
         </section>
     )
 }

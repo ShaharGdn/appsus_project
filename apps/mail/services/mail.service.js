@@ -68,6 +68,11 @@ function query(filterBy = {}) {
                     mail.isSnoozed
                 )
             } 
+            if (filterBy.drafts) {
+                mails = mails.filter(mail =>
+                    mail.isDraft
+                )
+            } 
 
 
             // Default sorting by sentAt in descending order (newest first)
@@ -104,13 +109,19 @@ function save(mail) {
 // an empty mail obj template
 function getEmptyEmail() {
     const mail = {
+        // id: utilService.makeId(),
         subject: '',
         body: '',
         isRead: false,
         sentAt: '',
         removedAt: null,
-        from: '',
-        to: ''
+        from: loggedInUser.fullname,
+        to: '',
+        labels: [],
+        isStarred: false,
+        isDraft: true,
+        isSnoozed: false,
+        isSelected: false,
     }
     return mail
 }

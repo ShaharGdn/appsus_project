@@ -4,11 +4,15 @@ const Router = ReactRouterDOM.HashRouter
 import { AppHeader } from "./cmps/AppHeader.jsx"
 import { About } from "./views/About.jsx"
 import { Home } from "./views/Home.jsx"
-import { MailIndex } from "./apps/mail/views/MailIndex.jsx"
-import { NoteIndex } from "./apps/note/views/NoteIndex.jsx"
 import { UserMsg } from "./cmps/UserMsg.jsx"
-import { MailDetails } from "./apps/mail/views/MailDetails.jsx"
+
+import { MailIndex } from "./apps/mail/views/MailIndex.jsx"
+import { MailCompose } from "./apps/mail/cmps/MailCompose.jsx"
+// import { MailDetails } from "./apps/mail/views/MailDetails.jsx"
+
+import { NoteIndex } from "./apps/note/views/NoteIndex.jsx"
 import { NoteDetails } from "./apps/note/cmps/NoteDetails.jsx"
+
 
 
 export function App() {
@@ -20,7 +24,10 @@ export function App() {
                 <Route path="/about" element={<About />} />
 
                 {/* email */}
-                <Route path="/mail" element={<MailIndex />} />
+                <Route path="/mail" element={<MailIndex />} >
+                    <Route path="/mail/compose" element={<MailCompose />} />
+                </Route >
+
                 <Route path="/mail/inbox" element={<MailIndex />} />
                 <Route path="/mail/starred" element={<MailIndex />} />
                 <Route path="/mail/sent" element={<MailIndex />} />
@@ -28,15 +35,9 @@ export function App() {
                 <Route path="/mail/snoozed" element={<MailIndex />} />
                 <Route path="/mail/labels" element={<MailIndex />} />
                 <Route path="/mail/trash" element={<MailIndex />} />
-                <Route path="/mail/:mailId" element={ <MailIndex /> }/>
-
+                <Route path="/mail/:mailId" element={<MailIndex />} />
 
                 {/* note */}
-                {/* <Route path="/note" element={<NoteIndex />} /> */}
-                <Route path="/mail/:mailId" element={ <MailIndex /> }/>
-
-
-                {/* note */}                
                 <Route path="/note" element={<NoteIndex />} >
                     <Route path="/note/:noteId" element={<NoteDetails />} />
                 </Route >

@@ -6,7 +6,7 @@ const { useState } = React
 
 export function MailList({ emails, filterBy, onRemove, onStateChange }) {
     const [isFold, setFold] = useState({ readFold: false, unreadFold: false })
-    const [emailList, setEmails] = useState(emails)
+    // const [emailList, setEmails] = useState(emails)
 
     if (!emails.length) {
         return <p>No emails to display</p>
@@ -23,8 +23,8 @@ export function MailList({ emails, filterBy, onRemove, onStateChange }) {
         onRemove(mail)
     }
 
-    function onNewStateChange(updatedMail) {
-        mailService.save(updatedMail)
+    async function onNewStateChange(updatedMail) {
+        await mailService.save(updatedMail)
         const updatedEmails = emails.map(mail =>
             mail.id === updatedMail.id ? updatedMail : mail
         )

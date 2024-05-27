@@ -1,0 +1,79 @@
+.compose-mail {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    right: 5em;
+    width: 500px;
+    height: 500px;
+    background-color: #fff;
+    box-shadow: 0px 1px 2px #00000057;
+    border-radius: 0.5em;
+}
+
+.compose-mail .compose-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--gm-compose-header);
+    padding: 0.5em;
+    padding-inline-start: 1em;
+}
+
+.compose-mail .compose-header h1 {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    height: auto;
+    line-height: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    font-size: .875rem;
+    letter-spacing: normal;
+    font-weight: 500;
+    margin: 0;
+}
+
+.compose-mail .compose-header .ctrl-btns  {
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.compose-mail .ctrl-btns button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.compose-mail .ctrl-btns button:not(.close-btn) {
+    font-size: 0.5em;
+}
+
+
+
+
+
+/* export function MailCompose() {
+    return (
+        <div className="compose-mail">
+            <section className="compose-header">
+                <h1>New Message</h1>
+                <section className="ctrl-btns">
+                    <button className="minimize-btn"><i className="fa-light fa-window-minimize"></i></button>
+                    <button className="maximize-btn"><i className="fa-light fa-arrow-up-right-and-arrow-down-left-from-center"></i></button>
+                    <button className="close-btn"><i className="fa-light fa-xmark"></i></button>
+                </section>
+            </section>
+            <label htmlFor="for">
+                <input type="text" id="to" />
+            </label>
+            <label htmlFor="subject">
+                <input type="text" id="subject" />
+            </label>
+            <input type="text" className="mail-body" />
+        </div>
+    )
+} */
