@@ -1,6 +1,18 @@
+const { useState } = React
+
 import { InputActionBar } from "./InputActionBar.jsx"
 
 export function NotePreview({ isPreview, isEditable, inputType, note, onChange, onClose }) {
+    const [isPinned, setIsPinned] = useState(note.isPinned)
+
+    function onTogglePin() {
+        setIsPinned(prevIsPinned => {
+            const newIsPinned = !prevIsPinned
+            onChange({ target: { name: 'isPinned', value: newIsPinned } })
+            return newIsPinned
+        })
+    }
+
     const { txt, title } = note.info
     const isLongText = (txt && txt.length) > 250
 
@@ -17,7 +29,7 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             {isEditable && <span className="edit-time">Edited: {note.createdAt}</span>}
             <InputActionBar onClose={onClose} note={note} onChange={onChange} />
 
-            <button><i className="fa-regular fa-thumbtack"></i></button>
+            <button onClick={onTogglePin}><i className="fa-regular fa-thumbtack"></i></button>
         </section>
     }
 }

@@ -75,7 +75,9 @@ function getFilterFromSearchParams(searchParams) {
     return {
         type: searchParams.get('type') || '',
         color: searchParams.get('color') || '',
-        color: searchParams.get('title') || '',
+        title: searchParams.get('title') || '',
+        txt: searchParams.get('txt') || '',
+        isPinned: searchParams.get('isPinned') || '',
     }
 }
 
@@ -109,7 +111,7 @@ function _createNotes() {
                 id: utilService.makeId(5),
                 createdAt: utilService.randomPastTime().toLocaleString(),
                 type: 'NoteTxt',
-                isPinned: true,
+                isPinned: false,
                 style: {
                     backgroundColor: colors[utilService.getRandomIntInclusive(0, colors.length - 1)]
                 },

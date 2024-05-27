@@ -1,6 +1,4 @@
 const { useState, useEffect } = React
-// const { useSearchParams } = ReactRouterDOM
-
 
 import { utilService } from "../../../services/util.service.js";
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
@@ -13,7 +11,6 @@ export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     // filterBy from searchParams?
-    // const [searchParams, setSearchParams] = useSearchParams()
 
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
 
