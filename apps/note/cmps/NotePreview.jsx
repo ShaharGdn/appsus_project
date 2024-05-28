@@ -20,6 +20,9 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
         return <article className="note-preview">
             <h3>{title}</h3>
             <p>{isLongText ? txt.substring(0, 250) + `...` : txt}</p>
+            <button>
+                <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>
+            </button>
         </article>
     } else {
         return <section className="input-field-container" style={note.style}>
@@ -29,7 +32,9 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             {isEditable && <span className="edit-time">Edited: {note.createdAt}</span>}
             <InputActionBar onClose={onClose} note={note} onChange={onChange} />
 
-            <button onClick={onTogglePin}><i className="fa-regular fa-thumbtack"></i></button>
+            <button onClick={onTogglePin}>
+                <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>
+            </button>
         </section>
     }
 }
@@ -50,7 +55,7 @@ function DynamicNote(props) {
 function NoteTxt({ note, onChange }) {
     return <textarea className="txt-input" autoFocus type="text"
         name="info.txt" placeholder="Take a note..."
-        id="rating" rows={note.info.txt ? note.info.txt.length / 60 : null}
+        id="rating" rows={note.info.txt ? note.info.txt.length / 50 : null}
         value={note.info.txt || ''} onChange={onChange}></textarea>
 }
 
