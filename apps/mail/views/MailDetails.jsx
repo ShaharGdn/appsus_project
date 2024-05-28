@@ -52,7 +52,7 @@ export function MailDetails({ onUpdatedEmail, onRemove }) {
     }
 
     function onTrashClick() {
-        if (mail.removedAt) {
+        if (filterBy.box === 'trash') {
             onRemove(mail)
         } else {
             handleChange({ type: 'removedAt', state: new Date() })

@@ -19,13 +19,13 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
 
     const navigate = useNavigate()
 
+    
     if (type === 'read' && !isRead || type === 'read' && isFold.readFold) return
     if (type === 'unread' && isRead || type === 'unread' && isFold.unreadFold) return
-    if (!filterBy.drafts && isDraft ) return
-    if (!filterBy.trash && removedAt) return
-    if (!filterBy.snoozed && isSnoozed || filterBy.snoozed && !isSnoozed) return
-
-
+    if (filterBy.box !== 'drafts' && isDraft) return
+    if (filterBy.box !== 'trash' && removedAt) return
+    if (filterBy.box !== 'snoozed' && isSnoozed || filterBy.box === 'snoozed' && !isSnoozed) return
+    
     function getClassName() {
         let className = ''
         className += isRead ? ' read' : ' unread'
@@ -35,22 +35,13 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
         return className
     }
 
-    // function handleChange({ type, state }) {
-    //     setMail(prevMail => {
-    //         const updatedMail = { ...prevMail, [type]: state }
-    //         onStateChange(updatedMail)
-    //         return updatedMail
-    //     })
-    // }
-
     function handleChange({ type, state }) {
         const updatedMail = { ...mail, [type]: state }
         onStateChange(updatedMail)
     }
 
-
     function onTrashClick() {
-        if (filterBy.trash) {
+        if (filterBy.box === 'trash') {
             onMailRemove(mail)
         } else {
             handleChange({ type: 'removedAt', state: new Date() })
@@ -63,22 +54,29 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     }
 
     function onToggleSnooze() {
-        console.log('hi')
         handleChange({ type: 'isSnoozed', state: !isSnoozed })
     }
 
-    function handleCheckboxChange() {
-        setIsChecked(!isChecked)
-        handleChange({ type: 'isSelected', state: !isChecked })
+    // function handleCheckboxChange() {
+    //     setIsChecked(!isChecked)
+    //     handleChange({ type: 'isSelected', state: !isChecked })
+    // }
+
+    function handleDraftClick() {
+        if (filterBy.box === 'drafts') {
+            navigate(`/mail/compose/${mail.id}`)
+        } else {
+            navigate(`/mail/${mail.id}`)
+        }
     }
 
     return (
         <article className={`mail-preview ${getClassName()}`}>
             <input type="checkbox" />
             {filterBy.trash ? <i className="fa-light fa-trash-can second"></i> : <StarredMail className="second" isStarred={newMail.isStarred} handleChange={handleChange} />}
-            <span className="from" onClick={() => navigate(`/mail/${mail.id}`)}>{fullname}</span>
-            <span className="subject" onClick={() => navigate(`/mail/${mail.id}`)}>{subject}</span>
-            <span className="body" onClick={() => navigate(`/mail/${mail.id}`)}><LongTxt txt={body} /></span>
+            {<span className="from" onClick={handleDraftClick}>{fullname}</span>}
+            {<span className="subject" onClick={handleDraftClick}>{subject}</span>}
+            {<span className="body" onClick={handleDraftClick}><LongTxt txt={body} /></span>}
             <span className="sentAt">{utilService.elapsedTime(sentAt)}</span>
 
             <section className="inline-action">

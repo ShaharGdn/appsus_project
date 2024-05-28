@@ -5,22 +5,30 @@ const { useOutletContext } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 
 export function MailCompose() {
-    const [saveMail, onStateChange, mail, onSetFilterBy] = useOutletContext()
+    const [saveMail, mail, onSetFilterBy] = useOutletContext()
     const [newMail, setNewMail] = useState(mail)
 
-    if (mail.id) return 'edit'
+    const params = useParams()
+    const navigate = useNavigate()
 
     const newMailRef = useRef(newMail)
     newMailRef.current = newMail
 
-    const navigate = useNavigate()
+    useEffect(() => {
+        if (params.mailId) {
+            const mailId = params.mailId
+            mailService.get(mailId).then(editMail => {
+                setNewMail(editMail)
+            })
+        }
+    }, [params.mailId])
 
     useEffect(() => {
         return () => {
             saveMail(newMailRef.current)
             onSetFilterBy({ box: 'inbox' })
         }
-    }, [saveMail, onSetFilterBy])
+    }, [])
 
 
     function handleChange({ target }) {
@@ -41,7 +49,7 @@ export function MailCompose() {
     }
 
     function onClose() {
-        onSetFilterBy({ box: 'inbox' })
+        // onSetFilterBy({ box: 'inbox' })
         navigate('/mail/inbox')
     }
 
@@ -53,7 +61,6 @@ export function MailCompose() {
                     <button className="minimize-btn"><i className="fa-solid fa-window-minimize"></i></button>
                     <button className="maximize-btn"><i className="fa-solid fa-arrow-up-right-and-arrow-down-left-from-center"></i></button>
                     <button className="close-btn" onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
-                    {/* <button className="close-btn" onClick={() => navigate('/mail/inbox')}><i className="fa-solid fa-xmark"></i></button> */}
                 </section>
             </section>
             <label htmlFor="to">
@@ -63,7 +70,7 @@ export function MailCompose() {
                     id="to"
                     name="to"
                     onInput={handleChange}
-                    value={mail.to}
+                    value={newMail.to || ''}
                 />
             </label>
             <label htmlFor="subject">
@@ -73,7 +80,7 @@ export function MailCompose() {
                     id="subject"
                     name="subject"
                     onInput={handleChange}
-                    value={mail.subject}
+                    value={newMail.subject}
                 />
             </label>
             <label htmlFor="body">
@@ -83,7 +90,7 @@ export function MailCompose() {
                     className="mail-body"
                     name="body"
                     onInput={handleChange}
-                    value={mail.body}
+                    value={newMail.body}
                 />
             </label>
         </div>

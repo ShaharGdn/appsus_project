@@ -4,7 +4,7 @@ import { MailActionBar } from "./MailActionBar.jsx";
 
 const { useState } = React
 
-export function MailList({ emails, filterBy, onRemove, onStateChange }) {
+export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     const [isFold, setFold] = useState({ readFold: false, unreadFold: false })
     const [emailList, setEmails] = useState(emails)
 
@@ -26,11 +26,12 @@ export function MailList({ emails, filterBy, onRemove, onStateChange }) {
     }
 
     async function onNewStateChange(updatedMail) {
-        await mailService.save(updatedMail)
-        const updatedEmails = emails.map(mail =>
-            mail.id === updatedMail.id ? updatedMail : mail
-        )
-        onStateChange(updatedEmails)
+        // await mailService.save(updatedMail)
+        // const updatedEmails = emails.map(mail =>
+        //     mail.id === updatedMail.id ? updatedMail : mail
+        // )
+        // onStateChange(updatedEmails)
+        onUpdatedEmail(updatedMail)
     }
 
     return (

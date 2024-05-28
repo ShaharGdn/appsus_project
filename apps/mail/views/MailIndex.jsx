@@ -49,15 +49,16 @@ export function MailIndex() {
     }
 
     function onUpdatedEmail(updatedMail) {
+        console.log('updatedMail:', updatedMail)
         mailService.save(updatedMail).then(savedMail => {
-            const updatedEmails = emails.map(mail => (mail.id === savedMail.id ? savedMail : mail));
-            setEmails(updatedEmails);
+            const updatedEmails = emails.map(mail => (mail.id === savedMail.id ? savedMail : mail))
+            setEmails(updatedEmails)
         })
     }
 
-    function onStateChange(updatedEmails) {
-        setEmails(updatedEmails)
-    }
+    // function onStateChange(updatedEmails) {
+    //     setEmails(updatedEmails)
+    // }
 
     return (
         <section className="content-grid mail-index">
@@ -69,9 +70,9 @@ export function MailIndex() {
             </section>
             <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
             <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-            {params.mailId && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} /> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onStateChange={onStateChange} />}
+            {params.mailId && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} /> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} />}
             {/* {params.mailId && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} /> || <MailList emails={emails} filterBy={{ [filterByFromParams]: true }} onRemove={onRemove} onStateChange={onStateChange} />} */}
-            <Outlet context={[onUpdatedEmail, onStateChange, mail, onSetFilterBy, filterBy, setSearchParams]} />
+            <Outlet context={[onUpdatedEmail, mail, onSetFilterBy, filterBy, setSearchParams]} />
         </section>
     )
 }

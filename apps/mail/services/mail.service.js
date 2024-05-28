@@ -70,6 +70,7 @@ function query(filterBy = {}) {
                 )
             } 
             if (filterBy.box === 'drafts') {
+                console.log('filterBy.box:', filterBy.box)
                 mails = mails.filter(mail =>
                     mail.isDraft
                 )
