@@ -5,7 +5,7 @@ const { useOutletContext } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 
 export function MailCompose() {
-    const [saveMail, mail, onSetFilterBy] = useOutletContext()
+    const [saveMail, mail, onSetFilterBy, filterBy] = useOutletContext()
     const [newMail, setNewMail] = useState(mail)
 
     const params = useParams()
@@ -26,7 +26,8 @@ export function MailCompose() {
     useEffect(() => {
         return () => {
             saveMail(newMailRef.current)
-            onSetFilterBy({ box: 'inbox' })
+            onSetFilterBy({ box: filterBy.box })
+            // onSetFilterBy({ box: 'inbox' })
         }
     }, [])
 
@@ -50,7 +51,8 @@ export function MailCompose() {
 
     function onClose() {
         // onSetFilterBy({ box: 'inbox' })
-        navigate('/mail/inbox')
+        navigate(`/mail/${filterBy.box}`)
+        // navigate('/mail/inbox')
     }
 
     return (

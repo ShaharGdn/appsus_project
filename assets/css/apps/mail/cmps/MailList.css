@@ -1,11 +1,15 @@
  /* mail list */
 
-.mail-list {
+.mail-list, .no-emails {
    background-color: white;
    padding: 1em;
    border-radius: 1em;
    min-height: 80vh;
    margin-block-end: 2em;
+}
+
+.no-emails {
+  padding: 2em;
 }
 
  .mail-list ul {

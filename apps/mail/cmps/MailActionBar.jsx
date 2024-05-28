@@ -1,6 +1,6 @@
 import { StarredMail } from "./StarredMail.jsx";
 
-export function MailActionBar({ mail, onTrashClick, handleChange }) {
+export function MailActionBar({ mail, onTrashClick, handleChange, type }) {
     if (!mail) return
 
     const { isRead, isStarred, isSnoozed } = mail

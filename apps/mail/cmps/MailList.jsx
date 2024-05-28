@@ -11,7 +11,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     if (!filterBy.box) return
 
     if (!emails.length) {
-        return <p>No emails to display</p>
+        return <p className="no-emails">No emails yet...</p>
     }
 
     function onToggleFold(type) {

@@ -70,9 +70,8 @@ export function MailIndex() {
             </section>
             <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
             <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-            {params.mailId && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} /> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} />}
-            {/* {params.mailId && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} /> || <MailList emails={emails} filterBy={{ [filterByFromParams]: true }} onRemove={onRemove} onStateChange={onStateChange} />} */}
-            <Outlet context={[onUpdatedEmail, mail, onSetFilterBy, filterBy, setSearchParams]} />
+            {params.mailId && filterBy.box !== 'drafts' && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} filterBy={filterBy}/> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} />}
+            <Outlet context={[onUpdatedEmail, mail, onSetFilterBy, filterBy]} />
         </section>
     )
 }

@@ -8,12 +8,11 @@ const { useParams, useNavigate } = ReactRouter
 
 const { Link } = ReactRouterDOM
 
-export function MailDetails({ onUpdatedEmail, onRemove }) {
+export function MailDetails({ onUpdatedEmail, onRemove, filterBy }) {
     const params = useParams()
     const navigate = useNavigate()
 
     const [mail, setMail] = useState(null)
-    // const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         mailService.get(params.mailId)
