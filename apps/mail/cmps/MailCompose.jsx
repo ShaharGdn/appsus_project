@@ -5,7 +5,7 @@ const { useOutletContext } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 
 export function MailCompose() {
-    const [saveMail, onStateChange, mail] = useOutletContext()
+    const [saveMail, onStateChange, mail, onSetFilterBy] = useOutletContext()
     const [newMail, setNewMail] = useState(mail)
 
     if (mail.id) return 'edit'
@@ -13,14 +13,36 @@ export function MailCompose() {
     const newMailRef = useRef(newMail)
     newMailRef.current = newMail
 
+    const navigate = useNavigate()
+
     useEffect(() => {
         return () => {
             saveMail(newMailRef.current)
+            onSetFilterBy({ box: 'inbox' })
         }
-    }, [])
+    }, [saveMail, onSetFilterBy])
 
-    function handleChange({ type, value }) {
-        setNewMail(prevMail => ({ ...prevMail, [type]: value , sentAt: new Date()}))
+
+    function handleChange({ target }) {
+        const { type, name: prop } = target
+        let { value } = target
+
+        switch (type) {
+            case 'range':
+            case 'number':
+                value = +value
+                break;
+
+            case 'checkbox':
+                value = target.checked
+                break;
+        }
+        setNewMail(prevMail => ({ ...prevMail, [prop]: value, sentAt: new Date() }))
+    }
+
+    function onClose() {
+        onSetFilterBy({ box: 'inbox' })
+        navigate('/mail/inbox')
     }
 
     return (
@@ -30,31 +52,38 @@ export function MailCompose() {
                 <section className="ctrl-btns">
                     <button className="minimize-btn"><i className="fa-solid fa-window-minimize"></i></button>
                     <button className="maximize-btn"><i className="fa-solid fa-arrow-up-right-and-arrow-down-left-from-center"></i></button>
-                    <button className="close-btn"><i className="fa-solid fa-xmark"></i></button>
+                    <button className="close-btn" onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
+                    {/* <button className="close-btn" onClick={() => navigate('/mail/inbox')}><i className="fa-solid fa-xmark"></i></button> */}
                 </section>
             </section>
             <label htmlFor="to">
                 To:
-                <input 
-                    type="text" 
-                    id="to" 
-                    onInput={(event) => handleChange({ type: 'to', value: event.target.value })} 
+                <input
+                    type="text"
+                    id="to"
+                    name="to"
+                    onInput={handleChange}
+                    value={mail.to}
                 />
             </label>
             <label htmlFor="subject">
                 Subject:
-                <input 
-                    type="text" 
-                    id="subject" 
-                    onInput={(event) => handleChange({ type: 'subject', value: event.target.value })} 
+                <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    onInput={handleChange}
+                    value={mail.subject}
                 />
             </label>
             <label htmlFor="body">
                 Body:
-                <textarea 
-                    id="body" 
-                    className="mail-body" 
-                    onInput={(event) => handleChange({ type: 'body', value: event.target.value })} 
+                <textarea
+                    id="body"
+                    className="mail-body"
+                    name="body"
+                    onInput={handleChange}
+                    value={mail.body}
                 />
             </label>
         </div>

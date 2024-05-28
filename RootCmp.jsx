@@ -8,7 +8,6 @@ import { UserMsg } from "./cmps/UserMsg.jsx"
 
 import { MailIndex } from "./apps/mail/views/MailIndex.jsx"
 import { MailCompose } from "./apps/mail/cmps/MailCompose.jsx"
-// import { MailDetails } from "./apps/mail/views/MailDetails.jsx"
 
 import { NoteIndex } from "./apps/note/views/NoteIndex.jsx"
 import { NoteDetails } from "./apps/note/cmps/NoteDetails.jsx"
@@ -26,9 +25,11 @@ export function App() {
                 {/* email */}
                 <Route path="/mail" element={<MailIndex />} >
                     <Route path="/mail/compose" element={<MailCompose />} />
+                    <Route path="/mail/compose/:mailId" element={<MailCompose />} />
                 </Route >
+                {/* <Route path="/mail/:filterBy" element={<MailIndex />} /> */}
 
-                <Route path="/mail/inbox" element={<MailIndex />} />
+                <Route path="/mail/inbox" element={<MailIndex />} /> 
                 <Route path="/mail/starred" element={<MailIndex />} />
                 <Route path="/mail/sent" element={<MailIndex />} />
                 <Route path="/mail/drafts" element={<MailIndex />} />

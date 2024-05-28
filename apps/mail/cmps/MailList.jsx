@@ -6,7 +6,9 @@ const { useState } = React
 
 export function MailList({ emails, filterBy, onRemove, onStateChange }) {
     const [isFold, setFold] = useState({ readFold: false, unreadFold: false })
-    // const [emailList, setEmails] = useState(emails)
+    const [emailList, setEmails] = useState(emails)
+
+    if (!filterBy.box) return
 
     if (!emails.length) {
         return <p>No emails to display</p>
@@ -32,7 +34,7 @@ export function MailList({ emails, filterBy, onRemove, onStateChange }) {
     }
 
     return (
-        filterBy.inbox ? (
+        filterBy.box === 'inbox' ? (
             <section className="mail-list">
                 <h3 onClick={() => onToggleFold('unreadFold')}>
                     {isFold.unreadFold ? <i className="fa-light fa-chevron-down"></i> : <i className="fa-light fa-chevron-up"></i>}

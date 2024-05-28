@@ -29,11 +29,10 @@ export function SideMailFilter({ filterBy, onFilter }) {
 
     useEffect(() => {
         onFilter(filterByToEdit)
-        console.log('filterByToEdit:', filterByToEdit)
     }, [filterByToEdit])
 
     function handleChange(type) {
-        setFilterByToEdit(({ [type]: true }))
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, box: type }))
     }
 
     return <section className="mail-side-filter">

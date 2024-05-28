@@ -12,7 +12,7 @@ const loggedInUser = {
 }
 
 export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStateChange }) {
-    const { subject, body, isRead, sentAt, removedAt, from, isStarred, to, isSnoozed } = mail
+    const { subject, body, isRead, sentAt, removedAt, from, isDraft, to, isSnoozed } = mail
     const { email: fromEmail, fullname } = from
 
     const [newMail, setMail] = useState(mail)
@@ -21,6 +21,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
 
     if (type === 'read' && !isRead || type === 'read' && isFold.readFold) return
     if (type === 'unread' && isRead || type === 'unread' && isFold.unreadFold) return
+    if (!filterBy.drafts && isDraft ) return
     if (!filterBy.trash && removedAt) return
     if (!filterBy.snoozed && isSnoozed || filterBy.snoozed && !isSnoozed) return
 

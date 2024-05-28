@@ -20,6 +20,7 @@ export const mailService = {
     _createEmails,
     _createEmail,
     getDefaultFilter,
+    getFilterFromSearchParams,
     _setNextPrevEmailId,
     removeLabel,
     saveLabel,
@@ -43,36 +44,66 @@ function query(filterBy = {}) {
                 )
             }
 
-            if (filterBy.inbox) {
+            if (filterBy.box === 'inbox') {
                 mails = mails.filter(mail =>
                     mail.to.email === loggedInUser.email
                 )
             }
-            if (filterBy.sent) {
+            if (filterBy.box === 'sent') {
                 mails = mails.filter(mail =>
                     mail.to.email !== loggedInUser.email
                 )
             }
-            if (filterBy.starred) {
+            if (filterBy.box === 'starred') {
                 mails = mails.filter(mail =>
                     mail.isStarred
                 )
             } 
-            if (filterBy.trash) {
+            if (filterBy.box === 'trash') {
                 mails = mails.filter(mail =>
                     mail.removedAt
                 )
             } 
-            if (filterBy.snoozed) {
+            if (filterBy.box === 'snoozed') {
                 mails = mails.filter(mail =>
                     mail.isSnoozed
                 )
             } 
-            if (filterBy.drafts) {
+            if (filterBy.box === 'drafts') {
                 mails = mails.filter(mail =>
                     mail.isDraft
                 )
             } 
+            // if (filterBy.inbox) {
+            //     mails = mails.filter(mail =>
+            //         mail.to.email === loggedInUser.email
+            //     )
+            // }
+            // if (filterBy.sent) {
+            //     mails = mails.filter(mail =>
+            //         mail.to.email !== loggedInUser.email
+            //     )
+            // }
+            // if (filterBy.starred) {
+            //     mails = mails.filter(mail =>
+            //         mail.isStarred
+            //     )
+            // } 
+            // if (filterBy.trash) {
+            //     mails = mails.filter(mail =>
+            //         mail.removedAt
+            //     )
+            // } 
+            // if (filterBy.snoozed) {
+            //     mails = mails.filter(mail =>
+            //         mail.isSnoozed
+            //     )
+            // } 
+            // if (filterBy.drafts) {
+            //     mails = mails.filter(mail =>
+            //         mail.isDraft
+            //     )
+            // } 
 
 
             // Default sorting by sentAt in descending order (newest first)
@@ -131,10 +162,17 @@ function getDefaultFilter(filterBy = { txt: '' }) {
     return { txt: filterBy.txt, inbox: true }
 }
 
-function getDefaultSort(SortBy = { date: '' }) {
-    sortBy[prop] = (isDesc) ? -1 : 1
-    return { date: SortBy.date }
+function getFilterFromSearchParams(searchParams) {
+    return {
+        txt: searchParams.get('txt') || '',
+        box: searchParams.get('box') || 'inbox',
+    }
 }
+
+// function getDefaultSort(SortBy = { date: '' }) {
+//     sortBy[prop] = (isDesc) ? -1 : 1
+//     return { date: SortBy.date }
+// }
 
 // create 19 random mails. save to storage
 function _createEmails() {
