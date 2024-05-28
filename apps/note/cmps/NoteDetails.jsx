@@ -1,15 +1,18 @@
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
+const { useOutletContext } = ReactRouterDOM
 
 import { noteService } from "../services/note.service.js"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
-import { InputField } from "./dynamic cmp/InputField.jsx"
+import { NotePreview } from "./NotePreview.jsx"
 
 export function NoteDetails() {
+    const [onRemove] = useOutletContext()
     const [note, setNote] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [isEdited, setIsEdited] = useState(false)
+
 
     const params = useParams()
     const navigate = useNavigate()
@@ -26,6 +29,7 @@ export function NoteDetails() {
     }, []) // params.noteId ?
 
     function handleChange({ target }) {
+        console.log('target from details:', target);
         setIsEdited(true)
         const { name, value } = target
         const props = name.split('.')
@@ -47,12 +51,14 @@ export function NoteDetails() {
 
     function saveEditedNote() {
         const createdAt = utilService.getCurrentDateTime()
-        noteService.save(note, createdAt)
+        // noteService.save(note, createdAt)
+        noteService.save({ ...note, createdAt: createdAt })
             .then(() => {
                 showSuccessMsg('Note edited successfully.')
                 navigate('/note')
+
                 // resetMainInput()
-                window.location.reload()
+                // window.location.reload()
             })
             .catch(() => showErrorMsg('Could not edit note.'))
     }
@@ -61,21 +67,8 @@ export function NoteDetails() {
 
     return <section className="details-container">
         <section className="details-screen"></section>
-        <InputField isEditable={true} inputType={note.type} note={note}
-            onChange={handleChange} onClose={onCloseEdit} />
+        <NotePreview isEditable={true} inputType={note.type} note={note}
+            onChange={handleChange} onClose={onCloseEdit} onRemove={onRemove}/>
     </section>
 
-
-
-    // return <section className="details-container">
-    //     <section className="details-screen"></section>
-    //     <div className="note-details">
-    //         <h3>{title || 'Title'}</h3>
-    //         {txt && <p>{txt || 'Note'}</p>}
-    //         {url && <p>{url || 'Image'}</p>}
-    //         <span className="edit-time">Edited: {note.createdAt}</span>
-    //         <InputActionBar note={note} />
-    //         <button><i className="fa-regular fa-thumbtack"></i></button>
-    //     </div>
-    // </section>
 }

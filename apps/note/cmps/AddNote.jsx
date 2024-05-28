@@ -3,11 +3,9 @@ const { useState } = React
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { noteService } from "../services/note.service.js"
-import { InputField } from "./dynamic cmp/InputField.jsx"
+import { NotePreview } from "./NotePreview.jsx"
 
-
-export function AddNote() {
-
+export function AddNote({ onAddNote }) {
     const [note, setNote] = useState(noteService.getEmptyNote())
 
     const [isInputActive, setIsInputActive] = useState(false)
@@ -18,13 +16,13 @@ export function AddNote() {
         setIsInputActive(true)
     }
 
-    function setByType(type) {
+    function changeNoteType(type) {
         setInputType(type)
         setNote(prevNote => ({ ...prevNote, type: type }))
+        setIsInputActive(true)
     }
 
     function handleChange({ target }) {
-        console.log('target', target);
         const { name, value } = target
         const props = name.split('.')
 
@@ -35,17 +33,19 @@ export function AddNote() {
         }
     }
 
-    function onAddNote() {
+    function addNote() {
         if (!note.info.txt && !note.info.todos && !note.info.url) {
             resetMainInput()
             return
         }
         const createdAt = utilService.getCurrentDateTime()
-        noteService.save(note, createdAt)
+        noteService.save({ ...note, createdAt: createdAt })
             .then(() => {
-                showSuccessMsg('Note added successfully.')
+                console.log('note id from AddNote:', note.id);
+                onAddNote(note)
                 resetMainInput()
-                window.location.reload()
+                showSuccessMsg('Note added successfully.')
+                
             })
             .catch(() => showErrorMsg('Could not add note.'))
     }
@@ -63,16 +63,16 @@ export function AddNote() {
                     onInput={showInputBox} onClick={() => setIsInputActive(true)} />
             </div>
             <div className="add-btns">
-                <button onClick={() => setByType('NoteTodos')}>
+                <button onClick={() => changeNoteType('NoteTodos')} title="New list note">
                     <i className="fa-regular fa-square-check"></i></button>
-                <button onClick={() => setByType('NoteImg')}>
+                <button onClick={() => changeNoteType('NoteImg')} title="New note with image">
                     <i className="fa-regular fa-image"></i></button>
-                <button onClick={() => setByType('NoteVideo')}>
+                <button onClick={() => changeNoteType('NoteVideo')} title="New note with video">
                     <i className="fa-brands fa-youtube"></i></button>
             </div>
         </section>}
-        {isInputActive && <InputField isEditable={false} inputType={inputType} note={note}
-            onChange={handleChange} onClose={onAddNote} />}
+        {isInputActive && <NotePreview inputType={inputType} note={note}
+            onChange={handleChange} onClose={addNote} />}
     </section>
 }
 

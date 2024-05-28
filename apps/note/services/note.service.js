@@ -40,14 +40,21 @@ function remove(noteId) {
     return asyncStorageService.remove(NOTE_KEY, noteId)
 }
 
-function save(note, createdAt) {
-    note.createdAt = createdAt
+function save(note) {
     if (note.id) {
         return asyncStorageService.put(NOTE_KEY, note)
     } else {
         return asyncStorageService.post(NOTE_KEY, note)
     }
 }
+// function save(note, createdAt) {
+//     note.createdAt = createdAt
+//     if (note.id) {
+//         return asyncStorageService.put(NOTE_KEY, note)
+//     } else {
+//         return asyncStorageService.post(NOTE_KEY, note)
+//     }
+// }
 
 function getEmptyNote() {
     return {
@@ -68,7 +75,9 @@ function getFilterFromSearchParams(searchParams) {
     return {
         type: searchParams.get('type') || '',
         color: searchParams.get('color') || '',
-        color: searchParams.get('title') || '',
+        title: searchParams.get('title') || '',
+        txt: searchParams.get('txt') || '',
+        isPinned: searchParams.get('isPinned') || '',
     }
 }
 
@@ -102,7 +111,7 @@ function _createNotes() {
                 id: utilService.makeId(5),
                 createdAt: utilService.randomPastTime().toLocaleString(),
                 type: 'NoteTxt',
-                isPinned: true,
+                isPinned: false,
                 style: {
                     backgroundColor: colors[utilService.getRandomIntInclusive(0, colors.length - 1)]
                 },

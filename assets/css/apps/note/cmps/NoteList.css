@@ -1,28 +1,40 @@
 .note-list {
     grid-column: 2;
     margin: 0 auto;
+
+    /*  */
+    /* display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto-fill auto-fill;
+    grid-template-areas:
+        "pinned"
+        "others"; */
 }
 
 .note-list ul {
-    /* grid-column: 2; */
     display: grid;
     grid-template-columns: repeat(auto-fit, 238px);
     grid-auto-flow: dense;
-    gap: 20px;
-    justify-content: center;
-
+    gap: 15px;
     max-width: 70vw;
-    margin: 10px auto;
     margin: 0;
+    margin-block: 0.5em 4em;
     padding: 0;
+}
+
+.note-list span:not(.note-loader) {
+    display: block;
+    text-transform: uppercase;
+    color: var(--n-font-clr-1);
+    letter-spacing: .07em;
+    font-size: .72rem;
+    font-weight: 500;
+    line-height: 1rem;
+    margin-inline-start: 1em;
 }
 
 .note-list li {
     position: relative;
-    /* display: flex;
-    flex-direction: column; */
-    /* justify-content: space-between; */
-
     list-style: none;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -40,6 +52,21 @@
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
 }
 
+.note-list li button:has(.fa-thumbtack) {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    font-size: 0.9em;
+}
+
+.note-list li .fa-thumbtack {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+/*  */
 .note-list .remove-btn {
     position: absolute;
     top: -10px;
@@ -60,3 +87,25 @@
 .note-list li:hover .remove-btn {
     opacity: 1;
 }
+
+/* test */
+
+/* .note-list .hidden {
+    display: none;
+}
+
+.note-list:has(.pinned) .hidden {
+    display: inline;
+}
+
+.pinned-container {
+    grid-area: pinned;
+}
+.others-container {
+    grid-area: others;
+}
+
+.pinned {
+}
+.others {
+} */

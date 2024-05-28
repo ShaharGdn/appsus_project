@@ -23,3 +23,15 @@
     border-radius: 4px;
     margin-right: 7px
 }
+
+.input-action-bar .close-btn:hover {
+    color: var(--n-font-clr);
+}
+
+.input-action-bar .fa-palette  {
+    transition: .7s;
+}
+
+.input-action-bar .fa-solid  {
+    rotate: 360deg;
+}
