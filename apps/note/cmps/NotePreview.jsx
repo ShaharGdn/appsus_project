@@ -30,7 +30,7 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
                 placeholder="Title" value={note.info.title || ''} onChange={onChange} />
             <DynamicNote cmpType={inputType} note={note} onChange={onChange} />
             {isEditable && <span className="edit-time">Edited: {note.createdAt}</span>}
-            <InputActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove}/>
+            <InputActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove} isEditable={isEditable}/>
 
             <button onClick={onTogglePin}>
                 <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>
