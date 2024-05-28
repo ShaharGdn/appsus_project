@@ -1,5 +1,6 @@
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
+const { useOutletContext } = ReactRouterDOM
 
 import { noteService } from "../services/note.service.js"
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
@@ -7,9 +8,11 @@ import { utilService } from "../../../services/util.service.js"
 import { NotePreview } from "./NotePreview.jsx"
 
 export function NoteDetails() {
+    const [onRemove] = useOutletContext()
     const [note, setNote] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [isEdited, setIsEdited] = useState(false)
+
 
     const params = useParams()
     const navigate = useNavigate()
@@ -65,7 +68,7 @@ export function NoteDetails() {
     return <section className="details-container">
         <section className="details-screen"></section>
         <NotePreview isEditable={true} inputType={note.type} note={note}
-            onChange={handleChange} onClose={onCloseEdit} />
+            onChange={handleChange} onClose={onCloseEdit} onRemove={onRemove}/>
     </section>
 
 }

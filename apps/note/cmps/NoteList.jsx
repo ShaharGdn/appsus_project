@@ -35,7 +35,7 @@ export function NoteList({ notes, onRemove, isLoading }) {
                     </Link>
                 )}
         </ul>
-        <Outlet />
+        <Outlet context={[onRemove]}/>
     </section >
 }
 

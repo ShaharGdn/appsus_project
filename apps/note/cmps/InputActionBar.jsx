@@ -1,12 +1,20 @@
 const { useState } = React
+const { useNavigate } = ReactRouter
 
 import { ColorPicker } from "../cmps/ColorPicker.jsx"
 
-export function InputActionBar({ onClose, note, onChange }) {
+export function InputActionBar({ onClose, note, onChange, onRemove }) {
+    const navigate = useNavigate()
     const [isColorOpen, setIsColorOpen] = useState(false)
 
     function toggleColorPicker() {
         setIsColorOpen(prevIsColorOpen => !prevIsColorOpen)
+    }
+
+    function onRemoveNote(ev) {
+        onRemove(ev,note.id)
+        navigate('/note')
+
     }
 
     return <section className="input-action-bar">
@@ -15,7 +23,7 @@ export function InputActionBar({ onClose, note, onChange }) {
                 <i className={`fa-palette ${isColorOpen === true ? 'fa-solid' : 'fa-regular'}`}></i>
                 </button>
             <button><i className="fa-regular fa-copy"></i></button>
-            <button><i className="fa-regular fa-trash-can"></i></button>
+            <button onClick={(ev) => onRemoveNote(ev)}><i className="fa-regular fa-trash-can"></i></button>
             {isColorOpen && <ColorPicker note={note} onChange={onChange} />}
         </div>
         <button className="close-btn" onClick={onClose}>Close</button>
