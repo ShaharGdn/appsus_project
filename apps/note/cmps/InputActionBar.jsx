@@ -11,7 +11,9 @@ export function InputActionBar({ onClose, note, onChange }) {
 
     return <section className="input-action-bar">
         <div>
-            <button onClick={toggleColorPicker}><i className="fa-regular fa-palette"></i></button>
+            <button onClick={toggleColorPicker}>
+                <i className={`fa-palette ${isColorOpen === true ? 'fa-solid' : 'fa-regular'}`}></i>
+                </button>
             <button><i className="fa-regular fa-copy"></i></button>
             <button><i className="fa-regular fa-trash-can"></i></button>
             {isColorOpen && <ColorPicker note={note} onChange={onChange} />}
