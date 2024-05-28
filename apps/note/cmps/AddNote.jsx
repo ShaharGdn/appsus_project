@@ -16,9 +16,10 @@ export function AddNote({ onAddNote }) {
         setIsInputActive(true)
     }
 
-    function setByType(type) {
+    function changeNoteType(type) {
         setInputType(type)
         setNote(prevNote => ({ ...prevNote, type: type }))
+        setIsInputActive(true)
     }
 
     function handleChange({ target }) {
@@ -62,11 +63,11 @@ export function AddNote({ onAddNote }) {
                     onInput={showInputBox} onClick={() => setIsInputActive(true)} />
             </div>
             <div className="add-btns">
-                <button onClick={() => setByType('NoteTodos')}>
+                <button onClick={() => changeNoteType('NoteTodos')} title="New list note">
                     <i className="fa-regular fa-square-check"></i></button>
-                <button onClick={() => setByType('NoteImg')}>
+                <button onClick={() => changeNoteType('NoteImg')} title="New note with image">
                     <i className="fa-regular fa-image"></i></button>
-                <button onClick={() => setByType('NoteVideo')}>
+                <button onClick={() => changeNoteType('NoteVideo')} title="New note with video">
                     <i className="fa-brands fa-youtube"></i></button>
             </div>
         </section>}
