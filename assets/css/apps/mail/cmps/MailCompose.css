@@ -9,6 +9,7 @@
     background-color: #fff;
     box-shadow: 0px 1px 2px #00000057;
     border-radius: 0.5em;
+    font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
 }
 
 .compose-mail .compose-header {
@@ -28,14 +29,14 @@
     padding-left: 0;
     padding-right: 0;
     -webkit-font-smoothing: antialiased;
-    font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    /* font-family: "Google Sans", Roboto, , Helvetica, Arial, sans-serif; */
     font-size: .875rem;
     letter-spacing: normal;
     font-weight: 500;
     margin: 0;
 }
 
-.compose-mail .compose-header .ctrl-btns  {
+.compose-mail .compose-header .ctrl-btns {
     display: flex;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -52,28 +53,117 @@
     font-size: 0.5em;
 }
 
+/* 
+.compose-mail .compose-inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.compose-mail .compose-inputs label {
+    width: 100%;
+} 
+
+.compose-mail .compose-inputs input, textarea {
+    border: none;
+} */
 
 
+.compose-inputs {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
 
+.input-group {
+    display: flex;
+    align-items: center;
+}
 
-/* export function MailCompose() {
-    return (
-        <div className="compose-mail">
-            <section className="compose-header">
-                <h1>New Message</h1>
-                <section className="ctrl-btns">
-                    <button className="minimize-btn"><i className="fa-light fa-window-minimize"></i></button>
-                    <button className="maximize-btn"><i className="fa-light fa-arrow-up-right-and-arrow-down-left-from-center"></i></button>
-                    <button className="close-btn"><i className="fa-light fa-xmark"></i></button>
-                </section>
+.input-group label {
+    margin-right: 2px;
+    /* Space between label and input */
+    min-width: 10px;
+    /* Optional: Ensures labels have a minimum width */
+    font-size: 0.95em;
+}
+
+.input-group input {
+    flex: 1;
+    /* Input takes the remaining space */
+    padding: 5px;
+    border: none;
+}
+
+.input-group input:focus {
+    outline: none;
+}
+
+.mail-body {
+    width: 100%;
+    height: 300px;
+    /* margin-top: 10px; */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.horizontal-line {
+    border: none;
+    height: 1px;
+    background-color: #cccccc6f;
+    width: 100%;
+    align-self: center;
+}
+
+textarea {
+    border: none;
+    font-family: inherit;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+/* 
+return (
+    <div className="compose-mail">
+        <section className="compose-header">
+            <h1>New Message</h1>
+            <section className="ctrl-btns">
+                <button className="minimize-btn"><i className="fa-solid fa-window-minimize"></i></button>
+                <button className="maximize-btn"><i className="fa-solid fa-arrow-up-right-and-arrow-down-left-from-center"></i></button>
+                <button className="close-btn" onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
             </section>
-            <label htmlFor="for">
-                <input type="text" id="to" />
-            </label>
-            <label htmlFor="subject">
-                <input type="text" id="subject" />
-            </label>
-            <input type="text" className="mail-body" />
-        </div>
-    )
+        </section>
+        <label htmlFor="to">
+            To:
+            <input
+                type="text"
+                id="to"
+                name="to"
+                onInput={handleChange}
+                value={newMail.to || ''}
+            />
+        </label>
+        <label htmlFor="subject">
+            Subject:
+            <input
+                type="text"
+                id="subject"
+                name="subject"
+                onInput={handleChange}
+                value={newMail.subject}
+            />
+        </label>
+        <label htmlFor="body">
+            Body:
+            <textarea
+                id="body"
+                className="mail-body"
+                name="body"
+                onInput={handleChange}
+                value={newMail.body}
+            />
+        </label>
+    </div>
+);
 } */

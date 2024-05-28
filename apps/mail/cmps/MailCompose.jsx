@@ -65,28 +65,30 @@ export function MailCompose() {
                     <button className="close-btn" onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
                 </section>
             </section>
-            <label htmlFor="to">
-                To:
-                <input
-                    type="text"
-                    id="to"
-                    name="to"
-                    onInput={handleChange}
-                    value={newMail.to || ''}
-                />
-            </label>
-            <label htmlFor="subject">
-                Subject:
-                <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    onInput={handleChange}
-                    value={newMail.subject}
-                />
-            </label>
-            <label htmlFor="body">
-                Body:
+            <section className="compose-inputs">
+                <div className="input-group">
+                    <label htmlFor="to">To</label>
+                    <input
+                        type="text"
+                        id="to"
+                        name="to"
+                        onInput={handleChange}
+                        value={newMail.to || ''}
+                    />
+                </div>
+                <hr className="horizontal-line" />
+                <div className="input-group">
+                    {/* <label htmlFor="subject">Subject</label> */}
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        onInput={handleChange}
+                        value={newMail.subject}
+                        placeholder="Subject"
+                    />
+                </div>
+                <hr className="horizontal-line" />
                 <textarea
                     id="body"
                     className="mail-body"
@@ -94,7 +96,7 @@ export function MailCompose() {
                     onInput={handleChange}
                     value={newMail.body}
                 />
-            </label>
+            </section>
         </div>
     );
 }
