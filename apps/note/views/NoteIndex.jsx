@@ -1,6 +1,5 @@
 const { useState, useEffect } = React
 
-import { utilService } from "../../../services/util.service.js";
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
 import { noteService } from "../services/note.service.js";
 import { NoteList } from "../cmps/NoteList.jsx";
@@ -10,18 +9,11 @@ import { NoteFilter } from "../cmps/NoteFilter.jsx";
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    // filterBy from searchParams?
 
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
 
-    // useEffect(() => {
-    //     onSetFilterBy(noteService.getDefaultFilter())
-    // }, [])
-
     useEffect(() => {
-        // params?
         noteService.query(filterBy)
-            // .then(notes => setNotes(notes))
             .then(notes => {
                 setNotes(notes)
                 console.log(notes)
@@ -32,13 +24,12 @@ export function NoteIndex() {
         setFilterBy({ ...newFilterBy })
     }
 
-    function onAddNote(note) {
-        setNotes(prevNotes => ([...prevNotes, note])) // can do without but works better with
-        
+    function onSaveNote() {
         onSetFilterBy(noteService.getDefaultFilter()) // patch for refresh problem
     }
 
     function removeNote(ev, noteId) {
+        console.log(noteId);
         ev.preventDefault()
         ev.stopPropagation()
 
@@ -49,8 +40,9 @@ export function NoteIndex() {
                 showSuccessMsg('Note removed successfully.')
             })
             .catch((err) => {
-                console.log('error:',err)
-                showErrorMsg('Could not remove note.')})
+                console.log('error:', err)
+                showErrorMsg('Could not remove note.')
+            })
             .finally(() => setIsLoading(false))
     }
 
@@ -66,8 +58,8 @@ export function NoteIndex() {
             </section>
             <NoteFilter filterBy={filterBy} onFilter={onSetFilterBy} />
         </section>
-        <AddNote onAddNote={onAddNote} />
-        <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading} />
+        <AddNote onSaveNote={onSaveNote} />
+        <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading} onSaveNote={onSaveNote} />
     </section >
 }
 

@@ -8,7 +8,7 @@ import { utilService } from "../../../services/util.service.js"
 import { NotePreview } from "./NotePreview.jsx"
 
 export function NoteDetails() {
-    const [onRemove] = useOutletContext()
+    const [onRemove, onSaveNote] = useOutletContext()
     const [note, setNote] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [isEdited, setIsEdited] = useState(false)
@@ -16,20 +16,23 @@ export function NoteDetails() {
 
     const params = useParams()
     const navigate = useNavigate()
-
     useEffect(() => {
         setIsLoading(true)
         noteService.get(params.noteId)
-            .then(note => setNote(note))
-            .catch(() => {
-                showErrorMsg('Could not get note.')
-                navigate('/note')
-            })
-            .finally(() => setIsLoading(false))
+        .then(note => {
+            console.log('note before change', {note});
+            setNote(note)
+        })
+        .catch(() => {
+            showErrorMsg('Could not get note.')
+            navigate('/note')
+        })
+        .finally(() => setIsLoading(false))
+
     }, []) // params.noteId ?
 
     function handleChange({ target }) {
-        console.log('target from details:', target);
+        // console.log('target from details:', target);
         setIsEdited(true)
         const { name, value } = target
         const props = name.split('.')
@@ -47,16 +50,19 @@ export function NoteDetails() {
             return
         }
         saveEditedNote()
-    }
+        console.log('note after change',{note});
 
+    }
+    
     function saveEditedNote() {
         const createdAt = utilService.getCurrentDateTime()
         // noteService.save(note, createdAt)
         noteService.save({ ...note, createdAt: createdAt })
-            .then(() => {
-                showSuccessMsg('Note edited successfully.')
-                navigate('/note')
-
+        .then(() => {
+            showSuccessMsg('Note edited successfully.')
+            navigate('/note')
+            
+            onSaveNote()
                 // resetMainInput()
                 // window.location.reload()
             })

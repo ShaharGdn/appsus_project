@@ -13,7 +13,7 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
         })
     }
 
-    const { txt, title, url, videoUrl } = note.info
+    const { txt, title, url, videoUrl, todos } = note.info
     const isLongText = (txt && txt.length) > 250
 
     if (isPreview) {
@@ -21,9 +21,12 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             <h3>{title}</h3>
             {txt && <p>{isLongText ? txt.substring(0, 250) + `...` : txt}</p>}
             {url && <img src={note.info.url} alt="note image" />}
-
             {videoUrl && <iframe width="200" height="150" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>}
 
+            {todos && <ul>
+                {todos.map(todo => <li>{todo.txt}</li>)}
+                </ul> }
+                
             <button>
                 <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>
             </button>
@@ -63,12 +66,21 @@ function NoteTxt({ note, onChange }) {
         value={note.info.txt || ''} onChange={onChange}></textarea>
 }
 
-function NoteTodos({ name, handleClick }) {
-    return <h1 onClick={handleClick}>Bye <u>{name}</u></h1>
+function NoteTodos({ note, onChange }) {
+    // const { todos } = note.info
+    // return todos.map((todo, idx) => 
+    // <form>
+    //     <input id={idx} type="checkbox"  />
+    //         <label htmlFor={idx}>
+    //             <input type="text" placeholder="List item" onChange={onChange} 
+    //             name="todo.txt" value={todo.txt}/>
+    //         </label>
+    // </form>)
+
 }
 
 function NoteImg({ note, onChange, isEditable }) {
-    console.log("note.info.videoUrl", note.info.videoUrl)
+        console.log("note.info.videoUrl", note.info.videoUrl)
     return <React.Fragment>
         {isEditable && <img src={note.info.url} alt="note image" />}
         <input className="txt-input" type="text" name="info.url"
@@ -79,15 +91,15 @@ function NoteImg({ note, onChange, isEditable }) {
 function NoteVideo({ note, onChange, isEditable }) {
     return <React.Fragment>
         {isEditable && <iframe
-                width="500"
-                height="315"
-                src={note.info.videoUrl}
-                frameBorder="0"
-                allowFullScreen>
-                    </iframe>}
-            <input className="txt-input" type="text" name="info.videoUrl" 
+            width="500"
+            height="315"
+            src={note.info.videoUrl}
+            frameBorder="0"
+            allowFullScreen>
+        </iframe>}
+        <input className="txt-input" type="text" name="info.videoUrl"
             placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
-</React.Fragment>
+    </React.Fragment>
     
     // if ( isPreview || isEditable) {
     //     // const idStartIdx = (note.info.videoUrl).indexOf('=')
