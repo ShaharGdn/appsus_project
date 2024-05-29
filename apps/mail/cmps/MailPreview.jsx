@@ -66,7 +66,6 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
         if (filterBy.box === 'drafts') {
             navigate(`/mail/compose/${mail.id}`)
         } else {
-            console.log('else')
             navigate(`/mail/${mail.id}`)
         }
     }

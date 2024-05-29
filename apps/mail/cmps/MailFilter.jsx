@@ -24,7 +24,7 @@ export function TopMailFilter({ filterBy, onFilter }) {
     </section>
 }
 
-export function SideMailFilter({ filterBy, onFilter }) {
+export function SideMailFilter({ filterBy, onFilter, unreadCount }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy || {})
 
     useEffect(() => {
@@ -44,9 +44,10 @@ export function SideMailFilter({ filterBy, onFilter }) {
         </Link>
 
 
-        <NavLink to='/mail/inbox' className="side-link" onClick={() => handleChange('inbox')}>
+        <NavLink to='/mail/inbox' className="side-link inbox" onClick={() => handleChange('inbox')}>
             <i className="fa-light fa-inbox"></i>
-            Inbox
+            <span>Inbox</span>
+            <span className="unread-count">{unreadCount? unreadCount : ''}</span>
         </NavLink>
         <NavLink to='/mail/starred' className="side-link" onClick={() => handleChange('starred')}>
             <i className="fa-light fa-star"></i>

@@ -5,7 +5,7 @@ const { useOutletContext, Link, NavLink } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 
 export function MailCompose() {
-    const [saveMail, mail, onSetFilterBy, filterBy] = useOutletContext()
+    const [saveMail, mail, onSetFilterBy, filterBy, onRemove] = useOutletContext()
     const [newMail, setNewMail] = useState(mail)
 
     const params = useParams()
@@ -26,9 +26,12 @@ export function MailCompose() {
 
     useEffect(() => {
         return () => {
-            saveMail(newMailRef.current).then(() => {
-                onSetFilterBy({ box: filterBy.box })
-            })
+            if (newMailRef.current.removedAt) return
+            if (newMailRef.current.body.length >= 1 || newMailRef.current.subject.length >= 1) {
+                saveMail(newMailRef.current).then(() => {
+                    onSetFilterBy({ box: filterBy.box })
+                })
+            }
         }
     }, [saveMail, onSetFilterBy, filterBy.box])
 
@@ -57,12 +60,24 @@ export function MailCompose() {
     }
 
     function onSend() {
+        if (!newMailRef.current.body.length || !newMailRef.current.subject.length) return
         const updatedMail = { ...newMailRef.current, isDraft: false, sentAt: new Date() }
         setNewMail(updatedMail)
         newMailRef.current = updatedMail
         saveMail(newMailRef.current).then(() => {
             navigate(`/mail/${filterBy.box}`)
         })
+    }
+
+    function onDiscard() {
+        const updatedMail = { ...newMailRef.current, removedAt: new Date() }
+        setNewMail(updatedMail)
+        newMailRef.current = updatedMail
+        navigate(`/mail/${filterBy.box}`)
+        if (params.mailId) {
+            onRemove(newMailRef.current)
+        }
+        return
     }
 
     return (
@@ -108,6 +123,7 @@ export function MailCompose() {
             </section>
             <section className="bottom-ctrls">
                 <Link to={`/mail/${filterBy.box}`}><button className="send-btn" onClick={onSend}>Send</button></Link>
+                <Link to={`/mail/${filterBy.box}`}><button className="exit-btn" onClick={onDiscard}><i className="fa-regular fa-trash-can"></i></button></Link>
             </section>
         </div>
     );

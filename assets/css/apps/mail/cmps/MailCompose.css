@@ -53,60 +53,45 @@
     font-size: 0.5em;
 }
 
-/* 
+
 .compose-mail .compose-inputs {
-    display: flex;
-    flex-direction: column;
-}
-
-.compose-mail .compose-inputs label {
-    width: 100%;
-} 
-
-.compose-mail .compose-inputs input, textarea {
-    border: none;
-} */
-
-
-.compose-inputs {
     display: flex;
     flex-direction: column;
     padding: 1em;
 }
 
-.input-group {
+.compose-mail .input-group {
     display: flex;
     align-items: center;
 }
 
-.input-group label {
+.compose-mail .input-group label {
     margin-right: 2px;
-    /* Space between label and input */
     min-width: 10px;
-    /* Optional: Ensures labels have a minimum width */
     font-size: 0.95em;
 }
 
-.input-group input {
+.compose-mail .input-group input {
     flex: 1;
-    /* Input takes the remaining space */
     padding: 5px;
     border: none;
 }
 
-.input-group input:focus {
+.compose-mail .input-group input:focus {
     outline: none;
 }
 
-.mail-body {
+.compose-mail .mail-body {
     width: 100%;
-    height: 300px;
-    /* margin-top: 10px; */
+    height: 250px;
     padding: 10px;
     box-sizing: border-box;
+    border: none;
+    font-family: inherit;
+    resize: none;
 }
 
-.horizontal-line {
+.compose-mail .horizontal-line {
     border: none;
     height: 1px;
     background-color: #cccccc6f;
@@ -114,13 +99,36 @@
     align-self: center;
 }
 
-textarea {
-    border: none;
-    font-family: inherit;
+.compose-mail .mail-body:focus {
+    outline: none;
 }
 
-textarea:focus {
-    outline: none;
+.compose-mail .send-btn {
+    background-color: #0b57d0;
+    color: white;
+    border: none;
+    min-width: 7em;
+    border-radius: 3em;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.compose-mail .bottom-ctrls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-end: 1em;
+    padding: 1em;
+}
+
+.compose-mail .exit-btn {
+    align-self: end;
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    font-size: 1em;
+    cursor: pointer;
 }
 
 /* 

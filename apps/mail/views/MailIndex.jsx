@@ -17,15 +17,15 @@ export function MailIndex() {
 
     const [emails, setEmails] = useState([])
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+    const [unreadCount, setUnreadCount] = useState(0)
 
-    // useEffect(() => {
-    //     setSearchParams(filterBy)
-    //     mailService.query().then(fetchedEmails => {
-    //         fetchedEmails.sort((e1, e2) => new Date(e2.sentAt) - new Date(e1.sentAt))
-    //         setEmails(fetchedEmails)
-    //         console.log('imrerendering:')
-    //     })
-    // }, [])
+    useEffect(() => {
+        setSearchParams()
+        mailService.query().then(fetchedEmails => {
+            const unread = fetchedEmails.filter(email=> !email.isRead)
+            setUnreadCount(unread.length)
+        })
+    }, [emails])
 
     useEffect(() => {
         setSearchParams(filterBy)
@@ -33,7 +33,6 @@ export function MailIndex() {
             .then(fetchedEmails => {
                 fetchedEmails.sort((e1, e2) => new Date(e2.sentAt) - new Date(e1.sentAt))
                 setEmails(fetchedEmails)
-
             })
     }, [filterBy])
 
@@ -53,9 +52,16 @@ export function MailIndex() {
     async function onUpdatedEmail(updatedMail) {
         await mailService.save(updatedMail).then(savedMail => {
             setEmails(prevEmails => prevEmails.map(mail => (mail.id === savedMail.id ? savedMail : mail)));
+            return savedMail
         })
     }
-
+    async function countUnreadEmails() {
+        const allEmails = await mailService.query()
+        const unreadCount = allEmails.filter(email => !email.isRead).length
+        return unreadCount
+    }
+    
+    
     return (
         <section className="content-grid mail-index">
             <section className="menu-bar">
@@ -65,9 +71,9 @@ export function MailIndex() {
                 <img src="assets/imgs/logo_gmail.png" alt="logo" />
             </section>
             <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-            <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
+            <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadCount={unreadCount}/>
             {params.mailId && filterBy.box !== 'drafts' && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} filterBy={filterBy} /> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} />}
-            <Outlet context={[onUpdatedEmail, mail, onSetFilterBy, filterBy]} />
+            <Outlet context={[onUpdatedEmail, mail, onSetFilterBy, filterBy, onRemove]} />
         </section>
     )
 }
