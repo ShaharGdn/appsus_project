@@ -1,4 +1,4 @@
-header {
+/* header {
     background: lightcyan;
     border-bottom: 2px solid white;
 }
@@ -25,4 +25,52 @@ nav a.active {
     color: darkblue;
     font-weight: bold;
     text-decoration: overline;
+}
+ */
+
+.app-header-btn {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    font-weight: 100;
+    color: #5F6367;
+}
+
+.app-header-btn:hover {
+    border-radius: 100%;
+    background-color: var(--gm-hover-link);
+}
+
+.nav-btns {
+    display: flex;
+    flex-direction: column;
+    background-color: #F8FAFD;
+    width: max-content;
+    padding: 0.5em;
+    position: absolute;
+    right: 0;
+    top: 4em;
+    border-radius: 1em;
+    border: 10px solid #E9EEF6;
+    box-shadow: 0px 0px 5px 0px #9b9898;
+    opacity: 1;
+    transition: opacity 1s ease-in-out, transform 0.3s ease;
+}
+
+.nav-btns button {
+    border: none;
+    background-color: transparent;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.nav-btns img {
+    max-width: 80px;
+}
+
+.nav-btns button:hover {
+    border-radius: 0.5em;
+    background-color: var(--gm-hover-link);
 }

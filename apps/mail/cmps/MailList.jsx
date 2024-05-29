@@ -26,11 +26,6 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     }
 
     async function onNewStateChange(updatedMail) {
-        // await mailService.save(updatedMail)
-        // const updatedEmails = emails.map(mail =>
-        //     mail.id === updatedMail.id ? updatedMail : mail
-        // )
-        // onStateChange(updatedEmails)
         onUpdatedEmail(updatedMail)
     }
 

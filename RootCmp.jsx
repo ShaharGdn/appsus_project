@@ -17,7 +17,7 @@ import { NoteDetails } from "./apps/note/cmps/NoteDetails.jsx"
 export function App() {
     return <Router>
         <section className="app">
-            <AppHeader />
+            {/* <AppHeader /> */}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />

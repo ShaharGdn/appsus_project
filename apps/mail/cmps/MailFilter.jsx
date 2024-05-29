@@ -1,3 +1,5 @@
+import { AppHeader } from "../../../cmps/AppHeader.jsx"
+
 const { useState, useEffect } = React
 const { Link, NavLink } = ReactRouterDOM
 
@@ -21,6 +23,7 @@ export function TopMailFilter({ filterBy, onFilter }) {
             <input id="txt" onChange={handleChange} autoFocus name="txt" type="text" placeholder="Search mail" />
             <button type="submit"><i className="fa-light fa-magnifying-glass"></i></button>
         </section>
+        <AppHeader />
     </section>
 }
 
