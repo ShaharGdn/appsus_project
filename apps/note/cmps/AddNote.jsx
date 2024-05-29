@@ -24,6 +24,12 @@ export function AddNote({ onAddNote }) {
 
     function handleChange({ target }) {
         const { name, value } = target
+
+        // if (name === 'info.videoUrl') {
+        //     const newVal = noteService.embedVideoUrl(value)
+        //     setNote(prevNote => ({ ...prevNote, info: { ...prevNote.info, videoUrl: newVal } }))
+        //     return
+        // }
         const props = name.split('.')
 
         if (props.length === 1) {
@@ -34,7 +40,7 @@ export function AddNote({ onAddNote }) {
     }
 
     function addNote() {
-        if (!note.info.txt && !note.info.todos && !note.info.url) {
+        if (!note.info.txt && !note.info.todos && !note.info.url && !note.info.videoUrl) {
             resetMainInput()
             return
         }
@@ -45,7 +51,7 @@ export function AddNote({ onAddNote }) {
                 onAddNote(note)
                 resetMainInput()
                 showSuccessMsg('Note added successfully.')
-                
+
             })
             .catch(() => showErrorMsg('Could not add note.'))
     }

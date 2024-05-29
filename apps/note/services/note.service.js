@@ -12,6 +12,7 @@ export const noteService = {
     getEmptyNote,
     getFilterFromSearchParams,
     getDefaultFilter,
+    embedVideoUrl,
 }
 
 function query(filterBy = {}) {
@@ -41,11 +42,22 @@ function remove(noteId) {
 }
 
 function save(note) {
+    if (note.info.videoUrl) {
+        // const newNote = structuredClone(note)
+        const embedUrl = embedVideoUrl(note.info.videoUrl)
+        note.info.videoUrl = embedUrl
+    }
     if (note.id) {
         return asyncStorageService.put(NOTE_KEY, note)
     } else {
         return asyncStorageService.post(NOTE_KEY, note)
     }
+}
+function embedVideoUrl(videoUrl) {
+    const idStartIdx = (videoUrl).indexOf('=')
+    const videoId = (videoUrl).substring(idStartIdx + 1)
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`
+    return embedUrl
 }
 // function save(note, createdAt) {
 //     note.createdAt = createdAt
