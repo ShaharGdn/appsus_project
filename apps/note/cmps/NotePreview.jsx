@@ -2,7 +2,7 @@ const { useState } = React
 
 import { InputActionBar } from "./InputActionBar.jsx"
 
-export function NotePreview({ isPreview, isEditable, inputType, note, onChange, onClose, onRemove }) {
+export function NotePreview({ isPreview, isEditable, inputType, note, onChange, onClose, onRemove, onDuplicate }) {
     const [isPinned, setIsPinned] = useState(note.isPinned)
 
     function onTogglePin() {
@@ -37,7 +37,8 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
                 placeholder="Title" value={note.info.title || ''} onChange={onChange} />
             <DynamicNote cmpType={inputType} note={note} onChange={onChange} isEditable={isEditable} />
             {isEditable && <span className="edit-time">Edited: {note.createdAt}</span>}
-            <InputActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove} isEditable={isEditable} />
+            <InputActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove}
+            isEditable={isEditable} onDuplicate={onDuplicate}/>
 
             <button onClick={onTogglePin}>
                 <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>

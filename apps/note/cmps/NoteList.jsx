@@ -2,7 +2,7 @@ const { Link, Outlet } = ReactRouterDOM
 
 import { NotePreview } from "./NotePreview.jsx"
 
-export function NoteList({ notes, onRemove, isLoading, onSaveNote }) {
+export function NoteList({ notes, onRemove, isLoading, onSaveNote, onDuplicate }) {
     if (!notes.length) return <h2> Notes you add appear here</h2>
 
     const pinnedNotes = notes.filter(note => note.isPinned === true)
@@ -35,7 +35,7 @@ export function NoteList({ notes, onRemove, isLoading, onSaveNote }) {
                     </Link>
                 )}
         </ul>
-        <Outlet context={[onRemove, onSaveNote]} />
+        <Outlet context={[onRemove, onSaveNote, onDuplicate]} />
     </section >
 }
 

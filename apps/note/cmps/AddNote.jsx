@@ -24,12 +24,6 @@ export function AddNote({ onSaveNote }) {
 
     function handleChange({ target }) {
         const { name, value } = target
-
-        // if (name === 'info.videoUrl') {
-        //     const newVal = noteService.embedVideoUrl(value)
-        //     setNote(prevNote => ({ ...prevNote, info: { ...prevNote.info, videoUrl: newVal } }))
-        //     return
-        // }
         const props = name.split('.')
 
         if (props.length === 1) {

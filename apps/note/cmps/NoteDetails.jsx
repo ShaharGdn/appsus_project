@@ -8,7 +8,7 @@ import { utilService } from "../../../services/util.service.js"
 import { NotePreview } from "./NotePreview.jsx"
 
 export function NoteDetails() {
-    const [onRemove, onSaveNote] = useOutletContext()
+    const [onRemove, onSaveNote, onDuplicate] = useOutletContext()
     const [note, setNote] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [isEdited, setIsEdited] = useState(false)
@@ -19,15 +19,15 @@ export function NoteDetails() {
     useEffect(() => {
         setIsLoading(true)
         noteService.get(params.noteId)
-        .then(note => {
-            console.log('note before change', {note});
-            setNote(note)
-        })
-        .catch(() => {
-            showErrorMsg('Could not get note.')
-            navigate('/note')
-        })
-        .finally(() => setIsLoading(false))
+            .then(note => {
+                console.log('note before change', { note });
+                setNote(note)
+            })
+            .catch(() => {
+                showErrorMsg('Could not get note.')
+                navigate('/note')
+            })
+            .finally(() => setIsLoading(false))
 
     }, []) // params.noteId ?
 
@@ -50,21 +50,18 @@ export function NoteDetails() {
             return
         }
         saveEditedNote()
-        console.log('note after change',{note});
-
+        console.log('note after change', { note });
     }
-    
+
     function saveEditedNote() {
         const createdAt = utilService.getCurrentDateTime()
         // noteService.save(note, createdAt)
         noteService.save({ ...note, createdAt: createdAt })
-        .then(() => {
-            showSuccessMsg('Note edited successfully.')
-            navigate('/note')
-            
-            onSaveNote()
+            .then(() => {
+                showSuccessMsg('Note edited successfully.')
+                navigate('/note')
+                onSaveNote()
                 // resetMainInput()
-                // window.location.reload()
             })
             .catch(() => showErrorMsg('Could not edit note.'))
     }
@@ -73,8 +70,8 @@ export function NoteDetails() {
 
     return <section className="details-container">
         <section className="details-screen"></section>
-        <NotePreview isEditable={true} inputType={note.type} note={note}
-            onChange={handleChange} onClose={onCloseEdit} onRemove={onRemove}/>
+        <NotePreview isEditable={true} inputType={note.type} note={note} onChange={handleChange}
+            onClose={onCloseEdit} onRemove={onRemove} onDuplicate={onDuplicate} />
     </section>
 
 }
