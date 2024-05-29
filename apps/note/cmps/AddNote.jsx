@@ -5,7 +5,7 @@ import { utilService } from "../../../services/util.service.js"
 import { noteService } from "../services/note.service.js"
 import { NotePreview } from "./NotePreview.jsx"
 
-export function AddNote({ onAddNote }) {
+export function AddNote({ onSaveNote }) {
     const [note, setNote] = useState(noteService.getEmptyNote())
 
     const [isInputActive, setIsInputActive] = useState(false)
@@ -34,7 +34,7 @@ export function AddNote({ onAddNote }) {
     }
 
     function addNote() {
-        if (!note.info.txt && !note.info.todos && !note.info.url) {
+        if (!note.info.txt && !note.info.todos && !note.info.url && !note.info.videoUrl) {
             resetMainInput()
             return
         }
@@ -42,10 +42,10 @@ export function AddNote({ onAddNote }) {
         noteService.save({ ...note, createdAt: createdAt })
             .then(() => {
                 console.log('note id from AddNote:', note.id);
-                onAddNote(note)
                 resetMainInput()
                 showSuccessMsg('Note added successfully.')
-                
+                onSaveNote()
+
             })
             .catch(() => showErrorMsg('Could not add note.'))
     }
