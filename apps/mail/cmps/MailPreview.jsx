@@ -75,7 +75,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
         <article className={`mail-preview ${getClassName()}`}>
             <input type="checkbox" />
             {filterBy.trash ? <i className="fa-light fa-trash-can second"></i> : <StarredMail className="second" isStarred={newMail.isStarred} handleChange={handleChange} />}
-            {<span className="from" onClick={handleDraftClick}>{fullname}</span>}
+            {filterBy.box === 'drafts'? <span className="from-draft">Draft</span> : <span className="from" onClick={handleDraftClick}>{fullname}</span>}
             {<span className="subject" onClick={handleDraftClick}>{subject}</span>}
             {<span className="body" onClick={handleDraftClick}><LongTxt txt={body} /></span>}
             <span className="sentAt">{utilService.elapsedTime(sentAt)}</span>

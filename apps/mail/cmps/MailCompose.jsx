@@ -1,7 +1,7 @@
 import { mailService } from "../services/mail.service.js"
 
 const { useParams, useNavigate } = ReactRouter
-const { useOutletContext } = ReactRouterDOM
+const { useOutletContext, Link, NavLink } = ReactRouterDOM
 const { useState, useEffect, useRef } = React
 
 export function MailCompose() {
@@ -19,17 +19,18 @@ export function MailCompose() {
             const mailId = params.mailId
             mailService.get(mailId).then(editMail => {
                 setNewMail(editMail)
+                newMailRef.current = editMail
             })
         }
     }, [params.mailId])
 
     useEffect(() => {
         return () => {
-            saveMail(newMailRef.current)
-            onSetFilterBy({ box: filterBy.box })
-            // onSetFilterBy({ box: 'inbox' })
+            saveMail(newMailRef.current).then(() => {
+                onSetFilterBy({ box: filterBy.box })
+            })
         }
-    }, [])
+    }, [saveMail, onSetFilterBy, filterBy.box])
 
 
     function handleChange({ target }) {
@@ -41,18 +42,27 @@ export function MailCompose() {
             case 'number':
                 value = +value
                 break;
-
             case 'checkbox':
                 value = target.checked
                 break;
         }
-        setNewMail(prevMail => ({ ...prevMail, [prop]: value, sentAt: new Date() }))
+        const updatedMail = { ...newMailRef.current, [prop]: value, sentAt: new Date() }
+        setNewMail(updatedMail)
+        newMailRef.current = updatedMail
     }
 
+
     function onClose() {
-        // onSetFilterBy({ box: 'inbox' })
         navigate(`/mail/${filterBy.box}`)
-        // navigate('/mail/inbox')
+    }
+
+    function onSend() {
+        const updatedMail = { ...newMailRef.current, isDraft: false, sentAt: new Date() }
+        setNewMail(updatedMail)
+        newMailRef.current = updatedMail
+        saveMail(newMailRef.current).then(() => {
+            navigate(`/mail/${filterBy.box}`)
+        })
     }
 
     return (
@@ -78,7 +88,6 @@ export function MailCompose() {
                 </div>
                 <hr className="horizontal-line" />
                 <div className="input-group">
-                    {/* <label htmlFor="subject">Subject</label> */}
                     <input
                         type="text"
                         id="subject"
@@ -96,6 +105,9 @@ export function MailCompose() {
                     onInput={handleChange}
                     value={newMail.body}
                 />
+            </section>
+            <section className="bottom-ctrls">
+                <Link to={`/mail/${filterBy.box}`}><button className="send-btn" onClick={onSend}>Send</button></Link>
             </section>
         </div>
     );

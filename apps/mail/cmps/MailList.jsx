@@ -6,7 +6,7 @@ const { useState } = React
 
 export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     const [isFold, setFold] = useState({ readFold: false, unreadFold: false })
-    const [emailList, setEmails] = useState(emails)
+    // const [emailList, setEmails] = useState(emails)
 
     if (!filterBy.box) return
 
@@ -42,7 +42,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
                     Unread
                 </h3>
                 <ul>
-                    {emails.map(mail => (
+                    {emails.filter(mail => !mail.isRead).map(mail => (
                         <li key={mail.id}>
                             <MailPreview mail={mail} filterBy={filterBy} type={'unread'} isFold={isFold} onMailRemove={onMailRemove} onStateChange={onNewStateChange} />
                         </li>
@@ -53,7 +53,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
                     Everything else
                 </h3>
                 <ul>
-                    {emails.map(mail => (
+                    {emails.filter(mail => mail.isRead).map(mail => (
                         <li key={mail.id}>
                             <MailPreview mail={mail} filterBy={filterBy} type={'read'} isFold={isFold} onMailRemove={onMailRemove} onStateChange={onNewStateChange} />
                         </li>
@@ -73,4 +73,4 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
             </section>
         )
     )
-}
+}    

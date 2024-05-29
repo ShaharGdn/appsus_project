@@ -10,28 +10,30 @@ const { Outlet, useSearchParams } = ReactRouterDOM
 const { useState, useEffect } = React
 
 export function MailIndex() {
-    
+
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
     const mail = mailService.getEmptyEmail()
-    
+
     const [emails, setEmails] = useState([])
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
 
-    useEffect(() => {
-        setSearchParams(filterBy)
-        mailService.query().then(fetchedEmails => {
-            fetchedEmails.sort((e1, e2) => new Date(e2.sentAt) - new Date(e1.sentAt))
-            setEmails(fetchedEmails)
-        })
-    }, [])
-    
+    // useEffect(() => {
+    //     setSearchParams(filterBy)
+    //     mailService.query().then(fetchedEmails => {
+    //         fetchedEmails.sort((e1, e2) => new Date(e2.sentAt) - new Date(e1.sentAt))
+    //         setEmails(fetchedEmails)
+    //         console.log('imrerendering:')
+    //     })
+    // }, [])
+
     useEffect(() => {
         setSearchParams(filterBy)
         mailService.query(filterBy)
             .then(fetchedEmails => {
                 fetchedEmails.sort((e1, e2) => new Date(e2.sentAt) - new Date(e1.sentAt))
                 setEmails(fetchedEmails)
+
             })
     }, [filterBy])
 
@@ -48,17 +50,11 @@ export function MailIndex() {
             })
     }
 
-    function onUpdatedEmail(updatedMail) {
-        console.log('updatedMail:', updatedMail)
-        mailService.save(updatedMail).then(savedMail => {
-            const updatedEmails = emails.map(mail => (mail.id === savedMail.id ? savedMail : mail))
-            setEmails(updatedEmails)
+    async function onUpdatedEmail(updatedMail) {
+        await mailService.save(updatedMail).then(savedMail => {
+            setEmails(prevEmails => prevEmails.map(mail => (mail.id === savedMail.id ? savedMail : mail)));
         })
     }
-
-    // function onStateChange(updatedEmails) {
-    //     setEmails(updatedEmails)
-    // }
 
     return (
         <section className="content-grid mail-index">
@@ -70,7 +66,7 @@ export function MailIndex() {
             </section>
             <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
             <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-            {params.mailId && filterBy.box !== 'drafts' && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} filterBy={filterBy}/> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} />}
+            {params.mailId && filterBy.box !== 'drafts' && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} filterBy={filterBy} /> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} />}
             <Outlet context={[onUpdatedEmail, mail, onSetFilterBy, filterBy]} />
         </section>
     )
