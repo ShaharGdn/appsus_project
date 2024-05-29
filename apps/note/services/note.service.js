@@ -19,7 +19,7 @@ function query(filterBy = {}) {
         .then(notes => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                notes = notes.filter(note => (regExp.test(note.info.txt) || regExp.test(note.info.title)) )
+                notes = notes.filter(note => (regExp.test(note.info.txt) || regExp.test(note.info.title)))
             }
             if (filterBy.type) {
                 const regExp = new RegExp(filterBy.type, 'i')
@@ -91,41 +91,136 @@ function getDefaultFilter(filterBy = { txt: '', type: '' }) {
 function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
-        notes = []
-        for (let i = 0; i < 5; i++) {
-
-            const colors = [
-                '#fff',
-                '#faafa8',
-                '#f39f76',
-                '#fff8b8',
-                '#e2f6d3',
-                '#b4ddd3',
-                '#d4e4ed',
-                '#aeccdc',
-                '#d3bfdb',
-                '#f6e2dd',
-                '#e9e3d4',
-                '#f6e2dd',
-                '#efeff1',
-            ]
-
-            const note = {
+        notes = [
+            {
                 id: utilService.makeId(5),
                 createdAt: utilService.randomPastTime().toLocaleString(),
                 type: 'NoteTxt',
                 isPinned: false,
                 style: {
-                    backgroundColor: colors[utilService.getRandomIntInclusive(0, colors.length - 1)]
+                    backgroundColor: '#faafa8'
                 },
                 info: {
-                    title: utilService.makeLorem(2),
-                    txt: utilService.makeLorem(utilService.getRandomIntInclusive(2, 10))
+                    title: 'Project deadline reminder',
+                    txt: 'Submit report by Friday, no exceptions.'
                 }
-            }
-            notes.push(note)
-        }
-        utilService.saveToStorage(NOTE_KEY, notes)
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteImg',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#d4e4ed'
+                },
+                info: {
+                    title: 'Special day',
+                    url: 'https://picsum.photos/200'
+                }
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteTxt',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#fff8b8'
+                },
+                info: {
+                    title: 'Call studio',
+                    txt: 'Sign up for class on Friday and check if they are willing to extend membership, ask to speak to Jenny if needed.'
+                }
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteVideo',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#e2f6d3'
+                },
+                info: {
+                    title: 'Get tickets',
+                    videoUrl: 'https://www.youtube.com/embed/52Upr_5fusc'
+                }
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteVideo',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#d3bfdb'
+                },
+                info: {
+                    title: 'Micky\'s song',
+                    videoUrl: 'https://www.youtube.com/embed/wSaDElz7wSI'
+                }
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteImg',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#b4ddd3'
+                },
+                info: {
+                    title: 'Trip',
+                    url: 'https://picsum.photos/201'
+                }
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteTxt',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#f39f76'
+                },
+                info: {
+                    title: 'Dan\'s Minestrone',
+                    txt: `Heat olive oil in a large pot over medium heat.
+                    Add chopped onion and minced garlic, and sauté until softened and fragrant, about 2-3 minutes. 
+                    Stir in diced carrots, celery, and zucchini, and cook for another 5 minutes until slightly softened. 
+                    Add canned diced tomatoes (with juices) and vegetable broth to the pot. Bring to a simmer. 
+                    Once simmering, add drained and rinsed cannellini beans and pasta to the pot. Cook for about 10-12 minutes, or until the pasta is al dente. 
+                    Stir in chopped spinach or kale, dried oregano, and dried basil. Let the soup simmer for another 2-3 minutes until the greens are wilted. 
+                    Season the soup with salt and pepper to taste. 
+                    Ladle the Vegan Minestrone Soup into bowls and garnish with fresh chopped basil. 
+                    Serve hot with a sprinkle of vegan parmesan cheese on top, if desired.
+                    Call Wolt.`
+                }
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteImg',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#f6e2dd'
+                },
+                info: {
+                    title: 'For cover',
+                    url: 'https://picsum.photos/210'
+                }
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteTxt',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#efeff1'
+                },
+                info: {
+                    title: 'Vacation',
+                    txt: 'Flight to New York on June 15th, hotel reservation at Hilton Times Square, Broadway show tickets for Saturday night.'
+                }
+            },
+        ]
     }
+    utilService.saveToStorage(NOTE_KEY, notes)
 }
+
 
