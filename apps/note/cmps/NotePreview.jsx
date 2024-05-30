@@ -2,7 +2,7 @@ const { useState } = React
 
 import { InputActionBar } from "./InputActionBar.jsx"
 
-export function NotePreview({ isPreview, isEditable, inputType, note, onChange, onClose, onRemove }) {
+export function NotePreview({ isPreview, isEditable, inputType, note, onChange, onClose, onRemove, onDuplicate }) {
     const [isPinned, setIsPinned] = useState(note.isPinned)
 
     function onTogglePin() {
@@ -13,7 +13,7 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
         })
     }
 
-    const { txt, title, url } = note.info
+    const { txt, title, url, videoUrl, todos } = note.info
     const isLongText = (txt && txt.length) > 250
 
     if (isPreview) {
@@ -21,6 +21,12 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             <h3>{title}</h3>
             {txt && <p>{isLongText ? txt.substring(0, 250) + `...` : txt}</p>}
             {url && <img src={note.info.url} alt="note image" />}
+            {videoUrl && <iframe width="200" height="150" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>}
+
+            {todos && <ul>
+                {todos.map(todo => <li>{todo.txt}</li>)}
+                </ul> }
+                
             <button>
                 <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>
             </button>
@@ -31,7 +37,8 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
                 placeholder="Title" value={note.info.title || ''} onChange={onChange} />
             <DynamicNote cmpType={inputType} note={note} onChange={onChange} isEditable={isEditable} />
             {isEditable && <span className="edit-time">Edited: {note.createdAt}</span>}
-            <InputActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove} isEditable={isEditable} />
+            <InputActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove}
+            isEditable={isEditable} onDuplicate={onDuplicate}/>
 
             <button onClick={onTogglePin}>
                 <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>
@@ -60,11 +67,21 @@ function NoteTxt({ note, onChange }) {
         value={note.info.txt || ''} onChange={onChange}></textarea>
 }
 
-function NoteTodos({ name, handleClick }) {
-    return <h1 onClick={handleClick}>Bye <u>{name}</u></h1>
+function NoteTodos({ note, onChange }) {
+    // const { todos } = note.info
+    // return todos.map((todo, idx) => 
+    // <form>
+    //     <input id={idx} type="checkbox"  />
+    //         <label htmlFor={idx}>
+    //             <input type="text" placeholder="List item" onChange={onChange} 
+    //             name="todo.txt" value={todo.txt}/>
+    //         </label>
+    // </form>)
+
 }
 
 function NoteImg({ note, onChange, isEditable }) {
+        console.log("note.info.videoUrl", note.info.videoUrl)
     return <React.Fragment>
         {isEditable && <img src={note.info.url} alt="note image" />}
         <input className="txt-input" type="text" name="info.url"
@@ -72,8 +89,77 @@ function NoteImg({ note, onChange, isEditable }) {
     </React.Fragment>
 }
 
-function NoteVideo({ name }) {
-    return <h1>Welcome back <u>{name}</u></h1>
+function NoteVideo({ note, onChange, isEditable }) {
+    return <React.Fragment>
+        {isEditable && <iframe
+            width="500"
+            height="315"
+            src={note.info.videoUrl}
+            frameBorder="0"
+            allowFullScreen>
+        </iframe>}
+        <input className="txt-input" type="text" name="info.videoUrl"
+            placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
+    </React.Fragment>
+    
+    // if ( isPreview || isEditable) {
+    //     // const idStartIdx = (note.info.videoUrl).indexOf('=')
+    //     // const videoId = (note.info.videoUrl).substring(idStartIdx + 1)
+    //     // console.log('url:', `https://www.youtube.com/embed/${videoId}`);
+    //     return <React.Fragment>
+    //         {isEditable && <iframe
+    //             width="560"
+    //             height="315"
+    //             src={note.info.videoUrl}
+    //             frameBorder="0"
+    //             allowFullScreen
+    //         ></iframe>}
+    //                 {console.log("videoId", videoId)}
+
+    //         <input className="txt-input" type="text" name="info.videoUrl"
+    //             placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
+    //     </React.Fragment>
+    // } else {
+    //     return <React.Fragment>
+    //         <input className="txt-input" type="text" name="info.videoUrl"
+    //             placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
+    //     </React.Fragment>
+
+    // }
 }
+
+// function NoteVideo({ note, onChange, isEditable, isPreview }) {
+//     console.log("note.info.videoUrl", note.info.videoUrl);
+    
+//     if ( isPreview || isEditable) {
+//         const idStartIdx = (note.info.videoUrl).indexOf('=')
+//         const videoId = (note.info.videoUrl).substring(idStartIdx + 1)
+//         console.log('url:', `https://www.youtube.com/embed/${videoId}`);
+//         return <React.Fragment>
+//             {isEditable && <iframe
+//                 width="560"
+//                 height="315"
+//                 src={`https://www.youtube.com/embed/${videoId}`}
+//                 frameBorder="0"
+//                 allowFullScreen
+//             ></iframe>}
+//                     {console.log("videoId", videoId)}
+
+//             <input className="txt-input" type="text" name="info.videoUrl"
+//                 placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
+//         </React.Fragment>
+//     } else {
+//         return <React.Fragment>
+//             <input className="txt-input" type="text" name="info.videoUrl"
+//                 placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
+//         </React.Fragment>
+
+//     }
+// }
+
+
+
+
+
 
 
