@@ -16,14 +16,15 @@ export function StarredMail({ isStarred, handleChange }) {
     }
 
     return (
-        <div className={'starred'} >
+        <div className={'starred'}>
             <span
                 key={utilService.makeId()}
                 className={`star ${isStarOn ? 'on' : 'off'}`}
                 onClick={onToggleStar}
             >
-                &#9733;
+                {isStarOn ? '\u2605' : '\u2606'}
             </span>
         </div>
     )
 }
+    

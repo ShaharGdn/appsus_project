@@ -46,7 +46,7 @@ export function MailDetails({ onUpdatedEmail, onRemove, filterBy }) {
                     <span className="from-email">{`<${fromEmail}>`}</span>
                 </div>
             </div>
-            <span>{mailUtilService.formatTimestamp(sentAt)}</span>
+            <span className="sent-at">{mailUtilService.formatTimestamp(sentAt)}</span>
         </section>
     }
 

@@ -17,27 +17,43 @@ export function MailIndex() {
 
     const [emails, setEmails] = useState([])
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+    const [sortBy, setSortBy] = useState(mailService.getSortFromSearchParams(searchParams))
     const [unreadCount, setUnreadCount] = useState(0)
 
     useEffect(() => {
-        setSearchParams()
+        const combinedParams = { ...filterBy, ...sortBy }
+        setSearchParams(combinedParams)
         mailService.query().then(fetchedEmails => {
-            const unread = fetchedEmails.filter(email=> !email.isRead)
+            const unread = fetchedEmails.filter(email => !email.isRead)
             setUnreadCount(unread.length)
         })
     }, [emails])
 
     useEffect(() => {
-        setSearchParams(filterBy)
-        mailService.query(filterBy)
-            .then(fetchedEmails => {
-                fetchedEmails.sort((e1, e2) => new Date(e2.sentAt) - new Date(e1.sentAt))
-                setEmails(fetchedEmails)
-            })
-    }, [filterBy])
+        const combinedParams = { ...filterBy, ...sortBy }
+        setSearchParams(combinedParams)
+        mailService.query(combinedParams).then(fetchedEmails => {
+            if (sortBy.sort === 'subject') {
+                fetchedEmails.sort((e1, e2) => {
+                    const result = e1.subject.localeCompare(e2.subject)
+                    return sortBy.order === 'dsc' ? -result : result
+                })
+            } else if (sortBy.sort === 'date') {
+                fetchedEmails.sort((e1, e2) => {
+                    const result = new Date(e1.sentAt) - new Date(e2.sentAt)
+                    return sortBy.order === 'dsc' ? -result : result
+                })
+            }
+            setEmails(fetchedEmails)
+        })
+    }, [filterBy, sortBy])
 
     function onSetFilterBy(newFilter) {
         setFilterBy(newFilter)
+    }
+
+    function onSetSortBy(newSort) {
+        setSortBy(newSort)
     }
 
     function onRemove(email) {
@@ -50,18 +66,13 @@ export function MailIndex() {
     }
 
     async function onUpdatedEmail(updatedMail) {
+        console.log('updating:')
         await mailService.save(updatedMail).then(savedMail => {
             setEmails(prevEmails => prevEmails.map(mail => (mail.id === savedMail.id ? savedMail : mail)));
             return savedMail
         })
     }
-    async function countUnreadEmails() {
-        const allEmails = await mailService.query()
-        const unreadCount = allEmails.filter(email => !email.isRead).length
-        return unreadCount
-    }
-    
-    
+
     return (
         <section className="content-grid mail-index">
             <section className="menu-bar">
@@ -70,8 +81,8 @@ export function MailIndex() {
                 </button>
                 <img src="assets/imgs/logo_gmail.png" alt="logo" />
             </section>
-            <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} />
-            <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadCount={unreadCount}/>
+            <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} sortBy={sortBy} onSetSortBy={onSetSortBy}/>
+            <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadCount={unreadCount} />
             {params.mailId && filterBy.box !== 'drafts' && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} filterBy={filterBy} /> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} />}
             <Outlet context={[onUpdatedEmail, mail, onSetFilterBy, filterBy, onRemove]} />
         </section>

@@ -21,6 +21,7 @@ export const mailService = {
     _createEmail,
     getDefaultFilter,
     getFilterFromSearchParams,
+    getSortFromSearchParams,
     _setNextPrevEmailId,
     removeLabel,
     saveLabel,
@@ -58,56 +59,56 @@ function query(filterBy = {}) {
                 mails = mails.filter(mail =>
                     mail.isStarred
                 )
-            } 
+            }
             if (filterBy.box === 'trash') {
                 mails = mails.filter(mail =>
                     mail.removedAt
                 )
-            } 
+            }
             if (filterBy.box === 'snoozed') {
                 mails = mails.filter(mail =>
                     mail.isSnoozed
                 )
-            } 
+            }
             if (filterBy.box === 'drafts') {
                 mails = mails.filter(mail =>
                     mail.isDraft
                 )
-            } 
-            // if (filterBy.inbox) {
-            //     mails = mails.filter(mail =>
-            //         mail.to.email === loggedInUser.email
-            //     )
-            // }
-            // if (filterBy.sent) {
-            //     mails = mails.filter(mail =>
-            //         mail.to.email !== loggedInUser.email
-            //     )
-            // }
-            // if (filterBy.starred) {
-            //     mails = mails.filter(mail =>
-            //         mail.isStarred
-            //     )
-            // } 
-            // if (filterBy.trash) {
-            //     mails = mails.filter(mail =>
-            //         mail.removedAt
-            //     )
-            // } 
-            // if (filterBy.snoozed) {
-            //     mails = mails.filter(mail =>
-            //         mail.isSnoozed
-            //     )
-            // } 
-            // if (filterBy.drafts) {
-            //     mails = mails.filter(mail =>
-            //         mail.isDraft
-            //     )
-            // } 
+            }
+            // // if (filterBy.inbox) {
+            // //     mails = mails.filter(mail =>
+            // //         mail.to.email === loggedInUser.email
+            // //     )
+            // // }
+            // // if (filterBy.sent) {
+            // //     mails = mails.filter(mail =>
+            // //         mail.to.email !== loggedInUser.email
+            // //     )
+            // // }
+            // // if (filterBy.starred) {
+            // //     mails = mails.filter(mail =>
+            // //         mail.isStarred
+            // //     )
+            // // } 
+            // // if (filterBy.trash) {
+            // //     mails = mails.filter(mail =>
+            // //         mail.removedAt
+            // //     )
+            // // } 
+            // // if (filterBy.snoozed) {
+            // //     mails = mails.filter(mail =>
+            // //         mail.isSnoozed
+            // //     )
+            // // } 
+            // // if (filterBy.drafts) {
+            // //     mails = mails.filter(mail =>
+            // //         mail.isDraft
+            // //     )
+            // // } 
 
 
-            // Default sorting by sentAt in descending order (newest first)
-            mails.sort((p1, p2) => p2.sentAt - p1.sentAt)
+            // // Default sorting by sentAt in descending order (newest first)
+            // mails.sort((p1, p2) => p2.sentAt - p1.sentAt)
 
             return mails
         })
@@ -140,7 +141,6 @@ function save(mail) {
 // an empty mail obj template
 function getEmptyEmail() {
     const mail = {
-        // id: utilService.makeId(),
         subject: '',
         body: '',
         isRead: false,
@@ -169,10 +169,13 @@ function getFilterFromSearchParams(searchParams) {
     }
 }
 
-// function getDefaultSort(SortBy = { date: '' }) {
-//     sortBy[prop] = (isDesc) ? -1 : 1
-//     return { date: SortBy.date }
-// }
+
+function getSortFromSearchParams(searchParams) {
+    return {
+        sort: searchParams.get('sort') || 'date',
+        order: searchParams.get('order') || 'dec'
+    }
+}
 
 // create 19 random mails. save to storage
 function _createEmails() {

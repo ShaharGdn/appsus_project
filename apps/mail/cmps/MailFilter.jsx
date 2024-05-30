@@ -4,25 +4,45 @@ const { useState, useEffect } = React
 const { Link, NavLink } = ReactRouterDOM
 
 
-export function TopMailFilter({ filterBy, onFilter }) {
-    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+export function TopMailFilter({ onFilter, onSetSortBy }) {
+    const [isSortByOpen, setSortByOpen] = useState(false)
+    const [isAscending, setSortOrder] = useState()
 
-    useEffect(() => {
-        onFilter(filterByToEdit)
-    }, [filterByToEdit])
-
-    function handleChange({ target }) {
+    function handleChange({ target }, kind) {
+        // setSortByOpen(!isSortByOpen)
         const { name, type } = target
         const value = (type === 'number') ? +target.value : target.value
 
-        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [name]: value }))
+        if (kind === 'filter') {
+            onFilter(prevFilterBy => ({ 
+                ...prevFilterBy,
+                 [name]: value 
+                })) 
+        } else {
+            setSortOrder(!isAscending)
+            onSetSortBy(prevSortBy => ({
+                ...prevSortBy,
+                [name]: value,
+                order: isAscending ? 'asc' : 'dsc'
+            }))
+        }
     }
 
     return <section className="mail-top-filter">
         <section className="search-container">
-            <input id="txt" onChange={handleChange} autoFocus name="txt" type="text" placeholder="Search mail" />
+            <input id="txt" onChange={(ev)=> handleChange(ev, 'filter')} autoFocus name="txt" type="text" placeholder="Search mail" />
             <button type="submit"><i className="fa-light fa-magnifying-glass"></i></button>
         </section>
+        <div className={`sort-by-container ${isSortByOpen? 'sort-by-open' : ''}`}>
+            <button className="sort-by" onClick={() => setSortByOpen(!isSortByOpen)}>
+                <i className="fa-light fa-filter-list"></i>
+            </button>
+            {isSortByOpen && <section className="sort-by-btns">
+                <span>Sort By:</span>
+                <button className="sort-btn" onClick={()=>handleChange({target: {name:'sort', value:'subject'}})}>Subject</button>
+                <button className="sort-btn"onClick={()=>handleChange({target: {name:'sort', value:'date'}})}>Date</button>
+            </section>}
+        </div>
         <AppHeader />
     </section>
 }
@@ -50,7 +70,7 @@ export function SideMailFilter({ filterBy, onFilter, unreadCount }) {
         <NavLink to='/mail/inbox' className="side-link inbox" onClick={() => handleChange('inbox')}>
             <i className="fa-light fa-inbox"></i>
             <span>Inbox</span>
-            <span className="unread-count">{unreadCount? unreadCount : ''}</span>
+            <span className="unread-count">{unreadCount ? unreadCount : ''}</span>
         </NavLink>
         <NavLink to='/mail/starred' className="side-link" onClick={() => handleChange('starred')}>
             <i className="fa-light fa-star"></i>

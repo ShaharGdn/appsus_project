@@ -82,3 +82,12 @@
     margin-inline-end: 5em;
     line-height: 1.7em;
 }
+
+.mail-details .sent-at {
+    font-size: 0.7em;
+}
+
+.mail-details .starred {
+    display: flex;
+    align-items: center;
+}
