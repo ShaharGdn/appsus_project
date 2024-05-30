@@ -35,3 +35,9 @@
 .input-action-bar .fa-solid  {
     rotate: 360deg;
 }
+
+.send-email:hover .fa-envelope::before {
+    content: '\f658';
+}
+
+

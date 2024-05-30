@@ -23,14 +23,17 @@ export function InputActionBar({ onClose, note, onChange, onRemove, onDuplicate,
 
     function onSendToEmail() {
         const { title, txt, url, videoUrl } = note.info
-        let body
+        let body = ''
         switch (note.type) {
             case 'NoteTxt':
                 body = txt
+                break;
             case 'NoteImg':
                 body = url
+                break;
             case 'NoteVideo':
                 body = videoUrl
+                break;
         }
         navigate(`/mail/compose?subject=${title}&body=${body}`)
     }
@@ -41,11 +44,10 @@ export function InputActionBar({ onClose, note, onChange, onRemove, onDuplicate,
                 <i className={`fa-palette ${isColorOpen === true ? 'fa-solid' : 'fa-regular'}`}></i>
             </button>
             {isEditable && <button onClick={onDuplicateNote}><i className="fa-regular fa-copy"></i></button>}
-            {isEditable && <button onClick={(ev) => onRemoveNote(ev)}>
+            {isEditable && <button className="remove" onClick={(ev) => onRemoveNote(ev)}>
                 <i className="fa-regular fa-trash-can"></i>
             </button>}
-            {isEditable && <button onClick={onSendToEmail}>
-                {/* <i class="fa-solid fa-envelope-open-text"></i> */}
+            {isEditable && <button className="send-email" onClick={onSendToEmail}>
                 <i className="fa-sharp fa-regular fa-envelope"></i>
             </button>}
             {isColorOpen && <ColorPicker note={note} onChange={onChange} />}
