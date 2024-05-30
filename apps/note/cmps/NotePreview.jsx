@@ -25,8 +25,8 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
 
             {todos && <ul>
                 {todos.map(todo => <li>{todo.txt}</li>)}
-                </ul> }
-                
+            </ul>}
+
             <button>
                 <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>
             </button>
@@ -38,7 +38,7 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             <DynamicNote cmpType={inputType} note={note} onChange={onChange} isEditable={isEditable} />
             {isEditable && <span className="edit-time">Edited: {note.createdAt}</span>}
             <InputActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove}
-            isEditable={isEditable} onDuplicate={onDuplicate}/>
+                isEditable={isEditable} onDuplicate={onDuplicate} />
 
             <button onClick={onTogglePin}>
                 <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>
@@ -81,7 +81,6 @@ function NoteTodos({ note, onChange }) {
 }
 
 function NoteImg({ note, onChange, isEditable }) {
-        console.log("note.info.videoUrl", note.info.videoUrl)
     return <React.Fragment>
         {isEditable && <img src={note.info.url} alt="note image" />}
         <input className="txt-input" type="text" name="info.url"
@@ -101,61 +100,7 @@ function NoteVideo({ note, onChange, isEditable }) {
         <input className="txt-input" type="text" name="info.videoUrl"
             placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
     </React.Fragment>
-    
-    // if ( isPreview || isEditable) {
-    //     // const idStartIdx = (note.info.videoUrl).indexOf('=')
-    //     // const videoId = (note.info.videoUrl).substring(idStartIdx + 1)
-    //     // console.log('url:', `https://www.youtube.com/embed/${videoId}`);
-    //     return <React.Fragment>
-    //         {isEditable && <iframe
-    //             width="560"
-    //             height="315"
-    //             src={note.info.videoUrl}
-    //             frameBorder="0"
-    //             allowFullScreen
-    //         ></iframe>}
-    //                 {console.log("videoId", videoId)}
-
-    //         <input className="txt-input" type="text" name="info.videoUrl"
-    //             placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
-    //     </React.Fragment>
-    // } else {
-    //     return <React.Fragment>
-    //         <input className="txt-input" type="text" name="info.videoUrl"
-    //             placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
-    //     </React.Fragment>
-
-    // }
 }
-
-// function NoteVideo({ note, onChange, isEditable, isPreview }) {
-//     console.log("note.info.videoUrl", note.info.videoUrl);
-    
-//     if ( isPreview || isEditable) {
-//         const idStartIdx = (note.info.videoUrl).indexOf('=')
-//         const videoId = (note.info.videoUrl).substring(idStartIdx + 1)
-//         console.log('url:', `https://www.youtube.com/embed/${videoId}`);
-//         return <React.Fragment>
-//             {isEditable && <iframe
-//                 width="560"
-//                 height="315"
-//                 src={`https://www.youtube.com/embed/${videoId}`}
-//                 frameBorder="0"
-//                 allowFullScreen
-//             ></iframe>}
-//                     {console.log("videoId", videoId)}
-
-//             <input className="txt-input" type="text" name="info.videoUrl"
-//                 placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
-//         </React.Fragment>
-//     } else {
-//         return <React.Fragment>
-//             <input className="txt-input" type="text" name="info.videoUrl"
-//                 placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
-//         </React.Fragment>
-
-//     }
-// }
 
 
 

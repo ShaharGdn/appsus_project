@@ -1,4 +1,6 @@
-const { useState } = React
+const { useState, useEffect } = React
+
+const { useSearchParams } = ReactRouterDOM
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
@@ -7,9 +9,21 @@ import { NotePreview } from "./NotePreview.jsx"
 
 export function AddNote({ onSaveNote }) {
     const [note, setNote] = useState(noteService.getEmptyNote())
-
     const [isInputActive, setIsInputActive] = useState(false)
     const [inputType, setInputType] = useState('NoteTxt')
+
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    useEffect(() => {
+        if (searchParams.size > 0) turnMailtoNote(searchParams)
+    }, [])
+
+    function turnMailtoNote(searchParams) {
+        const mail = noteService.getMailFromSearchParams(searchParams)
+        setIsInputActive(true)
+        setNote(prevNote => ({ ...prevNote, info: { title: mail.subject, txt: mail.body } }))
+    }
+
 
     function showInputBox({ target }) {
         if (target.value === '' || target.value.length > 1 || isInputActive === true) return

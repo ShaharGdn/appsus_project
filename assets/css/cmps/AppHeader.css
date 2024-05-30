@@ -36,10 +36,12 @@ nav a.active {
     cursor: pointer;
     font-weight: 100;
     color: #5F6367;
+    border-radius: 50%;
+    padding: 0.1em 0.55em;
 }
 
 .app-header-btn:hover {
-    border-radius: 500em;
+    /* border-radius: 500em; */
     background-color: var(--gm-hover-link);
 }
 

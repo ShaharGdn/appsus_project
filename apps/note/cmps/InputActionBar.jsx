@@ -21,6 +21,20 @@ export function InputActionBar({ onClose, note, onChange, onRemove, onDuplicate,
         navigate('/note')
     }
 
+    function onSendToEmail() {
+        const { title, txt, url, videoUrl } = note.info
+        let body
+        switch (note.type) {
+            case 'NoteTxt':
+                body = txt
+            case 'NoteImg':
+                body = url
+            case 'NoteVideo':
+                body = videoUrl
+        }
+        navigate(`/mail/compose?subject=${title}&body=${body}`)
+    }
+
     return <section className="input-action-bar">
         <div>
             <button onClick={toggleColorPicker}>
@@ -29,6 +43,10 @@ export function InputActionBar({ onClose, note, onChange, onRemove, onDuplicate,
             {isEditable && <button onClick={onDuplicateNote}><i className="fa-regular fa-copy"></i></button>}
             {isEditable && <button onClick={(ev) => onRemoveNote(ev)}>
                 <i className="fa-regular fa-trash-can"></i>
+            </button>}
+            {isEditable && <button onClick={onSendToEmail}>
+                {/* <i class="fa-solid fa-envelope-open-text"></i> */}
+                <i className="fa-sharp fa-regular fa-envelope"></i>
             </button>}
             {isColorOpen && <ColorPicker note={note} onChange={onChange} />}
         </div>
