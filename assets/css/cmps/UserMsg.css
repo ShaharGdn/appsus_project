@@ -42,13 +42,13 @@
 
 /* option 2 */
 .user-msg.success {
-    background-color: #f7c547e4;
+    background-color: #bed96ad0;
     color: var(--n-font-clr);
 }
 
 .user-msg.error {
-    background-color: #333432e6;
-    color: #eeccce;
+    background-color: #e3967dd0;
+    color: var(--n-font-clr);
 }
 
 .user-msg span {

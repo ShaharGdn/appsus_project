@@ -13,14 +13,14 @@ export function NoteDetails() {
     const [isLoading, setIsLoading] = useState(true)
     const [isEdited, setIsEdited] = useState(false)
 
-
     const params = useParams()
     const navigate = useNavigate()
+
     useEffect(() => {
+
         setIsLoading(true)
         noteService.get(params.noteId)
             .then(note => {
-                console.log('note before change', { note });
                 setNote(note)
             })
             .catch(() => {
@@ -50,7 +50,6 @@ export function NoteDetails() {
             return
         }
         saveEditedNote()
-        console.log('note after change', { note });
     }
 
     function saveEditedNote() {

@@ -12,6 +12,7 @@ export const noteService = {
     getEmptyNote,
     getFilterFromSearchParams,
     getDefaultFilter,
+    getMailFromSearchParams,
 }
 
 function query(filterBy = {}) {
@@ -71,6 +72,13 @@ function getEmptyNote() {
         info: {
             title: '',
         }
+    }
+}
+
+function getMailFromSearchParams(searchParams) {
+    return {
+        subject: searchParams.get('subject'),
+        body: searchParams.get('body')
     }
 }
 
