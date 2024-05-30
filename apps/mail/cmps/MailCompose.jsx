@@ -1,18 +1,34 @@
+import { useLayoutEffect } from "react"
 import { mailService } from "../services/mail.service.js"
 
 const { useParams, useNavigate } = ReactRouter
-const { useOutletContext, Link, NavLink } = ReactRouterDOM
+const { useOutletContext, Link, NavLink, useSearchParams } = ReactRouterDOM
+
 const { useState, useEffect, useRef } = React
 
 export function MailCompose() {
-    const [saveMail, mail, onSetFilterBy, filterBy, onRemove] = useOutletContext()
-    const [newMail, setNewMail] = useState(mail)
-
     const params = useParams()
     const navigate = useNavigate()
 
+
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [saveMail, mail, onSetFilterBy, filterBy, onRemove] = useOutletContext()
+
+    const [newMail, setNewMail] = useState(mail)
+    const [openState, setOpenState] = useState('full')
+    
     const newMailRef = useRef(newMail)
     newMailRef.current = newMail
+
+    const noteSubject = mailService.getNoteFromSearchParams(searchParams).subject
+    const noteBody = mailService.getNoteFromSearchParams(searchParams).body
+
+
+    useEffect(() => {
+        if (noteSubject || noteBody) {
+            setNewMail(prevMail => ({ ...prevMail, subject: noteSubject, body: noteBody }))
+        }
+    }, [])
 
     useEffect(() => {
         if (params.mailId) {
@@ -81,12 +97,12 @@ export function MailCompose() {
     }
 
     return (
-        <div className="compose-mail">
+        <div className={`compose-mail ${openState}`}>
             <section className="compose-header">
                 <h1>New Message</h1>
                 <section className="ctrl-btns">
-                    <button className="minimize-btn"><i className="fa-solid fa-window-minimize"></i></button>
-                    <button className="maximize-btn"><i className="fa-solid fa-arrow-up-right-and-arrow-down-left-from-center"></i></button>
+                    <button className="minimize-btn" onClick={() => setOpenState(openState === 'mini' ? 'open' : 'mini')}><i className="fa-solid fa-window-minimize"></i></button>
+                    <button className="maximize-btn" onClick={() => setOpenState(openState === 'full' ? 'open' : 'full')}><i className="fa-solid fa-arrow-up-right-and-arrow-down-left-from-center"></i></button>
                     <button className="close-btn" onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
                 </section>
             </section>
@@ -108,7 +124,7 @@ export function MailCompose() {
                         id="subject"
                         name="subject"
                         onInput={handleChange}
-                        value={newMail.subject}
+                        value={newMail.subject || ''}
                         placeholder="Subject"
                     />
                 </div>
@@ -118,12 +134,15 @@ export function MailCompose() {
                     className="mail-body"
                     name="body"
                     onInput={handleChange}
-                    value={newMail.body}
+                    value={newMail.body || ''}
                 />
             </section>
             <section className="bottom-ctrls">
                 <Link to={`/mail/${filterBy.box}`}><button className="send-btn" onClick={onSend}>Send</button></Link>
-                <Link to={`/mail/${filterBy.box}`}><button className="exit-btn" onClick={onDiscard}><i className="fa-regular fa-trash-can"></i></button></Link>
+                <div>
+                    <Link to={`/note/?subject=${newMail.subject}&body=${newMail.body}`}><button className="to-note-btn"><i className="fa-regular fa-note-sticky"></i></button></Link>
+                    <Link to={`/mail/${filterBy.box}`}><button className="exit-btn" onClick={onDiscard}><i className="fa-regular fa-trash-can"></i></button></Link>
+                </div>
             </section>
         </div>
     );

@@ -22,9 +22,9 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     
     if (type === 'read' && !isRead || type === 'read' && isFold.readFold) return
     if (type === 'unread' && isRead || type === 'unread' && isFold.unreadFold) return
+    if (filterBy.box !== 'snoozed' && isSnoozed || filterBy.box === 'snoozed' && !isSnoozed) return
     if (filterBy.box !== 'drafts' && isDraft) return
     if (filterBy.box !== 'trash' && removedAt) return
-    if (filterBy.box !== 'snoozed' && isSnoozed || filterBy.box === 'snoozed' && !isSnoozed) return
     if (filterBy.box === 'starred' && !isStarred) return
     
     function getClassName() {
@@ -44,7 +44,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     
 
     function onTrashClick() {
-        if (filterBy.box === 'trash') {
+        if (filterBy.box === 'trash' || filterBy.box === 'drafts') {
             onMailRemove(mail)
         } else {
             handleChange({ type: 'removedAt', state: new Date() })

@@ -29,7 +29,6 @@
     padding-left: 0;
     padding-right: 0;
     -webkit-font-smoothing: antialiased;
-    /* font-family: "Google Sans", Roboto, , Helvetica, Arial, sans-serif; */
     font-size: .875rem;
     letter-spacing: normal;
     font-weight: 500;
@@ -122,56 +121,45 @@
     padding: 1em;
 }
 
+.compose-mail .bottom-ctrls .to-note-btn {
+    border: none;
+    background-color: transparent;
+    font-size: 1.02em;
+    cursor: pointer;
+    transition: scale 0.5s ease-in-out;
+}
+
+.compose-mail .bottom-ctrls .to-note-btn:hover, .exit-btn:hover {
+    scale: 1.05;
+}
+
 .compose-mail .exit-btn {
-    align-self: end;
-    flex: 1;
     border: none;
     background-color: transparent;
     font-size: 1em;
     cursor: pointer;
 }
 
-/* 
-return (
-    <div className="compose-mail">
-        <section className="compose-header">
-            <h1>New Message</h1>
-            <section className="ctrl-btns">
-                <button className="minimize-btn"><i className="fa-solid fa-window-minimize"></i></button>
-                <button className="maximize-btn"><i className="fa-solid fa-arrow-up-right-and-arrow-down-left-from-center"></i></button>
-                <button className="close-btn" onClick={onClose}><i className="fa-solid fa-xmark"></i></button>
-            </section>
-        </section>
-        <label htmlFor="to">
-            To:
-            <input
-                type="text"
-                id="to"
-                name="to"
-                onInput={handleChange}
-                value={newMail.to || ''}
-            />
-        </label>
-        <label htmlFor="subject">
-            Subject:
-            <input
-                type="text"
-                id="subject"
-                name="subject"
-                onInput={handleChange}
-                value={newMail.subject}
-            />
-        </label>
-        <label htmlFor="body">
-            Body:
-            <textarea
-                id="body"
-                className="mail-body"
-                name="body"
-                onInput={handleChange}
-                value={newMail.body}
-            />
-        </label>
-    </div>
-);
-} */
+.compose-mail.full {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 5vh;
+    right: 5vw;
+    width: 90vw;
+    height: 90vh;
+    background-color: #fff;
+    box-shadow: 0px 1px 2px #00000057;
+    border-radius: 0.5em;
+    font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+}
+
+.compose-mail.mini {
+    height: 3.5em;
+}
+
+.compose-mail.mini .input-group,
+.compose-mail.mini .bottom-ctrls,
+.compose-mail.mini .horizontal-line {
+    display: none;
+}

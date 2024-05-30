@@ -22,6 +22,7 @@ export const mailService = {
     getDefaultFilter,
     getFilterFromSearchParams,
     getSortFromSearchParams,
+    getNoteFromSearchParams,
     _setNextPrevEmailId,
     removeLabel,
     saveLabel,
@@ -125,11 +126,17 @@ function getFilterFromSearchParams(searchParams) {
     }
 }
 
-
 function getSortFromSearchParams(searchParams) {
     return {
         sort: searchParams.get('sort') || 'date',
         order: searchParams.get('order') || 'dec'
+    }
+}
+
+function getNoteFromSearchParams(searchParams) {
+    return {
+        subject: searchParams.get('subject'),
+        body: searchParams.get('body')
     }
 }
 
