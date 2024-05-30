@@ -1,4 +1,4 @@
-.user-msg {
+/* .user-msg {
     background-color: lightgray;
     padding: 1em;
     position: absolute;
@@ -14,8 +14,73 @@
     background-color: lightpink;
 }
 
-
 .user-msg button{
     float: right;
     margin: 1em;
+} */
+
+.user-msg {
+    position: relative;
+    background-color: lightgray;
+    padding: 1em;
+    padding: 1.7em 1em;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+
+    border-radius: 8px;
+    box-shadow: 0px 1px 8px 1px rgba(44, 43, 43, 0.422);
+    z-index: 2;
+    font-family: google-sans regular, roboto, Arial, sans-serif;
+}
+
+/* option 1 */
+/* .user-msg.success {
+    background-color: #292a28de;
+    color: #bbdc9f;
+} */
+
+/* option 2 */
+.user-msg.success {
+    background-color: #f7c547e4;
+    color: var(--n-font-clr);
+}
+
+.user-msg.error {
+    background-color: #333432e6;
+    color: #eeccce;
+}
+
+.user-msg span {
+    font-size: 1.1em;
+}
+
+.user-msg button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.user-msg button i {
+    border-radius: 50%;
+    font-size: 1.8em;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    cursor: pointer;
+}
+
+/* option 1 */
+.user-msg.success button i {
+    /* background-color: #bbdc9f; */
+
+}
+.user-msg.error button i {
+    /* background-color: #eeccce;; */
+}
+
+.user-msg button i:hover {
+    background-color: rgb(205, 204, 204);
 }

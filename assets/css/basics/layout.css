@@ -7,7 +7,8 @@
     grid-template-columns: 
         var(--side-width)
         minmax(auto, var(--main-width))
-        minmax(auto, var(--min-margin));
+        /* minmax(auto, var(--min-margin)); */
+        minmax(var(--min-margin), auto);
 }
 
 

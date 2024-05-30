@@ -6,6 +6,7 @@ import { noteService } from "../services/note.service.js";
 import { NoteList } from "../cmps/NoteList.jsx";
 import { AddNote } from "../cmps/AddNote.jsx";
 import { NoteFilter } from "../cmps/NoteFilter.jsx";
+import { AppHeader } from "../../../cmps/AppHeader.jsx";
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
@@ -69,6 +70,7 @@ export function NoteIndex() {
                 <span>Keep</span>
             </section>
             <NoteFilter filterBy={filterBy} onFilter={onSetFilterBy} />
+            <AppHeader />
         </section>
         <AddNote onSaveNote={onSaveNote} />
         <NoteList notes={notes} onRemove={removeNote} isLoading={isLoading}

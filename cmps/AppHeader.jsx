@@ -23,7 +23,7 @@ export function AppHeader() {
         setMenuOpen(!isMenuOpen)
     }
 
-    return <section>
+    return <section className="app-header-container">
         <button className="app-header-btn" onClick={onToggleMenu}>
             <i className="fa-solid fa-grid-round-4"></i>
         </button>
