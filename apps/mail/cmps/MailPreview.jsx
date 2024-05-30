@@ -12,7 +12,7 @@ const loggedInUser = {
 }
 
 export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStateChange }) {
-    const { subject, body, isRead, sentAt, removedAt, from, isDraft, to, isSnoozed } = mail
+    const { subject, body, isRead, sentAt, removedAt, from, isDraft, to, isSnoozed, isStarred } = mail
     const { email: fromEmail, fullname } = from
 
     const [newMail, setMail] = useState(mail)
@@ -25,6 +25,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     if (filterBy.box !== 'drafts' && isDraft) return
     if (filterBy.box !== 'trash' && removedAt) return
     if (filterBy.box !== 'snoozed' && isSnoozed || filterBy.box === 'snoozed' && !isSnoozed) return
+    if (filterBy.box === 'starred' && !isStarred) return
     
     function getClassName() {
         let className = ''
@@ -36,9 +37,11 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     }
 
     function handleChange({ type, state }) {
-        const updatedMail = { ...mail, [type]: state }
-        onStateChange(updatedMail)
+        const updatedMail = { ...mail, [type]: state };
+        setMail(prevMail => ({ ...prevMail, ...updatedMail }));
+        onStateChange(updatedMail);
     }
+    
 
     function onTrashClick() {
         if (filterBy.box === 'trash') {

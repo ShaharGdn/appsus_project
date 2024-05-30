@@ -66,7 +66,6 @@ export function MailIndex() {
     }
 
     async function onUpdatedEmail(updatedMail) {
-        console.log('updating:')
         await mailService.save(updatedMail).then(savedMail => {
             setEmails(prevEmails => prevEmails.map(mail => (mail.id === savedMail.id ? savedMail : mail)));
             return savedMail

@@ -45,70 +45,26 @@ function query(filterBy = {}) {
                 )
             }
 
-            if (filterBy.box === 'inbox') {
-                mails = mails.filter(mail =>
-                    mail.to.email === loggedInUser.email
-                )
+            switch (filterBy.box) {
+                case 'inbox':
+                    mails = mails.filter(mail => mail.to.email === loggedInUser.email);
+                    break;
+                case 'sent':
+                    mails = mails.filter(mail => mail.to.email !== loggedInUser.email);
+                    break;
+                case 'starred':
+                    mails = mails.filter(mail => mail.isStarred);
+                    break;
+                case 'trash':
+                    mails = mails.filter(mail => mail.removedAt);
+                    break;
+                case 'snoozed':
+                    mails = mails.filter(mail => mail.isSnoozed);
+                    break;
+                case 'drafts':
+                    mails = mails.filter(mail => mail.isDraft);
+                    break;
             }
-            if (filterBy.box === 'sent') {
-                mails = mails.filter(mail =>
-                    mail.to.email !== loggedInUser.email
-                )
-            }
-            if (filterBy.box === 'starred') {
-                mails = mails.filter(mail =>
-                    mail.isStarred
-                )
-            }
-            if (filterBy.box === 'trash') {
-                mails = mails.filter(mail =>
-                    mail.removedAt
-                )
-            }
-            if (filterBy.box === 'snoozed') {
-                mails = mails.filter(mail =>
-                    mail.isSnoozed
-                )
-            }
-            if (filterBy.box === 'drafts') {
-                mails = mails.filter(mail =>
-                    mail.isDraft
-                )
-            }
-            // // if (filterBy.inbox) {
-            // //     mails = mails.filter(mail =>
-            // //         mail.to.email === loggedInUser.email
-            // //     )
-            // // }
-            // // if (filterBy.sent) {
-            // //     mails = mails.filter(mail =>
-            // //         mail.to.email !== loggedInUser.email
-            // //     )
-            // // }
-            // // if (filterBy.starred) {
-            // //     mails = mails.filter(mail =>
-            // //         mail.isStarred
-            // //     )
-            // // } 
-            // // if (filterBy.trash) {
-            // //     mails = mails.filter(mail =>
-            // //         mail.removedAt
-            // //     )
-            // // } 
-            // // if (filterBy.snoozed) {
-            // //     mails = mails.filter(mail =>
-            // //         mail.isSnoozed
-            // //     )
-            // // } 
-            // // if (filterBy.drafts) {
-            // //     mails = mails.filter(mail =>
-            // //         mail.isDraft
-            // //     )
-            // // } 
-
-
-            // // Default sorting by sentAt in descending order (newest first)
-            // mails.sort((p1, p2) => p2.sentAt - p1.sentAt)
 
             return mails
         })
