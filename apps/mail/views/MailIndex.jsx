@@ -5,12 +5,15 @@ import { MailList } from "../cmps/MailList.jsx"
 import { showSuccessMsg } from "../../../services/event-bus.service.js"
 import { MailDetails } from "../views/MailDetails.jsx"
 
-const { useParams } = ReactRouter
+const { useParams, useNavigate } = ReactRouter
 const { Outlet, useSearchParams } = ReactRouterDOM
 const { useState, useEffect } = React
 
+
+
 export function MailIndex() {
 
+    const navigate = useNavigate()
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
     const mail = mailService.getEmptyEmail()
@@ -22,6 +25,7 @@ export function MailIndex() {
 
     useEffect(() => {
         const combinedParams = { ...filterBy, ...sortBy }
+        console.log('combinedParams:', combinedParams)
         setSearchParams(combinedParams)
         mailService.query().then(fetchedEmails => {
             const unread = fetchedEmails.filter(email => !email.isRead)
@@ -72,15 +76,20 @@ export function MailIndex() {
         })
     }
 
+    function onHomeBtnClick() {
+        setFilterBy({ box: 'inbox' })
+        navigate('/mail/inbox')
+    }
+
     return (
         <section className="content-grid mail-index">
             <section className="menu-bar">
                 <button className="menu-btn">
                     <i className="fa-light fa-bars"></i>
                 </button>
-                <img src="assets/imgs/logo_gmail.png" alt="logo" />
+                <img src="assets/imgs/logo_gmail.png" alt="logo" onClick={onHomeBtnClick} />
             </section>
-            <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} sortBy={sortBy} onSetSortBy={onSetSortBy}/>
+            <TopMailFilter filterBy={filterBy} onFilter={onSetFilterBy} sortBy={sortBy} onSetSortBy={onSetSortBy} />
             <SideMailFilter filterBy={filterBy} onFilter={onSetFilterBy} unreadCount={unreadCount} />
             {params.mailId && filterBy.box !== 'drafts' && <MailDetails onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} filterBy={filterBy} /> || <MailList emails={emails} filterBy={filterBy} onRemove={onRemove} onUpdatedEmail={onUpdatedEmail} />}
             <Outlet context={[onUpdatedEmail, mail, onSetFilterBy, filterBy, onRemove]} />

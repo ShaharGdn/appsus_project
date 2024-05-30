@@ -9,7 +9,6 @@ export function TopMailFilter({ onFilter, onSetSortBy }) {
     const [isAscending, setSortOrder] = useState()
 
     function handleChange({ target }, kind) {
-        // setSortByOpen(!isSortByOpen)
         const { name, type } = target
         const value = (type === 'number') ? +target.value : target.value
 

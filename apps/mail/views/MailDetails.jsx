@@ -29,6 +29,7 @@ export function MailDetails({ onUpdatedEmail, onRemove, filterBy }) {
 
     const { body, subject, from, to, sentAt, isRead, labels, isStarred, isDraft } = mail
     const { email: fromEmail, fullname } = from
+    const { email: toEmail, fullname: fullnameTo } = to
 
 
     function handleChange({ type, state }) {
@@ -43,7 +44,7 @@ export function MailDetails({ onUpdatedEmail, onRemove, filterBy }) {
                 <i className="fa-light fa-circle-user"></i>
                 <div>
                     <span className="name">{fullname}</span>
-                    <span className="from-email">{`<${fromEmail}>`}</span>
+                   {filterBy.box === 'sent' ? <span className="from-email">{`<${toEmail}>`}</span> : <span className="from-email">{`<${fromEmail}>`}</span>}
                 </div>
             </div>
             <span className="sent-at">{mailUtilService.formatTimestamp(sentAt)}</span>

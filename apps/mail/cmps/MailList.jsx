@@ -6,7 +6,6 @@ const { useState } = React
 
 export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     const [isFold, setFold] = useState({ readFold: false, unreadFold: false })
-    // const [emailList, setEmails] = useState(emails)
 
     if (!filterBy.box) return
 

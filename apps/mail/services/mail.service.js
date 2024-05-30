@@ -129,7 +129,7 @@ function getFilterFromSearchParams(searchParams) {
 function getSortFromSearchParams(searchParams) {
     return {
         sort: searchParams.get('sort') || 'date',
-        order: searchParams.get('order') || 'dec'
+        order: searchParams.get('order') || 'dsc'
     }
 }
 

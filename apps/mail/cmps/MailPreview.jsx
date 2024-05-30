@@ -14,6 +14,7 @@ const loggedInUser = {
 export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStateChange }) {
     const { subject, body, isRead, sentAt, removedAt, from, isDraft, to, isSnoozed, isStarred } = mail
     const { email: fromEmail, fullname } = from
+    const { email: toEmail, fullname: fullnameTo } = to
 
     const [newMail, setMail] = useState(mail)
 
@@ -77,7 +78,8 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
         <article className={`mail-preview ${getClassName()}`}>
             <input type="checkbox" />
             {filterBy.trash ? <i className="fa-light fa-trash-can second"></i> : <StarredMail className="second" isStarred={newMail.isStarred} handleChange={handleChange} />}
-            {filterBy.box === 'drafts'? <span className="from-draft">Draft</span> : <span className="from" onClick={handleDraftClick}>{fullname}</span>}
+            {filterBy.box === 'drafts'? <span className="from-draft">Draft</span> : 
+            filterBy.box === 'sent' ? <span className="from" onClick={handleDraftClick}>{fullnameTo}</span> : <span className="from" onClick={handleDraftClick}>{fullname}</span>} 
             {<span className="subject" onClick={handleDraftClick}>{subject}</span>}
             {<span className="body" onClick={handleDraftClick}><LongTxt txt={body} /></span>}
             <span className="sentAt">{utilService.elapsedTime(sentAt)}</span>
