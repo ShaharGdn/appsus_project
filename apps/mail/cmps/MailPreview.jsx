@@ -78,10 +78,9 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     }
 
     function handleCheckboxChange() {
-        const newCheckedState = !isChecked; // Calculate the new checked state
-        setIsChecked(newCheckedState); // Update isChecked state
-        setIsAllChecked(newCheckedState); // Update isAllChecked in MailList component
-        handleChange({ type: 'isSelected', state: newCheckedState }); // Pass the new checked state to handleChange
+        const newCheckedState = !isChecked
+        setIsChecked(newCheckedState)
+        handleChange({ type: 'isSelected', state: newCheckedState })
     }
     
     function handleDraftClick() {

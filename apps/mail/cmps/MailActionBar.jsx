@@ -16,22 +16,22 @@ export function MailActionBar({ mail, onTrashClick, handleChange, type }) {
     </section>
 }
 
-export function MailTopActionBar({ mail, onRemove, onUpdatedEmail, onSelectAll }) {
+export function MailTopActionBar({ mail, onBulkRemove, onUpdatedEmail, onSelectAll, emails }) {
     const [isAllChecked, setIsAllChecked] = useState(false)
 
     // if (!mail) return
 
     // const { isRead, isStarred, isSnoozed } = mail
 
-    function onTrashClick() {
-        if (filterBy.box === 'trash') {
-            onRemove(mail)
-        } else {
-            handleChange({ type: 'removedAt', state: new Date() })
-            showSuccessMsg(`Successfully sent to trash`)
-        }
-        navigate('/mail/inbox')
-    }
+    // function onTrashClick() {
+    //     if (filterBy.box === 'trash') {
+    //         onRemove(mail)
+    //     } else {
+    //         handleChange({ type: 'removedAt', state: new Date() })
+    //         showSuccessMsg(`Successfully sent to trash`)
+    //     }
+    //     navigate('/mail/inbox')
+    // }
 
     function handleChange({ type, state }) {
         const updatedMail = { ...mail, [type]: state }
@@ -46,13 +46,13 @@ export function MailTopActionBar({ mail, onRemove, onUpdatedEmail, onSelectAll }
             return newIsAllChecked
         })
     }
-    
+
     return <section className="action-bar-container">
         <input type="checkbox" name="" id="" onChange={selectAll} />
-        {/* {<span className="toggleRead" onClick={() => handleChange({ type: 'isRead', state: !isRead })}>{isRead ? <i className="fa-solid fa-envelope"></i> : <i className="fa-light fa-envelope-open"></i>}</span>} */}
+        {/* {isAllChecked && <span className="toggleRead" onClick={() => handleChange({ type: 'isRead', state: !isRead })}>{isRead ? <i className="fa-solid fa-envelope"></i> : <i className="fa-light fa-envelope-open"></i>}</span>} */}
         {/* <Link to={`/note/?subject=${mail.subject}&body=${mail.body}`}><span className="to-note-btn"><i className="fa-light fa-note-sticky"></i></span></Link> */}
         {/* {<span className="snooze" onClick={() => handleChange({ type: 'isSnoozed', state: !isSnoozed })}>{isSnoozed ? <i className="fa-sharp fa-solid fa-clock"></i> : <i className="fa-light fa-clock"></i>}</span>} */}
-        {/* <span className="trash" onClick={onTrashClick}><i className="fa-light fa-trash-can"></i></span> */}
+        {isAllChecked && <span className="trash" onClick={onBulkRemove}><i className="fa-light fa-trash-can"></i></span>}
         {/* <StarredMail isStarred={isStarred} handleChange={handleChange} /> */}
     </section>
 }

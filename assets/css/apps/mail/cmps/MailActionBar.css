@@ -1,4 +1,6 @@
 .action-bar-container {
+    min-height: 3em;
+    align-items: center;
     display: flex;
     cursor: pointer;
     place-self: end;

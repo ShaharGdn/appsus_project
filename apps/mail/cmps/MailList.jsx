@@ -49,19 +49,34 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
         updatedEmails.forEach(onUpdatedEmail)
     }
 
-    function onBulkRemove() {
-        const selectedEmails = emailList.filter(mail => mail.isSelected);
-        const updatedEmails = selectedEmails.map(email => {
-            if (filterBy.trash) {
-                onRemove(email)
-                return null
+    // function onBulkRemove() {
+    //     const selectedEmails = emailList.filter(mail => mail.isSelected);
+    //     const updatedEmails = selectedEmails.map(email => {
+    //         if (filterBy.trash) {
+    //             onRemove(email)
+    //             return null
+    //         } else {
+    //             const updatedMail = { ...email, removedAt: new Date() }
+    //             onUpdatedEmail(updatedMail)
+    //             return updatedMail
+    //         }
+    //     }).filter(email => email !== null)
+    //     setEmailList(prevEmails => prevEmails.filter(email => !selectedEmails.includes(email)))
+    //     console.log('updatedEmails:', updatedEmails)
+    // }
+
+    async function onBulkRemove() {
+        const selectedEmails = emailList.filter(mail => mail.isSelected)
+        for (let email of selectedEmails) {
+            if (filterBy.box === 'trash') {
+                await onRemove(email)
             } else {
                 const updatedMail = { ...email, removedAt: new Date() }
-                onUpdatedEmail(updatedMail)
-                return updatedMail
+                await onUpdatedEmail(updatedMail)
             }
-        }).filter(email => email !== null)
+        }
         setEmailList(prevEmails => prevEmails.filter(email => !selectedEmails.includes(email)))
+        setIsAllChecked(false)
     }
 
     if (!filterBy.box) return null
@@ -73,7 +88,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     return (
         filterBy.box === 'inbox' ? (
             <section className="mail-list">
-                <MailTopActionBar onRemove={onMailRemove} onUpdatedEmail={onNewStateChange} onSelectAll={onSelectAll} onBulkRemove={onBulkRemove} />
+                <MailTopActionBar onRemove={onMailRemove} onUpdatedEmail={onNewStateChange} onSelectAll={onSelectAll} onBulkRemove={onBulkRemove} isAllChecked={isAllChecked} emails={emails} />
                 <h3 onClick={() => onToggleFold('unreadFold')}>
                     {isFold.unreadFold ? <i className="fa-light fa-chevron-down"></i> : <i className="fa-light fa-chevron-up"></i>}
                     Unread
@@ -99,10 +114,11 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
             </section>
         ) : (
             <section className="mail-list">
+                <MailTopActionBar onRemove={onMailRemove} onUpdatedEmail={onNewStateChange} onSelectAll={onSelectAll} onBulkRemove={onBulkRemove} isAllChecked={isAllChecked} emails={emails} />
                 <ul>
                     {emails.map(mail => (
                         <li key={mail.id}>
-                            <MailPreview mail={mail} filterBy={filterBy} onMailRemove={onMailRemove} onStateChange={onNewStateChange} isAllChecked={isAllChecked} setIsAllChecked={setIsAllChecked}/>
+                            <MailPreview mail={mail} filterBy={filterBy} onMailRemove={onMailRemove} onStateChange={onNewStateChange} isAllChecked={isAllChecked} setIsAllChecked={setIsAllChecked} />
                         </li>
                     ))}
                 </ul>
