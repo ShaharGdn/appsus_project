@@ -20,8 +20,9 @@
     letter-spacing: .02em;
     font-family: google-sans-medium, google-sans, roboto, Arial, sans-serif;
     padding: 0.3em 1.5em;
+    padding: 5px 24px;
     border-radius: 4px;
-    margin-right: 7px
+    margin-right: 7px;
 }
 
 .input-action-bar .close-btn:hover {

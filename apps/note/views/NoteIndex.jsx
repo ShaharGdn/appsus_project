@@ -60,8 +60,8 @@ export function NoteIndex() {
             })
     }
 
-    return <section className="note-index content-grid">
-        <section className="top-nav content-grid">
+    return <section className="note-index n-content-grid">
+        <section className="top-nav n-content-grid">
             <section className="menu-bar">
                 <button className="menu-btn">
                     <i className="fa-light fa-bars"></i>

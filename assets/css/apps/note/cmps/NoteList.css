@@ -1,25 +1,18 @@
 .note-list {
     grid-column: 2;
-    margin: 0 auto;
-
-    /*  */
-    /* display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto-fill auto-fill;
-    grid-template-areas:
-        "pinned"
-        "others"; */
+    justify-self: center;
+    /* margin: 0 auto; */
 }
 
 .note-list ul {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 238px);
+    grid-template-columns: auto-fit;
     grid-auto-flow: dense;
-    gap: 15px;
-    max-width: 70vw;
+    gap: 10px;
     margin: 0;
     margin-block: 0.5em 4em;
     padding: 0;
+    max-width: 80vw;
 }
 
 .note-list span:not(.note-loader) {

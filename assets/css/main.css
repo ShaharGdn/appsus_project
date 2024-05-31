@@ -3,8 +3,12 @@
 @import './setup/variables.css';
 @import './setup/fonts.css';
 
-/* Basics */
+/* Media Queries */
+/* @import './setup/mq/note.mq.css'; */
+@import '/assets/css/setup/mq/note.mq.css';
 
+
+/* Basics */
 @import './basics/base.css';
 @import './basics/helpers.css';
 @import './basics/layout.css';

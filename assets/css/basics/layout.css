@@ -4,12 +4,18 @@
     --min-margin: 1em;
 
     display: grid;
-    grid-template-columns: 
-        var(--side-width)
-        minmax(auto, var(--main-width))
+    grid-template-columns:
+        var(--side-width) minmax(auto, var(--main-width))
         /* minmax(auto, var(--min-margin)); */
         minmax(var(--min-margin), auto);
 }
 
+.n-content-grid {
+    --main-width: 600px;
+    --side-width: 110px;
+    --min-margin: 50px;
 
-
+    display: grid;
+    grid-template-columns:
+        minmax(var(--side-width), 1fr) minmax(350px, var(--main-width)) minmax(var(--min-margin), 1fr);
+}
