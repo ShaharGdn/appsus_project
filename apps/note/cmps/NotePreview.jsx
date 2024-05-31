@@ -13,6 +13,7 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             return newIsPinned
         })
     }
+
     const { txt, title, url, videoUrl, todos } = note.info
     const isLongText = (txt && txt.length) > 250
 
@@ -21,8 +22,8 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             <h3>{title}</h3>
             {txt && <p>{isLongText ? txt.substring(0, 250) + `...` : txt}</p>}
             {url && <img src={note.info.url} alt="note image" />}
-            {videoUrl && <iframe src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>}
-            {/* {videoUrl && <iframe width="200" height="150" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>} */}
+            {/* {videoUrl && <iframe className="iframe-large" width="420" height="250" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>} */}
+            {videoUrl && <iframe className="iframe-small" width="200" height="150" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>}
 
             {todos && <ul>
                 {todos.map(todo => <li>{todo.txt}</li>)}
@@ -40,16 +41,10 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             {isEditable && <span className="edit-time">Edited: {note.createdAt}</span>}
             <NoteActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove}
                 isEditable={isEditable} onDuplicate={onDuplicate} />
-
             <button onClick={onTogglePin}>
                 <i className={`fa-thumbtack ${isPinned === true ? 'fa-solid pinned' : 'fa-regular'}`}></i>
             </button>
         </section>
     }
 }
-
-
-
-
-
 
