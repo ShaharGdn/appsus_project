@@ -3,7 +3,7 @@ import { showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
 import { StarredMail } from "./StarredMail.jsx"
 
-const { useState } = React
+const { useState, useEffect } = React
 const { useNavigate } = ReactRouter
 
 const loggedInUser = {
@@ -11,23 +11,40 @@ const loggedInUser = {
     fullname: 'Michal Shahar'
 }
 
-export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStateChange }) {
+export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStateChange, isAllChecked, setIsAllChecked }) {
     const { subject, body, isRead, sentAt, removedAt, from, isDraft, to, isSnoozed, isStarred } = mail
     const { email: fromEmail, fullname } = from
     const { email: toEmail, fullname: fullnameTo } = to
 
     const [newMail, setMail] = useState(mail)
+    const [isChecked, setIsChecked] = useState(isAllChecked)
 
     const navigate = useNavigate()
 
-    
-    if (type === 'read' && !isRead || type === 'read' && isFold.readFold) return
-    if (type === 'unread' && isRead || type === 'unread' && isFold.unreadFold) return
-    if (filterBy.box !== 'snoozed' && isSnoozed || filterBy.box === 'snoozed' && !isSnoozed) return
-    if (filterBy.box !== 'drafts' && isDraft) return
-    if (filterBy.box !== 'trash' && removedAt) return
-    if (filterBy.box === 'starred' && !isStarred) return
-    
+    const shouldRender = () => {
+        if ((type === 'read' && !isRead) || (type === 'read' && isFold.readFold)) return false
+        if ((type === 'unread' && isRead) || (type === 'unread' && isFold.unreadFold)) return false
+        if ((filterBy.box !== 'snoozed' && isSnoozed) || (filterBy.box === 'snoozed' && !isSnoozed)) return false
+        if (filterBy.box !== 'drafts' && isDraft) return false
+        if (filterBy.box !== 'trash' && removedAt) return false
+        if (filterBy.box === 'starred' && !isStarred) return false
+        return true
+    }
+
+    useEffect(() => {
+        setIsChecked(isAllChecked);
+    }, [isAllChecked]);
+
+    useEffect(() => {
+        return () => {
+            setIsChecked(false)
+            setIsAllChecked(false)
+        }
+    }, [])
+
+
+    if (!shouldRender()) return null
+
     function getClassName() {
         let className = ''
         className += isRead ? ' read' : ' unread'
@@ -38,11 +55,10 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     }
 
     function handleChange({ type, state }) {
-        const updatedMail = { ...mail, [type]: state };
-        setMail(prevMail => ({ ...prevMail, ...updatedMail }));
-        onStateChange(updatedMail);
+        const updatedMail = { ...mail, [type]: state }
+        setMail(prevMail => ({ ...prevMail, ...updatedMail }))
+        onStateChange(updatedMail)
     }
-    
 
     function onTrashClick() {
         if (filterBy.box === 'trash' || filterBy.box === 'drafts') {
@@ -61,11 +77,13 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
         handleChange({ type: 'isSnoozed', state: !isSnoozed })
     }
 
-    // function handleCheckboxChange() {
-    //     setIsChecked(!isChecked)
-    //     handleChange({ type: 'isSelected', state: !isChecked })
-    // }
-
+    function handleCheckboxChange() {
+        const newCheckedState = !isChecked; // Calculate the new checked state
+        setIsChecked(newCheckedState); // Update isChecked state
+        setIsAllChecked(newCheckedState); // Update isAllChecked in MailList component
+        handleChange({ type: 'isSelected', state: newCheckedState }); // Pass the new checked state to handleChange
+    }
+    
     function handleDraftClick() {
         if (filterBy.box === 'drafts') {
             navigate(`/mail/compose/${mail.id}`)
@@ -76,10 +94,15 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
 
     return (
         <article className={`mail-preview ${getClassName()}`}>
-            <input type="checkbox" />
+            <input
+                type="checkbox"
+                className="is-selected"
+                onChange={handleCheckboxChange}
+                checked={isChecked}
+            />
             {filterBy.trash ? <i className="fa-light fa-trash-can second"></i> : <StarredMail className="second" isStarred={newMail.isStarred} handleChange={handleChange} />}
-            {filterBy.box === 'drafts'? <span className="from-draft">Draft</span> : 
-            filterBy.box === 'sent' ? <span className="from" onClick={handleDraftClick}>{fullnameTo}</span> : <span className="from" onClick={handleDraftClick}>{fullname}</span>} 
+            {filterBy.box === 'drafts' ? <span className="from-draft">Draft</span> :
+                filterBy.box === 'sent' ? <span className="from" onClick={handleDraftClick}>{fullnameTo}</span> : <span className="from" onClick={handleDraftClick}>{fullname}</span>}
             {<span className="subject" onClick={handleDraftClick}>{subject}</span>}
             {<span className="body" onClick={handleDraftClick}><LongTxt txt={body} /></span>}
             <span className="sentAt">{utilService.elapsedTime(sentAt)}</span>

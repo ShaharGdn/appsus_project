@@ -2,6 +2,7 @@
  .mail-index {
    background-color: var(--main-gm-bg-color);
    font-family: sans-serif;
+   /* min-height: 100vh; */
  }
 
  .mail-index .mail-list {

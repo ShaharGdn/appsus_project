@@ -9,8 +9,6 @@ const { useParams, useNavigate } = ReactRouter
 const { Outlet, useSearchParams } = ReactRouterDOM
 const { useState, useEffect } = React
 
-
-
 export function MailIndex() {
 
     const navigate = useNavigate()
@@ -25,7 +23,6 @@ export function MailIndex() {
 
     useEffect(() => {
         const combinedParams = { ...filterBy, ...sortBy }
-        console.log('combinedParams:', combinedParams)
         setSearchParams(combinedParams)
         mailService.query().then(fetchedEmails => {
             const unread = fetchedEmails.filter(email => !email.isRead)
@@ -60,9 +57,9 @@ export function MailIndex() {
         setSortBy(newSort)
     }
 
-    function onRemove(email) {
+    async function onRemove(email) {
         const removedEmailId = email.id
-        mailService.remove(removedEmailId)
+        await mailService.remove(removedEmailId)
             .then(() => {
                 setEmails(prevEmails => prevEmails.filter(email => email.id !== removedEmailId))
                 showSuccessMsg(`Successfully removed mail ${removedEmailId}!`)
