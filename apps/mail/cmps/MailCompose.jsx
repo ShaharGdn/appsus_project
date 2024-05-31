@@ -64,8 +64,6 @@ export function MailCompose() {
                 break
         }
 
-        // if (prop === 'to') {
-        // setNewMail({ ...newMailRef.current, [prop]: value, sentAt: new Date(), isRead: true, to: { email: value, fullname: value } })
         if (prop === 'to') {
             const updatedMail = {
                 ...newMailRef.current,
@@ -83,8 +81,6 @@ export function MailCompose() {
         setNewMail(updatedMail)
         newMailRef.current = updatedMail
     }
-
-
 
     function onClose() {
         navigate(`/mail/${filterBy.box}`)

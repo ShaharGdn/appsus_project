@@ -19,20 +19,6 @@ export function MailActionBar({ mail, onTrashClick, handleChange, type }) {
 export function MailTopActionBar({ mail, onBulkRemove, onUpdatedEmail, onSelectAll, emails }) {
     const [isAllChecked, setIsAllChecked] = useState(false)
 
-    // if (!mail) return
-
-    // const { isRead, isStarred, isSnoozed } = mail
-
-    // function onTrashClick() {
-    //     if (filterBy.box === 'trash') {
-    //         onRemove(mail)
-    //     } else {
-    //         handleChange({ type: 'removedAt', state: new Date() })
-    //         showSuccessMsg(`Successfully sent to trash`)
-    //     }
-    //     navigate('/mail/inbox')
-    // }
-
     function handleChange({ type, state }) {
         const updatedMail = { ...mail, [type]: state }
         setMail(updatedMail)
