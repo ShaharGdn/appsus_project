@@ -1,6 +1,7 @@
 const { useState } = React
 
-import { InputActionBar } from "./InputActionBar.jsx"
+import { NoteActionBar } from "./NoteActionBar.jsx"
+import { DynamicNote } from "./dynamic notes/DynamicNote.jsx"
 
 export function NotePreview({ isPreview, isEditable, inputType, note, onChange, onClose, onRemove, onDuplicate }) {
     const [isPinned, setIsPinned] = useState(note.isPinned)
@@ -12,7 +13,6 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             return newIsPinned
         })
     }
-
     const { txt, title, url, videoUrl, todos } = note.info
     const isLongText = (txt && txt.length) > 250
 
@@ -21,7 +21,8 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             <h3>{title}</h3>
             {txt && <p>{isLongText ? txt.substring(0, 250) + `...` : txt}</p>}
             {url && <img src={note.info.url} alt="note image" />}
-            {videoUrl && <iframe width="200" height="150" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>}
+            {videoUrl && <iframe src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>}
+            {/* {videoUrl && <iframe width="200" height="150" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>} */}
 
             {todos && <ul>
                 {todos.map(todo => <li>{todo.txt}</li>)}
@@ -37,7 +38,7 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
                 placeholder="Title" value={note.info.title || ''} onChange={onChange} />
             <DynamicNote cmpType={inputType} note={note} onChange={onChange} isEditable={isEditable} />
             {isEditable && <span className="edit-time">Edited: {note.createdAt}</span>}
-            <InputActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove}
+            <NoteActionBar onClose={onClose} note={note} onChange={onChange} onRemove={onRemove}
                 isEditable={isEditable} onDuplicate={onDuplicate} />
 
             <button onClick={onTogglePin}>
@@ -46,62 +47,6 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
         </section>
     }
 }
-
-function DynamicNote(props) {
-    switch (props.cmpType) {
-        case 'NoteTxt':
-            return <NoteTxt {...props} />
-        case 'NoteTodos':
-            return <NoteTodos {...props} />
-        case 'NoteImg':
-            return <NoteImg {...props} />
-        case 'NoteVideo':
-            return <NoteVideo {...props} />
-    }
-}
-
-function NoteTxt({ note, onChange }) {
-    return <textarea className="txt-input" autoFocus type="text"
-        name="info.txt" placeholder="Take a note..."
-        id="rating" rows={note.info.txt ? note.info.txt.length / 50 : null}
-        value={note.info.txt || ''} onChange={onChange}></textarea>
-}
-
-function NoteTodos({ note, onChange }) {
-    // const { todos } = note.info
-    // return todos.map((todo, idx) => 
-    // <form>
-    //     <input id={idx} type="checkbox"  />
-    //         <label htmlFor={idx}>
-    //             <input type="text" placeholder="List item" onChange={onChange} 
-    //             name="todo.txt" value={todo.txt}/>
-    //         </label>
-    // </form>)
-
-}
-
-function NoteImg({ note, onChange, isEditable }) {
-    return <React.Fragment>
-        {isEditable && <img src={note.info.url} alt="note image" />}
-        <input className="txt-input" type="text" name="info.url"
-            placeholder="Image URL" value={note.info.url || ''} onChange={onChange} />
-    </React.Fragment>
-}
-
-function NoteVideo({ note, onChange, isEditable }) {
-    return <React.Fragment>
-        {isEditable && <iframe
-            width="500"
-            height="315"
-            src={note.info.videoUrl}
-            frameBorder="0"
-            allowFullScreen>
-        </iframe>}
-        <input className="txt-input" type="text" name="info.videoUrl"
-            placeholder="Video URL" value={note.info.videoUrl || ''} onChange={onChange} />
-    </React.Fragment>
-}
-
 
 
 
