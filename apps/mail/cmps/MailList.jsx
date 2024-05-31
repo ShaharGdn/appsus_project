@@ -49,22 +49,6 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
         updatedEmails.forEach(onUpdatedEmail)
     }
 
-    // function onBulkRemove() {
-    //     const selectedEmails = emailList.filter(mail => mail.isSelected);
-    //     const updatedEmails = selectedEmails.map(email => {
-    //         if (filterBy.trash) {
-    //             onRemove(email)
-    //             return null
-    //         } else {
-    //             const updatedMail = { ...email, removedAt: new Date() }
-    //             onUpdatedEmail(updatedMail)
-    //             return updatedMail
-    //         }
-    //     }).filter(email => email !== null)
-    //     setEmailList(prevEmails => prevEmails.filter(email => !selectedEmails.includes(email)))
-    //     console.log('updatedEmails:', updatedEmails)
-    // }
-
     async function onBulkRemove() {
         const selectedEmails = emailList.filter(mail => mail.isSelected)
         for (let email of selectedEmails) {
