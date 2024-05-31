@@ -1,9 +1,9 @@
 const { useState } = React
 const { useNavigate } = ReactRouter
 
-import { ColorPicker } from "../cmps/ColorPicker.jsx"
+import { ColorPicker } from "./ColorPicker.jsx"
 
-export function InputActionBar({ onClose, note, onChange, onRemove, onDuplicate, isEditable = false }) {
+export function NoteActionBar({ onClose, note, onChange, onRemove, onDuplicate, isEditable = false }) {
     const navigate = useNavigate()
     const [isColorOpen, setIsColorOpen] = useState(false)
 

@@ -38,24 +38,3 @@ export function NoteList({ notes, onRemove, isLoading, onSaveNote, onDuplicate }
         <Outlet context={[onRemove, onSaveNote, onDuplicate]} />
     </section >
 }
-
-// CSS test
-//     return <section className="note-list">
-//         <ul className="pinned-container hidden">
-//             <span>PINNED</span>
-//         </ul>
-//         <ul className="others-container">
-//             <span className="hidden">OTHERS</span>
-//             {notes.map(note =>
-//                 <Link to={`/note/${note.id}`} key={note.id} className={note.isPinned ? 'pinned' : 'others'}>
-//                     <li style={{ ...note.style, opacity: isLoading ? 0.5 : 1 }}>
-//                         <NotePreview isPreview={true} note={note} />
-//                         <i className="remove-btn fa-sharp fa-solid fa-circle-xmark"
-//                             onClick={(ev) => onRemove(ev, note.id)}></i>
-//                         <div className="actions"></div>
-//                     </li>
-//                 </Link>
-//             )}
-//         </ul>
-//         <Outlet />
-//     </section >

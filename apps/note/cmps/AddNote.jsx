@@ -1,5 +1,4 @@
 const { useState, useEffect } = React
-
 const { useSearchParams } = ReactRouterDOM
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
@@ -11,8 +10,7 @@ export function AddNote({ onSaveNote }) {
     const [note, setNote] = useState(noteService.getEmptyNote())
     const [isInputActive, setIsInputActive] = useState(false)
     const [inputType, setInputType] = useState('NoteTxt')
-
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams] = useSearchParams()
 
     useEffect(() => {
         if (searchParams.size > 0) turnMailtoNote(searchParams)
@@ -23,7 +21,6 @@ export function AddNote({ onSaveNote }) {
         setIsInputActive(true)
         setNote(prevNote => ({ ...prevNote, info: { title: mail.subject, txt: mail.body } }))
     }
-
 
     function showInputBox({ target }) {
         if (target.value === '' || target.value.length > 1 || isInputActive === true) return
@@ -59,7 +56,6 @@ export function AddNote({ onSaveNote }) {
                 resetMainInput()
                 showSuccessMsg('Note added successfully.')
                 onSaveNote()
-
             })
             .catch(() => showErrorMsg('Could not add note.'))
     }

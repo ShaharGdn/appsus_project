@@ -19,16 +19,16 @@ export function NoteFilter({ filterBy, onFilter }) {
     }
 
     return <section className="note-filter">
-        <span>Note Filters:</span>
+        <span></span>
         <div className="content-container">
             <button><i className="fa-regular fa-magnifying-glass"></i></button>
-            <input type="text" placeholder="Search content" value={filterByToEdit.txt}
+            <input type="text" placeholder="Search" value={filterByToEdit.txt}
                 onChange={handleChange} name="txt" />
         </div>
 
         <div className="type-container">
             <select name="type" value={filterByToEdit.type} onChange={handleChange}>
-                <option value="">Select type</option>
+                <option value="">Note type</option>
                 <option value="NoteTxt">Text</option>
                 <option value="NoteImg">Image</option>
                 <option value="NoteVideo">Video</option>

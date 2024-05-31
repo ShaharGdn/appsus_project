@@ -1,25 +1,18 @@
 .note-list {
     grid-column: 2;
-    margin: 0 auto;
-
-    /*  */
-    /* display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto-fill auto-fill;
-    grid-template-areas:
-        "pinned"
-        "others"; */
+    justify-self: center;
+    /* margin: 0 auto; */
 }
 
 .note-list ul {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 238px);
+    grid-template-columns: auto-fit;
     grid-auto-flow: dense;
-    gap: 15px;
-    max-width: 70vw;
+    gap: 10px;
     margin: 0;
     margin-block: 0.5em 4em;
     padding: 0;
+    max-width: 80vw;
 }
 
 .note-list span:not(.note-loader) {
@@ -48,12 +41,12 @@
     /* width: 238px; */
 }
 
-.note-list li:hover {
-    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
+.note-preview iframe .iframe-small {
+    display: none;
 }
 
-.note-list li iframe{
-    margin-block-start:1em;
+.note-list li:hover {
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
 }
 
 .note-list li button:has(.fa-thumbtack) {
