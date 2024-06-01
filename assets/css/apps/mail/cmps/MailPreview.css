@@ -19,6 +19,7 @@
 }
 
 .mail-preview .second,.starred {
+    margin-inline-start: 0em;
     grid-column: 2;
     grid-row: 1;
 }

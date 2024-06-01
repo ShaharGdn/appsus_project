@@ -149,10 +149,10 @@ function _createEmails() {
         for (let i = 0; i < 50; i++) {
             const mail = {
                 id: utilService.makeId(),
-                subject: utilService.makeEmailLorem(1),
-                body: utilService.makeEmailLorem(50),
+                subject: mailUtilService.makeEmailLorem(1),
+                body: mailUtilService.makeEmailLorem(50),
                 isRead: Math.random() > 0.5 ? false : true,
-                sentAt: utilService.getRandomTimestamp('2024-01-01', '2024-05-22'),
+                sentAt: utilService.getRandomTimestamp('2024-03-01', '2024-06-05'),
                 removedAt: Math.random() > 0.1 ? null : utilService.getRandomTimestamp('2024-01-01', '2024-05-22'),
                 from: Math.random() > 0.1 ? mailUtilService.createSender() : loggedInUser,
                 to: Math.random() > 0.1 ? loggedInUser : mailUtilService.createSender(),

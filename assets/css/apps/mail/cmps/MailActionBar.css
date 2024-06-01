@@ -5,7 +5,13 @@
     cursor: pointer;
     place-self: end;
     align-self: center;
-    gap: 1em;
+    gap: 0.5em;
+    margin-inline-start: 0.5em;
+}
+
+.action-bar-container .star {
+    margin-inline-start: 0.5em;
+    margin-block-end: 0.08em;
 }
 
 .action-bar-container i {

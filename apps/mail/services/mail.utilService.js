@@ -2,12 +2,14 @@ import { utilService } from "../../../services/util.service.js"
 
 export const mailUtilService = {
     createSender,
-    formatTimestamp
+    formatTimestamp,
+    makeEmailLorem,
+    makeNamesLorem
 }
 
 function createSender() {
     return {
-        fullname: utilService.makeNamesLorem(),
+        fullname: makeNamesLorem(),
         email: makeEmail()
     }
 }
@@ -72,3 +74,106 @@ function formatTimestamp(timestamp) {
     return `${formattedDate} (${relativeTime})`;
 }
 
+function makeEmailLorem(size = 100) {
+    var emailDemoData = [
+        'Guess what? Free pizza!',
+        'Oops, my bad! Ignore this.',
+        'Party at 7! Don’t be late.',
+        'Need coffee ASAP! Help!',
+        'Bring donuts! It’s urgent!',
+        'Cat stole it. Seriously.',
+        'Lost again? Typical, right?',
+        'Oopsie daisy! My mistake.',
+        'Bananas are blue! Surprise!',
+        'Catch ya later, alligator!',
+        'Free tacos! Yes, really!',
+        'Penguins approve this message.',
+        'Ninja skills needed. Stat!',
+        'Got any gum? Share, please!',
+        'Why not? Life’s short.',
+        'Surprise inside! Open now.',
+        'Hamster dance! Join in!',
+        'Shiny things! Look here!',
+        'Whoopsie! I did it again.',
+        'Fun times ahead! Excited?',
+        'Moo! Just because.',
+        'Napping now. Do not disturb.',
+        'You’re awesome! Just saying.',
+        'Dance break! Get up!',
+        'Oops, a typo! Ignore it.',
+        'Mystery box! What’s inside?',
+        'Bubble wrap fun! Pop away!',
+        'Giggle time! Laugh out loud.',
+        'High five! You deserve it.',
+        'Zebra stripes! Fashion alert.',
+        'Monkey business! Let’s do it.',
+        'Jazz hands! Go wild!',
+        'Oops, a slip! My bad.',
+        'Waffle time! Bring syrup.',
+        'Bingo night! Game on!',
+        'Laugh track! You’re funny.',
+        'Bacon alert! Frying now.',
+        'Silly goose! That’s you.',
+        'Pillow fort! Build one.',
+        'Smile! It’s contagious.',
+        'Tickle fight! You’re it!',
+        'Marshmallow world! Sweet times.'
+    ];
+    var txt = ''
+    while (size > 0) {
+        size--
+        txt += emailDemoData[Math.floor(Math.random() * emailDemoData.length)] + ' '
+    }
+    return txt
+}
+
+
+function makeNamesLorem(size = 1) {
+    var names = [
+        'Bingo Bongo',
+        'Sally Sizzle',
+        'Timmy Tofu',
+        'Wendy Whiz',
+        'Frankie Fizz',
+        'Lulu Lollipop',
+        'Mickey Munch',
+        'Penny Pop',
+        'Ricky Rocket',
+        'Susie Sprinkle',
+        'Tommy Tickle',
+        'Vicky Vanilla',
+        'Billy Bongo',
+        'Jenny Jellybean',
+        'Nina Noodle',
+        'Oscar Oodle',
+        'Patty Puddle',
+        'Quincy Quirk',
+        'Randy Razzle',
+        'Tina Tingle',
+        'Spongey Squarepants',
+        'Patrick Starfish',
+        'Squidward Tentacles',
+        'Mr. Krabs',
+        'Sandy Cheeks',
+        'Plankton Pickle',
+        'Gary the Snail',
+        'Pearl the Whale',
+        'Larry the Lobster',
+        'Bubble Bass',
+        'Barnacle Boy',
+        'Mermaid Man',
+        'Flying Dutchman',
+        'Mrs. Puff',
+        'King Jellyfish',
+        'DoodleBob',
+        'Bubble Buddy',
+        'Old Man Jenkins',
+        'Kevin the Sea Cucumber'
+    ];
+    var txt = '';
+    while (size > 0) {
+        size--;
+        txt += names[Math.floor(Math.random() * names.length)] + ' ';
+    }
+    return txt;
+}
