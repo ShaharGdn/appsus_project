@@ -1,6 +1,5 @@
 const { useState, useEffect, useRef } = React
 
-
 export function NoteFilter({ filterBy, onFilter }) {
     const initialFilterBy = useRef(filterBy)
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })

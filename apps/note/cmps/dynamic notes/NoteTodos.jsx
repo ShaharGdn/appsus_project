@@ -7,7 +7,6 @@ export function NoteTodos({ note, onChange, isEditable }) {
     const [todos, setTodos] = useState(todosStarter)
 
     useEffect(() => {
-        console.log('todos', todos)
         onChange({ target: { name: 'info.todos', value: todos } })
     }, [todos])
 

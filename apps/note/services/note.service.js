@@ -16,7 +16,7 @@ export const noteService = {
 }
 
 function query(filterBy = {}) {
-    return asyncStorageService.query(NOTE_KEY)
+    return asyncStorageService.query(NOTE_KEY, 200)
         .then(notes => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
@@ -224,6 +224,47 @@ function _createNotes() {
                 info: {
                     title: 'Vacation',
                     txt: 'Flight to New York on June 15th, hotel reservation at Hilton Times Square, Broadway show tickets for Saturday night.'
+                }
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteTodos',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#b4ddd3'
+                },
+                info: {
+                    title: 'To do:',
+                    todos: [
+                        { txt: 'Remember to eat', doneAt: null },
+                        { txt: 'Get anxiety meds', doneAt: null },
+                        { txt: 'Finish sprint', doneAt: utilService.getCurrentDateTime() },
+                        { txt: 'Sleep', doneAt: null },
+                        { txt: 'Feed dog', doneAt: null },
+                        { txt: 'Sleep again', doneAt: null },
+                    ]
+                }
+            },
+            {
+                id: utilService.makeId(5),
+                createdAt: utilService.randomPastTime().toLocaleString(),
+                type: 'NoteTodos',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#d3bfdb'
+                },
+                info: {
+                    title: 'Grocerey',
+                    todos: [
+                        { txt: 'Pepsi max', doneAt: null },
+                        { txt: 'Tofu', doneAt: null },
+                        { txt: 'Chocolate', doneAt: null },
+                        { txt: 'Almonds', doneAt: null },
+                        { txt: 'Granola bars', doneAt: null },
+                        { txt: 'Bananas', doneAt: utilService.getCurrentDateTime() },
+                        { txt: 'Bread', doneAt: null },
+                    ]
                 }
             },
         ]

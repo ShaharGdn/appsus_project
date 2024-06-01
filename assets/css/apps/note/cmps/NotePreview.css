@@ -17,19 +17,16 @@
 }
 
 .note-preview ul:has(.todo-for-list) {
-    /* display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center; */
     margin-block-start: 1em;
-
-
 }
 
 .note-preview .todo-for-list {
     margin-inline-start: 1em;
     list-style: square;
+}
 
+.note-preview ul:has(.todo-for-list) {
+    gap: 5px;
 }
 
 .input-field-container {

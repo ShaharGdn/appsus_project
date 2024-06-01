@@ -5,24 +5,12 @@
     left: 50%;
 
     min-width: 280px;
-    /* max-height: 55vh; */
     transition: top .13s;
     max-width: 600px;
     z-index: 2;
     width: 100%;
     margin: 0;
-    
 }
-
-/* .note-details {
-    display: flex;
-    flex-direction: column;
-    
-    border: 1px solid transparent;
-    background-color: #f3b369;
-    color: var(--n-font-clr);
-    box-shadow: 0 2px 3px 0 rgba(57, 60, 62, 0.452);
-} */
 
 .details-container .title-input {
     font-family: google-sans regular, roboto, Arial, sans-serif;
@@ -78,44 +66,3 @@
     margin-block-end: 0.5em;
 }
 
-/* .note-details button {
-    font-size: 1.3em;
-    background-color: transparent;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 0.25em 0.55em;
-}
-
-.note-details button:hover {
-    background-color: var(--n-btn-hover-clr);
-}
-
-.note-details button:has(.fa-thumbtack) {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
-
-.note-details i {
-    opacity: 0.7;
-}
-
-.note-details button:has(.fa-thumbtack) {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-}
-
-.note-details .fa-thumbtack {
-    opacity: 1;
-}
-
-.note-details button:hover i {
-    opacity: 1;
-    transition: opacity 0.2s;
-}
-
-.note-details .close-btn {
-    color: var(--n-font-clr);
-} */
