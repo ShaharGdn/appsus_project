@@ -93,3 +93,11 @@
     rotate: 90deg;
 }
 
+.input-field-container .todo-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.input-field-container .todo-input input {
+
+}

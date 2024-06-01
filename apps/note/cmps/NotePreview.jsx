@@ -26,7 +26,7 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             {videoUrl && <iframe className="iframe-small" width="200" height="150" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>}
 
             {todos && <ul>
-                {todos.map(todo => <li>{todo.txt}</li>)}
+                {todos.map((todo, idx) => <li key={idx}>{todo.txt}</li>)}
             </ul>}
 
             <button>
