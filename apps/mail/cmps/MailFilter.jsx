@@ -42,6 +42,7 @@ export function TopMailFilter({ onFilter, onSetSortBy }) {
                 <button className="sort-btn"onClick={()=>handleChange({target: {name:'sort', value:'date'}})}>Date</button>
             </section>}
         </div>
+        <img className='user-img' src="assets/imgs/sg.jpeg" alt="user image" />
         <AppHeader />
     </section>
 }

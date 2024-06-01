@@ -43,7 +43,7 @@ export function MailDetails({ onUpdatedEmail, onRemove, filterBy }) {
     function senderDetails() {
         return <section className="mail-info">
             <div className="sender-details">
-                <i className="fa-light fa-circle-user"></i>
+            <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: from.color }}></i></span>
                 <div>
                     <span className="name">{fullname}</span>
                    {filterBy.box === 'sent' ? <span className="from-email">{`<${toEmail}>`}</span> : <span className="from-email">{`<${fromEmail}>`}</span>}

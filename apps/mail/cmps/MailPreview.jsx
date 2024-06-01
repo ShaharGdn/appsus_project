@@ -95,8 +95,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
 
     return (
         <article className={`mail-preview ${getClassName()}`}>
-            <span className="user-icon"><i className="fa-light fa-circle-user" style={{color: from.color}}></i></span>
-            {/* <span className="user-icon" style={{background: from.color}}><i className="fa-light fa-circle-user"></i></span> */}
+            {filterBy.box === 'sent' ? <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: to.color }}></i></span> : <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: from.color }}></i></span>}
             <input
                 type="checkbox"
                 className="is-selected"
