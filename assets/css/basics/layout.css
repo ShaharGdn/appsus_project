@@ -1,4 +1,4 @@
-.content-grid {
+/* .content-grid {
     --main-width: 1800px;
     --side-width: 250px;
     --min-margin: 1em;
@@ -7,8 +7,28 @@
     grid-template-columns:
         var(--side-width) minmax(auto, var(--main-width))
         /* minmax(auto, var(--min-margin)); */
-        minmax(var(--min-margin), auto);
+/* minmax(var(--min-margin), auto); */
+/* } */
+
+/* .content-grid {
+    --main-width: 1800px;
+    --side-width: 70px;
+    --min-margin: 1em;
+
+    display: grid;
+    grid-template-columns:
+        var(--side-width) minmax(auto, var(--main-width))
+        /* minmax(auto, var(--min-margin)); */
+        /* minmax(var(--min-margin), auto); */
+/* }  */
+
+.content-grid {
+    --side-width: 60px;
+    display: grid;
+    grid-template-columns:
+        var(--side-width);
 }
+
 
 .n-content-grid {
     --main-width: 600px;

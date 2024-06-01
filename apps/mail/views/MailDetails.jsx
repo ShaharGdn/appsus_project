@@ -17,7 +17,9 @@ export function MailDetails({ onUpdatedEmail, onRemove, filterBy }) {
     useEffect(() => {
         mailService.get(params.mailId)
             .then(mail => {
-                setMail(mail)
+                const readMail = { ...mail, isRead: true }
+                setMail(readMail)
+                onUpdatedEmail(readMail)
             })
             .catch(() => {
                 alert(`couldn't get mail...`)

@@ -6,7 +6,8 @@ const MAIL_KEY = 'emailsDB'
 
 const loggedInUser = {
     email: 'user@appsus.com',
-    fullname: 'Michal Shahar'
+    fullname: 'Michal Shahar',
+    color: mailUtilService.getRandomPastelColor(),
 }
 
 _createEmails()
@@ -51,7 +52,7 @@ function query(filterBy = {}) {
                     mails = mails.filter(mail => mail.to.email === loggedInUser.email);
                     break;
                 case 'sent':
-                    mails = mails.filter(mail => mail.to.email !== loggedInUser.email);
+                    mails = mails.filter(mail => mail.from.email === loggedInUser.email);
                     break;
                 case 'starred':
                     mails = mails.filter(mail => mail.isStarred);
@@ -142,25 +143,32 @@ function getNoteFromSearchParams(searchParams) {
 
 // create 19 random mails. save to storage
 function _createEmails() {
+    let users = mailUtilService.createUsers()
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         const labels = ['Critical', 'Family', 'Work', 'Friends', 'Spam', 'Memories', 'Romantic']
         const mails = []
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 50; i++) {
             const mail = {
                 id: utilService.makeId(),
-                subject: utilService.makeEmailLorem(1),
-                body: utilService.makeEmailLorem(50),
+                subject: mailUtilService.makeEmailLorem(1),
+                body: mailUtilService.makeEmailLorem(50),
                 isRead: Math.random() > 0.5 ? false : true,
-                sentAt: utilService.getRandomTimestamp('2024-01-01', '2024-05-22'),
+                sentAt: utilService.getRandomTimestamp('2024-03-01', '2024-06-05'),
                 removedAt: Math.random() > 0.1 ? null : utilService.getRandomTimestamp('2024-01-01', '2024-05-22'),
-                from: Math.random() > 0.1 ? mailUtilService.createSender() : loggedInUser,
-                to: Math.random() > 0.1 ? loggedInUser : mailUtilService.createSender(),
+                from: Math.random() > 0.1 ? users[utilService.getRandomIntInclusive(0, labels.length - 1)] : loggedInUser,
+                // from: Math.random() > 0.1 ? mailUtilService.createSender() : loggedInUser,
+                to: Math.random() > 0.1 ? loggedInUser : users[utilService.getRandomIntInclusive(0, labels.length - 1)],
+                // to: Math.random() > 0.1 ? loggedInUser : mailUtilService.createSender(),
                 labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]],
                 isStarred: Math.random() > 0.8 ? true : false,
                 isDraft: false,
                 isSnoozed: false,
                 isSelected: false,
+            }
+            if (mail.from.email === 'user@appsus.com') {
+                mail.isRead = true
+                mail.to = mailUtilService.createSender()
             }
             mails.push(mail)
         }

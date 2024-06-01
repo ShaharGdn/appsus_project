@@ -61,7 +61,7 @@ export function SideMailFilter({ filterBy, onFilter, unreadCount }) {
         <Link replace to='/mail/compose'>
             <button className="compose-btn">
                 <i className="fa-light fa-pencil"></i>
-                Compose
+                <span>Compose</span>
             </button>
         </Link>
 
@@ -73,27 +73,27 @@ export function SideMailFilter({ filterBy, onFilter, unreadCount }) {
         </NavLink>
         <NavLink to='/mail/starred' className="side-link" onClick={() => handleChange('starred')}>
             <i className="fa-light fa-star"></i>
-            Starred
+            <span>Starred</span>
         </NavLink>
         <NavLink to='/mail/snoozed' className="side-link" onClick={() => handleChange('snoozed')}>
             <i className="fa-light fa-clock"></i>
-            Snoozed
+            <span>Snoozed</span>
         </NavLink>
         <NavLink to='/mail/sent' className="side-link" onClick={() => handleChange('sent')}>
             <i className="fa-light fa-paper-plane-top"></i>
-            Sent
+            <span>Sent</span>
         </NavLink>
         <NavLink to='/mail/trash' className="side-link" onClick={() => handleChange('trash')}>
             <i className="fa-light fa-trash-can"></i>
-            Trash
+            <span>Trash</span>
         </NavLink>
         <NavLink to='/mail/drafts' className="side-link" onClick={() => handleChange('drafts')}>
             <i className="fa-light fa-file"></i>
-            Drafts
+            <span>Drafts</span>
         </NavLink>
         <NavLink to='/mail/labels' className="side-link">
             <i className="fa-solid fa-tag"></i>
-            Labels
+            <span>Labels</span>
         </NavLink>
     </section>
 }
