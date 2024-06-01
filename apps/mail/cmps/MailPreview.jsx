@@ -35,7 +35,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
 
     useEffect(() => {
         setIsChecked(isAllChecked);
-    }, [isAllChecked]);
+    }, [isAllChecked])
 
     useEffect(() => {
         return () => {
@@ -95,7 +95,8 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
 
     return (
         <article className={`mail-preview ${getClassName()}`}>
-            {filterBy.box === 'sent' ? <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: to.color }}></i></span> : <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: from.color }}></i></span>}
+            {filterBy.box === 'drafts' ? null : filterBy.box === 'sent' ? 
+            <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: to.color || 'lightcoral' }}></i></span> : <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: from.color || 'lightcoral' }}></i></span>}
             <input
                 type="checkbox"
                 className="is-selected"
@@ -106,7 +107,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
             {filterBy.box === 'drafts' ? <span className="from-draft">Draft</span> :
                 filterBy.box === 'sent' ? <span className="from" onClick={handleDraftClick}>{fullnameTo}</span> : <span className="from" onClick={handleDraftClick}>{fullname}</span>}
             {<span className="subject" onClick={handleDraftClick}>{subject}</span>}
-            {<span className="body" onClick={handleDraftClick}><LongTxt txt={body} /></span>}
+            {<span className="body" onClick={handleDraftClick}><LongTxt txt={body} length={100}/></span>}
             <span className="sentAt">{utilService.elapsedTime(sentAt)}</span>
 
             <section className="inline-action">

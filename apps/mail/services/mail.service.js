@@ -52,7 +52,7 @@ function query(filterBy = {}) {
                     mails = mails.filter(mail => mail.to.email === loggedInUser.email);
                     break;
                 case 'sent':
-                    mails = mails.filter(mail => mail.from.email === loggedInUser.email);
+                    mails = mails.filter(mail => mail.from.email === loggedInUser.email || mail.from === loggedInUser.fullname);
                     break;
                 case 'starred':
                     mails = mails.filter(mail => mail.isStarred);
@@ -157,9 +157,7 @@ function _createEmails() {
                 sentAt: utilService.getRandomTimestamp('2024-03-01', '2024-06-05'),
                 removedAt: Math.random() > 0.1 ? null : utilService.getRandomTimestamp('2024-01-01', '2024-05-22'),
                 from: Math.random() > 0.1 ? users[utilService.getRandomIntInclusive(0, labels.length - 1)] : loggedInUser,
-                // from: Math.random() > 0.1 ? mailUtilService.createSender() : loggedInUser,
                 to: Math.random() > 0.1 ? loggedInUser : users[utilService.getRandomIntInclusive(0, labels.length - 1)],
-                // to: Math.random() > 0.1 ? loggedInUser : mailUtilService.createSender(),
                 labels: [labels[utilService.getRandomIntInclusive(0, labels.length - 1)]],
                 isStarred: Math.random() > 0.8 ? true : false,
                 isDraft: false,

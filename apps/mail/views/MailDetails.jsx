@@ -43,10 +43,10 @@ export function MailDetails({ onUpdatedEmail, onRemove, filterBy }) {
     function senderDetails() {
         return <section className="mail-info">
             <div className="sender-details">
-            <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: from.color }}></i></span>
+                {filterBy.box === 'sent' ? <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: to.color || 'lightcoral' }}></i></span> : <span className="user-icon"><i className="fa-light fa-circle-user" style={{ color: from.color || 'lightcoral' }}></i></span>}
                 <div>
-                    <span className="name">{fullname}</span>
-                   {filterBy.box === 'sent' ? <span className="from-email">{`<${toEmail}>`}</span> : <span className="from-email">{`<${fromEmail}>`}</span>}
+                    {filterBy.box === 'sent' ? <span className="name">{fullnameTo}</span> : <span className="name">{fullname}</span>}
+                    {filterBy.box === 'sent' ? <span className="from-email">{`<${toEmail}>`}</span> : <span className="from-email">{`<${fromEmail}>`}</span>}
                 </div>
             </div>
             <span className="sent-at">{mailUtilService.formatTimestamp(sentAt)}</span>
@@ -72,6 +72,4 @@ export function MailDetails({ onUpdatedEmail, onRemove, filterBy }) {
         {senderDetails()}
         <p>{body}</p>
     </section>
-
-
 }

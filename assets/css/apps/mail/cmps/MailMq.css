@@ -134,9 +134,20 @@
         box-shadow: 0.5px 1px 2px #0000003d;
     }
 
+    .mail-preview .from-draft {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: start;
+        margin-block-start: 1em;
+        font-weight: 300;
+        color: red;
+        margin-inline-end: 2em;
+    }
+
     .mail-list .action-bar-container {
         display: none;
     }
+
 
     /* mail info */
 
@@ -204,6 +215,163 @@
     .mail-details .starred {
         display: flex;
         align-items: center;
+    }
+
+    /* mail compose */
+    .compose-mail {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 98vh;
+        background-color: #fff;
+        box-shadow: 0px 1px 2px #00000057;
+        border-radius: 0.5em;
+        font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    }
+    
+    .compose-mail .compose-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: var(--gm-compose-header);
+        padding: 0.5em;
+        padding-inline-start: 1em;
+    }
+    
+    .compose-mail .compose-header h1 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        height: auto;
+        line-height: 20px;
+        padding-left: 0;
+        padding-right: 0;
+        -webkit-font-smoothing: antialiased;
+        font-size: .875rem;
+        letter-spacing: normal;
+        font-weight: 500;
+        margin: 0;
+    }
+    
+    .compose-mail .compose-header .ctrl-btns {
+        display: flex;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    
+    }
+    
+    .compose-mail .ctrl-btns button {
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+    
+    .compose-mail .ctrl-btns button:not(.close-btn) {
+        font-size: 0.5em;
+    }
+    
+    
+    .compose-mail .compose-inputs {
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+    }
+    
+    .compose-mail .input-group {
+        display: flex;
+        align-items: center;
+    }
+    
+    .compose-mail .input-group label {
+        margin-right: 2px;
+        min-width: 10px;
+        font-size: 0.95em;
+    }
+    
+    .compose-mail .input-group input {
+        flex: 1;
+        padding: 5px;
+        border: none;
+    }
+    
+    .compose-mail .input-group input:focus {
+        outline: none;
+    }
+    
+    .compose-mail .mail-body {
+        width: 100%;
+        height: 60vh;
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        font-family: inherit;
+        resize: none;
+    }
+    
+    .compose-mail .horizontal-line {
+        border: none;
+        height: 1px;
+        background-color: #cccccc6f;
+        width: 100%;
+        align-self: center;
+    }
+    
+    .compose-mail .mail-body:focus {
+        outline: none;
+    }
+    
+    .compose-mail .send-btn {
+        background-color: #0b57d0;
+        color: white;
+        border: none;
+        min-width: 7em;
+        border-radius: 3em;
+        padding: 1em;
+        cursor: pointer;
+    }
+    
+    .compose-mail .bottom-ctrls {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-block-end: 1em;
+        padding: 1em;
+    }
+    
+    .compose-mail .bottom-ctrls .to-note-btn {
+        border: none;
+        background-color: transparent;
+        font-size: 1.02em;
+        cursor: pointer;
+        transition: scale 0.5s ease-in-out;
+    }
+    
+    .compose-mail .bottom-ctrls .to-note-btn:hover, .exit-btn:hover {
+        scale: 1.05;
+    }
+    
+    .compose-mail .exit-btn {
+        border: none;
+        background-color: transparent;
+        font-size: 1em;
+        cursor: pointer;
+    }
+    
+    .compose-mail.mini {
+        height: 3.5em;
+    }
+
+    .compose-mail .maximize-btn {
+        display: none;
+    }
+    
+    .compose-mail.mini .input-group,
+    .compose-mail.mini .bottom-ctrls,
+    .compose-mail.mini .horizontal-line {
+        display: none;
     }
 }
 
@@ -536,6 +704,172 @@
         display: flex;
         align-items: center;
     }
+
+    .compose-mail {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 0;
+        right: 5em;
+        width: 500px;
+        height: 500px;
+        background-color: #fff;
+        box-shadow: 0px 1px 2px #00000057;
+        border-radius: 0.5em;
+        font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    }
+    
+    .compose-mail .compose-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: var(--gm-compose-header);
+        padding: 0.5em;
+        padding-inline-start: 1em;
+    }
+    
+    .compose-mail .compose-header h1 {
+        padding-bottom: 10px;
+        padding-top: 10px;
+        height: auto;
+        line-height: 20px;
+        padding-left: 0;
+        padding-right: 0;
+        -webkit-font-smoothing: antialiased;
+        font-size: .875rem;
+        letter-spacing: normal;
+        font-weight: 500;
+        margin: 0;
+    }
+    
+    .compose-mail .compose-header .ctrl-btns {
+        display: flex;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    
+    }
+    
+    .compose-mail .ctrl-btns button {
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+    
+    .compose-mail .ctrl-btns button:not(.close-btn) {
+        font-size: 0.5em;
+    }
+    
+    
+    .compose-mail .compose-inputs {
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+    }
+    
+    .compose-mail .input-group {
+        display: flex;
+        align-items: center;
+    }
+    
+    .compose-mail .input-group label {
+        margin-right: 2px;
+        min-width: 10px;
+        font-size: 0.95em;
+    }
+    
+    .compose-mail .input-group input {
+        flex: 1;
+        padding: 5px;
+        border: none;
+    }
+    
+    .compose-mail .input-group input:focus {
+        outline: none;
+    }
+    
+    .compose-mail .mail-body {
+        width: 100%;
+        height: 250px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        font-family: inherit;
+        resize: none;
+    }
+    
+    .compose-mail .horizontal-line {
+        border: none;
+        height: 1px;
+        background-color: #cccccc6f;
+        width: 100%;
+        align-self: center;
+    }
+    
+    .compose-mail .mail-body:focus {
+        outline: none;
+    }
+    
+    .compose-mail .send-btn {
+        background-color: #0b57d0;
+        color: white;
+        border: none;
+        min-width: 7em;
+        border-radius: 3em;
+        padding: 1em;
+        cursor: pointer;
+    }
+    
+    .compose-mail .bottom-ctrls {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-block-end: 1em;
+        padding: 1em;
+    }
+    
+    .compose-mail .bottom-ctrls .to-note-btn {
+        border: none;
+        background-color: transparent;
+        font-size: 1.02em;
+        cursor: pointer;
+        transition: scale 0.5s ease-in-out;
+    }
+    
+    .compose-mail .bottom-ctrls .to-note-btn:hover, .exit-btn:hover {
+        scale: 1.05;
+    }
+    
+    .compose-mail .exit-btn {
+        border: none;
+        background-color: transparent;
+        font-size: 1em;
+        cursor: pointer;
+    }
+    
+    .compose-mail.full {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 5vh;
+        right: 5vw;
+        width: 90vw;
+        height: 90vh;
+        background-color: #fff;
+        box-shadow: 0px 1px 2px #00000057;
+        border-radius: 0.5em;
+        font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+    }
+    
+    .compose-mail.mini {
+        height: 3.5em;
+    }
+    
+    .compose-mail.mini .input-group,
+    .compose-mail.mini .bottom-ctrls,
+    .compose-mail.mini .horizontal-line {
+        display: none;
+    }
 }
 
 
@@ -549,7 +883,26 @@
         --min-margin: 1em;
 
         grid-template-columns:
-            var(--side-width) minmax(auto, var(--main-width)) minmax(var(--min-margin), auto);
+            var(--side-width) 
+            minmax(auto, var(--main-width)) 
+            minmax(var(--min-margin), auto);
+    }
+
+    .mail-side-filter .side-link.inbox span {
+        margin-inline-start: 1.7em;
+    }
+
+    .mail-side-filter .side-link.active,
+    .side-link.active>i {
+        background: var(--gm-active-color);
+        font-weight: bold;
+    }
+
+    .mail-preview .body,
+    .mail-preview p {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
 }

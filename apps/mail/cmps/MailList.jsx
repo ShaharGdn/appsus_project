@@ -19,7 +19,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
 
     useEffect(() => {
         return () => {
-            setIsAllChecked(false);
+            setIsAllChecked(false)
         }
     }, [])
 
@@ -37,7 +37,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     function onNewStateChange(updatedMail) {
         setEmailList(prevEmails =>
             prevEmails.map(email => (email.id === updatedMail.id ? updatedMail : email))
-        );
+        )
         onUpdatedEmail(updatedMail)
     }
 
