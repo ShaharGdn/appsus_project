@@ -82,7 +82,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
         setIsChecked(newCheckedState)
         handleChange({ type: 'isSelected', state: newCheckedState })
     }
-    
+
     function handleDraftClick() {
         if (filterBy.box === 'drafts') {
             navigate(`/mail/compose/${mail.id}`)

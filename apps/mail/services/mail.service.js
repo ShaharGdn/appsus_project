@@ -51,7 +51,7 @@ function query(filterBy = {}) {
                     mails = mails.filter(mail => mail.to.email === loggedInUser.email);
                     break;
                 case 'sent':
-                    mails = mails.filter(mail => mail.to.email !== loggedInUser.email);
+                    mails = mails.filter(mail => mail.from.email === loggedInUser.email);
                     break;
                 case 'starred':
                     mails = mails.filter(mail => mail.isStarred);
@@ -146,7 +146,7 @@ function _createEmails() {
     if (!mails || !mails.length) {
         const labels = ['Critical', 'Family', 'Work', 'Friends', 'Spam', 'Memories', 'Romantic']
         const mails = []
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 50; i++) {
             const mail = {
                 id: utilService.makeId(),
                 subject: utilService.makeEmailLorem(1),
@@ -161,6 +161,10 @@ function _createEmails() {
                 isDraft: false,
                 isSnoozed: false,
                 isSelected: false,
+            }
+            if (mail.from.email === 'user@appsus.com') {
+                mail.isRead = true
+                mail.to = mailUtilService.createSender()
             }
             mails.push(mail)
         }
