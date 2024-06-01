@@ -17,7 +17,6 @@ export function NoteDetails() {
     const navigate = useNavigate()
 
     useEffect(() => {
-
         setIsLoading(true)
         noteService.get(params.noteId)
             .then(note => {
@@ -29,10 +28,9 @@ export function NoteDetails() {
             })
             .finally(() => setIsLoading(false))
 
-    }, []) // params.noteId ?
+    }, [])
 
     function handleChange({ target }) {
-        // console.log('target from details:', target);
         setIsEdited(true)
         const { name, value } = target
         const props = name.split('.')
@@ -54,13 +52,11 @@ export function NoteDetails() {
 
     function saveEditedNote() {
         const createdAt = utilService.getCurrentDateTime()
-        // noteService.save(note, createdAt)
         noteService.save({ ...note, createdAt: createdAt })
             .then(() => {
                 showSuccessMsg('Note edited successfully.')
                 navigate('/note')
                 onSaveNote()
-                // resetMainInput()
             })
             .catch(() => showErrorMsg('Could not edit note.'))
     }

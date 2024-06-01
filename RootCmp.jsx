@@ -13,7 +13,6 @@ import { NoteIndex } from "./apps/note/views/NoteIndex.jsx"
 import { NoteDetails } from "./apps/note/cmps/NoteDetails.jsx"
 
 
-
 export function App() {
     return <Router>
         <section className="app">

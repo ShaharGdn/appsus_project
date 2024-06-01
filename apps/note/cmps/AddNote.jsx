@@ -45,14 +45,14 @@ export function AddNote({ onSaveNote }) {
     }
 
     function addNote() {
-        if (!note.info.txt && !note.info.todos && !note.info.url && !note.info.videoUrl) {
+        if (!note.info.txt && !note.info.url && !note.info.videoUrl &&
+            (!note.info.todos || note.info.todos.length === 0 || note.info.todos.every(todo => todo.txt === ''))) {
             resetMainInput()
             return
         }
         const createdAt = utilService.getCurrentDateTime()
         noteService.save({ ...note, createdAt: createdAt })
             .then(() => {
-                console.log('note id from AddNote:', note.id);
                 resetMainInput()
                 showSuccessMsg('Note added successfully.')
                 onSaveNote()

@@ -22,7 +22,8 @@ export function NoteActionBar({ onClose, note, onChange, onRemove, onDuplicate, 
     }
 
     function onSendToEmail() {
-        const { title, txt, url, videoUrl } = note.info
+        const { title, txt, url, videoUrl, todos } = note.info
+
         let body = ''
         switch (note.type) {
             case 'NoteTxt':
@@ -33,6 +34,10 @@ export function NoteActionBar({ onClose, note, onChange, onRemove, onDuplicate, 
                 break;
             case 'NoteVideo':
                 body = videoUrl
+                break;
+            case 'NoteTodos':
+                const todosForMail = todos.map(todo => JSON.stringify(todo))
+                body = todosForMail
                 break;
         }
         navigate(`/mail/compose?subject=${title}&body=${body}`)

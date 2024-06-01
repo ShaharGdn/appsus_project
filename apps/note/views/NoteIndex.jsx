@@ -30,7 +30,6 @@ export function NoteIndex() {
     }
 
     function removeNote(ev, noteId) {
-        console.log('noteId', noteId);
         ev.preventDefault()
         ev.stopPropagation()
 

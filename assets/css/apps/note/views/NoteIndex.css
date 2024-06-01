@@ -8,7 +8,6 @@
   font-family: roboto, arial, sans-serif;
   color: var(--n-font-clr);
   margin-block-start: 1em;
-  /* width: 100%; */
 }
 
 .note-index h2 {
@@ -54,4 +53,3 @@
 .note-index .app-header-container .nav-btns {
   z-index: 3;
 }
-
