@@ -6,6 +6,7 @@
 /* Media Queries */
 /* @import './setup/mq/note.mq.css'; */
 @import '/assets/css/setup/mq/note.mq.css';
+@import './apps/mail/cmps/MailMq.css';
 
 
 /* Basics */
