@@ -4,13 +4,16 @@ export const mailUtilService = {
     createSender,
     formatTimestamp,
     makeEmailLorem,
-    makeNamesLorem
+    makeNamesLorem,
+    getRandomPastelColor,
+    createUsers
 }
 
 function createSender() {
     return {
         fullname: makeNamesLorem(),
-        email: makeEmail()
+        email: makeEmail(),
+        color: getRandomPastelColor()
     }
 }
 
@@ -141,7 +144,7 @@ function makeNamesLorem(size = 1) {
         'Ricky Rocket',
         'Susie Sprinkle',
         'Tommy Tickle',
-        'Vicky Vanilla',
+        'Micky Vanilla',
         'Billy Bongo',
         'Jenny Jellybean',
         'Nina Noodle',
@@ -176,4 +179,37 @@ function makeNamesLorem(size = 1) {
         txt += names[Math.floor(Math.random() * names.length)] + ' ';
     }
     return txt;
+}
+
+// function getRandomPastelColor() {
+//     const r = Math.floor((Math.random() * 127) + 127);
+//     const g = Math.floor((Math.random() * 127) + 127);
+//     const b = Math.floor((Math.random() * 127) + 127);
+//     return `rgb(${r}, ${g}, ${b})`;
+// }
+
+function getRandomPastelColor() {
+    const r = Math.floor((Math.random() * 155) + 100);
+    const g = Math.floor((Math.random() * 155) + 100);
+    const b = Math.floor((Math.random() * 155) + 100);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+function createUsers(numUsers = 10) {
+    const users = [];
+    const usedNames = [];
+    const usedEmails = [];
+
+    while (users.length < numUsers) {
+        const name = makeNamesLorem();
+        const email = makeEmail();
+
+        if (usedNames.indexOf(name) === -1 && usedEmails.indexOf(email) === -1) {
+            usedNames.push(name);
+            usedEmails.push(email);
+            users.push(createSender(name, email));
+        }
+    }
+
+    return users;
 }

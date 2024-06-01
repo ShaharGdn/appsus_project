@@ -1,6 +1,7 @@
 import { LongTxt } from "../../../cmps/LongTxt.jsx"
 import { showSuccessMsg } from "../../../services/event-bus.service.js"
 import { utilService } from "../../../services/util.service.js"
+import { mailUtilService } from "../services/mail.utilService.js"
 import { StarredMail } from "./StarredMail.jsx"
 
 const { useState, useEffect } = React
@@ -8,7 +9,8 @@ const { useNavigate } = ReactRouter
 
 const loggedInUser = {
     email: 'user@appsus.com',
-    fullname: 'Michal Shahar'
+    fullname: 'Michal Shahar',
+    color: mailUtilService.getRandomPastelColor(),
 }
 
 export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStateChange, isAllChecked, setIsAllChecked }) {
@@ -93,6 +95,8 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
 
     return (
         <article className={`mail-preview ${getClassName()}`}>
+            <span className="user-icon"><i className="fa-light fa-circle-user" style={{color: from.color}}></i></span>
+            {/* <span className="user-icon" style={{background: from.color}}><i className="fa-light fa-circle-user"></i></span> */}
             <input
                 type="checkbox"
                 className="is-selected"

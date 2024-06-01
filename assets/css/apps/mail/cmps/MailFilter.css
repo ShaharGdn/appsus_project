@@ -99,9 +99,9 @@
   position: relative;
 } */
 
-.mail-side-filter .side-link.inbox span {
+/* .mail-side-filter .side-link.inbox span {
   margin-inline-start: 1em;
-}
+} */
 
 /* .mail-side-filter .side-link.inbox i {
   margin-right: 10px;
@@ -130,7 +130,7 @@
 }
 
 /* sort */
-
+/* 
 .mail-top-filter .sort-by {
   background-color: transparent;
   border: none;
@@ -161,7 +161,6 @@
   padding-inline-end: 1em;
   border-radius: 3em;
   width: max-content;
-  /* box-shadow: 0px 1px 2px #00000057; */
 }
 
 .mail-top-filter .sort-by-container {
@@ -171,7 +170,6 @@
 }
 
 .mail-top-filter .sort-by-open .sort-btn {
-  /* background-color: transparent; */
   background-color: rgba(255, 255, 255, 0.443);
   border: none;
   cursor: pointer;
@@ -191,4 +189,4 @@
   margin-inline-end: 1em;
   font-size: 0.9em;
   color: #333333ce;
-}
+} */

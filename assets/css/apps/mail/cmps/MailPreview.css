@@ -1,4 +1,4 @@
-.mail-preview {
+/* .mail-preview {
     width: 100%;
     font-weight: 300;
     font-size: 0.85em;
@@ -11,9 +11,9 @@
         minmax(auto, 0.5fr) minmax(auto, 0.5fr) minmax(auto, 2fr) minmax(auto, 4fr) minmax(auto, 6fr) minmax(auto, 2fr);
 
     cursor: pointer;
-}
+} */
 
-.mail-preview input {
+/* .mail-preview input {
     grid-column: 1;
     grid-row: 1;
 }
@@ -97,4 +97,8 @@
     grid-column: 3;
     font-weight: 300;
     color: red;
+} */
+
+.mail-preview.unread>span:not(.body, .from-draft) {
+    font-weight: 600;
 }
