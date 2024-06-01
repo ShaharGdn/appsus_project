@@ -16,6 +16,22 @@
     margin-block-start: 1em;
 }
 
+.note-preview ul:has(.todo-for-list) {
+    /* display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center; */
+    margin-block-start: 1em;
+
+
+}
+
+.note-preview .todo-for-list {
+    margin-inline-start: 1em;
+    list-style: square;
+
+}
+
 .input-field-container {
     position: relative;
     display: flex;
@@ -34,16 +50,19 @@
     border: none;
     font-size: 1em;
     min-height: 43px;
-    width: 100%;
-
     line-height: 1.5rem;
     background-color: transparent;
     font-family: roboto, Arial, sans-serif;
     padding-top: 0.4em;
 }
 
+.input-field-container input:not(.todo-input input) {
+    width: 100%;
+}
+
 .input-field-container textarea {
     margin-block-start: 0.5em;
+    width: 100%;
 }
 
 .input-field-container textarea::placeholder,
@@ -93,11 +112,34 @@
     rotate: 90deg;
 }
 
+.input-field-container .todos-container {
+    display: block;
+    width: 100%;
+}
+
 .input-field-container .todo-input {
+    margin-inline-start: 0.8em;
     display: flex;
     align-items: center;
     width: 100%;
+    font-size: .875em;
 }
-.input-field-container .todo-input input {
 
+.input-field-container .todo-input span {
+    margin-inline: 1em;
+}
+
+.todo-input .checkbox-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.todo-input .checkbox-label {
+    flex-grow: 1;
+}
+
+.todo-input .checkbox-label i {
+    margin-inline-end: 0.5em;
+    opacity: 0.9;
 }
