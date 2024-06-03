@@ -36,11 +36,10 @@ export function NoteActionBar({ onClose, note, onChange, onRemove, onDuplicate, 
                 body = videoUrl
                 break;
             case 'NoteTodos':
-                const todosForMail = todos.map(todo => JSON.stringify(todo))
-                body = todosForMail
+                body = todos.map(todo => todo.txt).join('\n')
                 break;
         }
-        navigate(`/mail/compose?subject=${title}&body=${body}`)
+        navigate(`/mail/compose?subject=${title}&body=${encodeURIComponent(body)}`)
     }
 
     return <section className="input-action-bar">
