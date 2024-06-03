@@ -14,7 +14,7 @@ const loggedInUser = {
 }
 
 export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStateChange, isAllChecked, setIsAllChecked }) {
-    const { subject, body, isRead, sentAt, removedAt, from, isDraft, to, isSnoozed, isStarred } = mail
+    const { subject, body, isRead, sentAt, removedAt, from, isDraft, to, isSnoozed, isStarred, isSelected } = mail
     const { email: fromEmail, fullname } = from
     const { email: toEmail, fullname: fullnameTo } = to
 
@@ -34,7 +34,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
     }
 
     useEffect(() => {
-        setIsChecked(isAllChecked);
+        setIsChecked(isAllChecked)
     }, [isAllChecked])
 
     useEffect(() => {
@@ -101,7 +101,7 @@ export function MailPreview({ mail, type, isFold, filterBy, onMailRemove, onStat
                 type="checkbox"
                 className="is-selected"
                 onChange={handleCheckboxChange}
-                checked={isChecked}
+                checked={isSelected}
             />
             {filterBy.trash ? <i className="fa-light fa-trash-can second"></i> : <StarredMail className="second" isStarred={newMail.isStarred} handleChange={handleChange} />}
             {filterBy.box === 'drafts' ? <span className="from-draft">Draft</span> :

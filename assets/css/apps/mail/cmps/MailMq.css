@@ -430,8 +430,6 @@
         border-radius: 0.5em;
         background-color: var(--gm-hover-link);
     }
-
-    
     
 }
 
@@ -697,7 +695,7 @@
         place-self: end;
         align-self: center;
         gap: 0.5em;
-        margin-inline-start: 0.5em;
+        margin-inline-start: 0.2em;
     }
 
     .action-bar-container .star {
@@ -1016,6 +1014,10 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+    }
+
+    .action-bar-container {
+        margin-inline-start: 0.5em;
     }
 
 }

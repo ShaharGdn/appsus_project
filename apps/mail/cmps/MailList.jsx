@@ -6,8 +6,8 @@ const { useState, useEffect } = React
 export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     const [isFold, setFold] = useState({ readFold: false, unreadFold: false })
     const [isAllChecked, setIsAllChecked] = useState(false)
+    // const [isChecked, setIsChecked] = useState(false)
     const [emailList, setEmailList] = useState(emails)
-
 
     useEffect(() => {
         if (isAllChecked) {
@@ -20,6 +20,11 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     useEffect(() => {
         return () => {
             setIsAllChecked(false)
+            setEmailList(prevEmails => prevEmails.map(email => {
+                const updatedEmail = { ...email, isSelected: false }
+                onUpdatedEmail(updatedEmail)
+                return updatedEmail
+            }))
         }
     }, [])
 
@@ -32,6 +37,8 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
 
     function onMailRemove(mail) {
         onRemove(mail)
+        const updatedEmail = { ...mail, isSelected: false }
+        onUpdatedEmail(updatedEmail)
     }
 
     function onNewStateChange(updatedMail) {
@@ -50,12 +57,31 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     }
 
     async function onBulkRemove() {
-        const selectedEmails = emailList.filter(mail => mail.isSelected)
+        const selectedEmails = emails.filter(mail => mail.isSelected)
         for (let email of selectedEmails) {
             if (filterBy.box === 'trash') {
                 await onRemove(email)
+                const updatedEmail = { ...email, isSelected: false }
+                onUpdatedEmail(updatedEmail)
             } else {
-                const updatedMail = { ...email, removedAt: new Date() }
+                const updatedMail = { ...email, removedAt: new Date(), isSelected: false }
+                await onUpdatedEmail(updatedMail)
+            }
+        }
+        setEmailList(prevEmails => prevEmails.filter(email => !selectedEmails.includes(email)))
+        setIsAllChecked(false)
+    }
+
+    async function onBulkToggleRead() {
+        const selectedEmails = emails.filter(mail => mail.isSelected)
+        const readEmails = selectedEmails.filter(mail => mail.isRead)
+        const unReadEmails = selectedEmails.filter(mail => !mail.isRead)
+        for (let email of selectedEmails) {
+            if (unReadEmails.length > 0) {
+            const updatedEmail = { ...email, isSelected: false, isRead: true }
+            await onUpdatedEmail(updatedEmail)
+            } else {
+                const updatedMail = { ...email, isSelected: false, isRead : false }
                 await onUpdatedEmail(updatedMail)
             }
         }
@@ -72,7 +98,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     return (
         filterBy.box === 'inbox' ? (
             <section className="mail-list">
-                <MailTopActionBar onRemove={onMailRemove} onUpdatedEmail={onNewStateChange} onSelectAll={onSelectAll} onBulkRemove={onBulkRemove} isAllChecked={isAllChecked} emails={emails} />
+                <MailTopActionBar onRemove={onMailRemove} onUpdatedEmail={onNewStateChange} onSelectAll={onSelectAll} onBulkRemove={onBulkRemove} isAllChecked={isAllChecked} setIsAllChecked={setIsAllChecked} emails={emails} onBulkToggleRead={onBulkToggleRead} />
                 <h3 onClick={() => onToggleFold('unreadFold')}>
                     {isFold.unreadFold ? <i className="fa-light fa-chevron-down"></i> : <i className="fa-light fa-chevron-up"></i>}
                     Unread
@@ -98,7 +124,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
             </section>
         ) : (
             <section className="mail-list">
-                <MailTopActionBar onRemove={onMailRemove} onUpdatedEmail={onNewStateChange} onSelectAll={onSelectAll} onBulkRemove={onBulkRemove} isAllChecked={isAllChecked} emails={emails} />
+                <MailTopActionBar onRemove={onMailRemove} onUpdatedEmail={onNewStateChange} onSelectAll={onSelectAll} onBulkRemove={onBulkRemove} isAllChecked={isAllChecked} setIsAllChecked={setIsAllChecked} emails={emails} onBulkToggleRead={onBulkToggleRead} />
                 <ul>
                     {emails.map(mail => (
                         <li key={mail.id}>

@@ -6,7 +6,7 @@
     place-self: end;
     align-self: center;
     gap: 0.5em;
-    margin-inline-start: 0.5em;
+    /* margin-inline-start: 0.5em; */
 }
 
 .action-bar-container .star {
