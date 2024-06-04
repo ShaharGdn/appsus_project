@@ -3,17 +3,13 @@ const { Link, NavLink } = ReactRouterDOM
 
 export function Home() {
     return <section className="home-page">
-        <header className="main-header">
-            <img src="assets/imgs/appsus-logo.png" />
-            <AppHeader />
-        </header>
-        <main>
-        <h1>Welcome to AppSus!</h1>
-        <p>Navigate to our apps</p>
+        <img src="assets/imgs/1.png" alt="" />
         <section className="hp-links">
             <NavLink to="/mail"><button className="hp-link"><img src="assets/imgs/gmail_link.png" /></button></NavLink>
             <NavLink to="/note"><button className="hp-link"><img src="assets/imgs/notes_link.png" /></button></NavLink>
         </section>
-        </main>
+        <img src="assets/imgs/2.png" alt="" />
+        <img src="assets/imgs/3.png" alt="" />
+        <AppHeader />
     </section>
 }
