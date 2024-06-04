@@ -16,7 +16,7 @@ export const noteService = {
 }
 
 function query(filterBy = {}) {
-    return asyncStorageService.query(NOTE_KEY, 500)
+    return asyncStorageService.query(NOTE_KEY, 250)
         .then(notes => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
