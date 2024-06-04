@@ -16,7 +16,7 @@ export const noteService = {
 }
 
 function query(filterBy = {}) {
-    return asyncStorageService.query(NOTE_KEY, 200)
+    return asyncStorageService.query(NOTE_KEY, 500)
         .then(notes => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
@@ -119,7 +119,7 @@ function _createNotes() {
                 type: 'NoteImg',
                 isPinned: true,
                 style: {
-                    backgroundColor: '#d4e4ed'
+                    backgroundColor: '#b4ddd3'
                 },
                 info: {
                     title: 'Special day',
@@ -132,7 +132,8 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
-                    backgroundColor: '#fff8b8'
+                    backgroundColor: '#fff8b8',
+                    backgroundImage: 'url(https://www.gstatic.com/keep/backgrounds/notes_light_0609.svg)'
                 },
                 info: {
                     title: 'Call studio',
@@ -171,7 +172,7 @@ function _createNotes() {
                 type: 'NoteImg',
                 isPinned: false,
                 style: {
-                    backgroundColor: '#b4ddd3'
+                    backgroundColor: '#d4e4ed'
                 },
                 info: {
                     title: 'Trip',
@@ -184,7 +185,9 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: false,
                 style: {
-                    backgroundColor: '#f39f76'
+                    backgroundColor: '#f39f76',
+                    backgroundImage: 'url(https://www.gstatic.com/keep/backgrounds/recipe_light_0609.svg)'
+
                 },
                 info: {
                     title: 'Dan\'s Minestrone',
@@ -219,7 +222,8 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: false,
                 style: {
-                    backgroundColor: '#efeff1'
+                    backgroundColor: '#efeff1',
+                    backgroundImage: 'url(https://www.gstatic.com/keep/backgrounds/celebration_light_0714.svg)'
                 },
                 info: {
                     title: 'Vacation',
@@ -232,7 +236,8 @@ function _createNotes() {
                 type: 'NoteTodos',
                 isPinned: true,
                 style: {
-                    backgroundColor: '#b4ddd3'
+                    backgroundColor: '#b4ddd3',
+                    backgroundImage: 'url(https://www.gstatic.com/keep/backgrounds/music_light_0609.svg)'
                 },
                 info: {
                     title: 'To do:',
@@ -252,7 +257,8 @@ function _createNotes() {
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
-                    backgroundColor: '#d3bfdb'
+                    backgroundColor: '#d3bfdb',
+                    backgroundImage: 'url(https://www.gstatic.com/keep/backgrounds/grocery_light_0609.svg)'
                 },
                 info: {
                     title: 'Grocerey',
