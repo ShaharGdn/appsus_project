@@ -1,8 +1,6 @@
 /* MOBILE ONLY */
 
-@media (max-width:450px) {
-
-}
+@media (max-width:450px) {}
 
 /* SMALL */
 
@@ -10,6 +8,11 @@
     .input-action-bar .color-input .color {
         height: 2em;
         width: 2em;
+    }
+
+    .input-action-bar .color-input .bg-img-container .bg-img {
+        height: 2.46em;
+        width: 2.46em;
     }
 }
 
@@ -44,10 +47,6 @@
 
     .note-index .app-header-btn {
         margin-inline: auto;
-    }
-
-    .note-index .note-list ul {
-        max-width: 90vw;
     }
 
     .top-nav .note-filter {

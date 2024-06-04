@@ -14,6 +14,10 @@
     max-width: 100vw;
 }
 
+.note-list li {
+    background-size: cover;
+}
+
 .note-list span:not(.note-loader, .todo-list-txt) {
     display: block;
     text-transform: uppercase;
