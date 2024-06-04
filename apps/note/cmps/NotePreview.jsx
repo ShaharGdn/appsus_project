@@ -22,8 +22,7 @@ export function NotePreview({ isPreview, isEditable, inputType, note, onChange, 
             <h3>{title}</h3>
             {txt && <p>{isLongText ? txt.substring(0, 250) + `...` : txt}</p>}
             {url && <img src={note.info.url} alt="note image" />}
-            {/* {videoUrl && <iframe className="iframe-large" width="420" height="250" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>} */}
-            {videoUrl && <iframe className="iframe-small" width="200" height="150" src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>}
+            {videoUrl && <iframe src={note.info.videoUrl} frameBorder="0" allowFullScreen></iframe>}
 
             {todos && <ul>
                 {todos.map((todo, idx) => {

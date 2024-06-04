@@ -1,34 +1,61 @@
 /* MOBILE ONLY */
 
-@media (max-width:720px) {
+@media (max-width:450px) {
 
+}
 
+/* SMALL */
+
+@media (min-width: 450px) {
+    .input-action-bar .color-input .color {
+        height: 2em;
+        width: 2em;
+    }
+}
+
+@media (min-width: 540px) {
+    .note-index .note-list ul {
+        grid-template-columns: repeat(auto-fit, 238px);
+        max-width: 90vw;
+    }
+
+    .note-list li .note-preview iframe {
+        height: 150px;
+    }
 }
 
 /* MEDIUM */
 
 @media (min-width: 720px) {
-    .n-content-grid {
+    .top-nav.n-content-grid {
         --main-width: 1200px;
-        --side-width: 120px;
+        --side-width: 100px;
         --min-margin: 50px;
-
-        display: grid;
         grid-template-columns:
             minmax(var(--side-width), 1fr) minmax(auto, var(--main-width)) minmax(var(--min-margin), 1fr);
+    }
+
+    section.note-index {
+        --side-width: 85px;
+        --min-margin: 50px;
+        grid-template-columns:
+            minmax(var(--side-width), 1fr) minmax(200px, var(--main-width)) minmax(var(--min-margin), 1fr);
     }
 
     .note-index .app-header-btn {
         margin-inline: auto;
     }
 
-    .note-list ul {
-        grid-template-columns: repeat(auto-fit, 238px);
-        max-width: 75vw;
+    .note-index .note-list ul {
+        max-width: 90vw;
     }
 
     .top-nav .note-filter {
         gap: 20px;
+    }
+
+    .input-action-bar .color-input {
+        left: 1em;
     }
 
     .note-index .menu-bar span {
@@ -39,21 +66,21 @@
         margin: 30px auto;
     }
 
-    .input-action-bar .color-input .color {
-        height: 2em;
-        width: 2em;
+    .note-index .menu-bar span {
+        display: inline;
     }
-
-    .input-action-bar .color-input {
-        left: 1em;
-    }
-
 }
 
 /* LARGE */
 
 @media (min-width: 1000px) {
     .n-content-grid {
+        --main-width: 1500px;
+        --side-width: 150px;
+        --min-margin: 100px;
+    }
+
+    section.note-index {
         --main-width: 1500px;
         --side-width: 150px;
         --min-margin: 100px;
@@ -68,9 +95,11 @@
         max-width: 80vw;
     }
 
+    .note-filter .reset-btn {
+        margin-inline-end: 0.5em;
+    }
+
     .note-filter span::after {
         content: 'Filters:';
     }
-
-
 }
