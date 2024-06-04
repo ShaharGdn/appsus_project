@@ -1,4 +1,5 @@
 .details-container {
+    
     position: fixed;
     transform: translate(-50%, -30%);
     top: 30vh;
@@ -15,6 +16,10 @@
 .details-container .input-field-container {
     background-position-y: bottom;
     background-size: cover;
+}
+
+.details-container .input-field-container iframe{
+    width: 99%;
 }
 
 .details-container .title-input {
