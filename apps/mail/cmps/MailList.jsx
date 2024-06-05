@@ -37,8 +37,6 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
 
     function onMailRemove(mail) {
         onRemove(mail)
-        const updatedEmail = { ...mail, isSelected: false }
-        onUpdatedEmail(updatedEmail)
     }
 
     function onNewStateChange(updatedMail) {
@@ -58,7 +56,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
 
     async function onBulkRemove() {
         const selectedEmails = emails.filter(mail => mail.isSelected)
-        for (let email of selectedEmails) {
+        for (var email of selectedEmails) {
             if (filterBy.box === 'trash') {
                 await onRemove(email)
                 const updatedEmail = { ...email, isSelected: false }

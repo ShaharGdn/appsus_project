@@ -168,6 +168,10 @@ function _createEmails() {
                 mail.isRead = true
                 mail.to = mailUtilService.createSender()
             }
+            if (mail.to.email !== 'user@appsus.com') {
+                mail.isRead = true
+                mail.from = loggedInUser
+            }
             mails.push(mail)
         }
         utilService.saveToStorage(MAIL_KEY, mails)

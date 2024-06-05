@@ -25,9 +25,9 @@ export function App() {
                 <Route path="/mail" element={<MailIndex />} >
                     <Route path="/mail/compose" element={<MailCompose />} />
                     <Route path="/mail/compose/:mailId" element={<MailCompose />} />
-                </Route >
-                {/* <Route path="/mail/:filterBy" element={<MailIndex />} /> */}
-
+                </Route >                
+                {/* faux routs */}
+                <Route path="/mail/:mailId" element={<MailIndex />} />
                 <Route path="/mail/inbox" element={<MailIndex />} /> 
                 <Route path="/mail/starred" element={<MailIndex />} />
                 <Route path="/mail/sent" element={<MailIndex />} />
@@ -35,7 +35,6 @@ export function App() {
                 <Route path="/mail/snoozed" element={<MailIndex />} />
                 <Route path="/mail/labels" element={<MailIndex />} />
                 <Route path="/mail/trash" element={<MailIndex />} />
-                <Route path="/mail/:mailId" element={<MailIndex />} />
 
                 {/* note */}
                 <Route path="/note" element={<NoteIndex />} >
