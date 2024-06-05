@@ -68,6 +68,10 @@
     .note-index .menu-bar span {
         display: inline;
     }
+
+    section .details-container .txt-input {
+        max-height: 600px;
+    }
 }
 
 /* LARGE */
