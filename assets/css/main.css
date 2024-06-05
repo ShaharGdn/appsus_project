@@ -14,9 +14,6 @@
 @import './basics/helpers.css';
 @import './basics/layout.css';
 
-/* Views */
-@import './views/home.css';
-
 /* Note Views */
 
 @import './apps/note/views/NoteIndex.css';
@@ -26,7 +23,7 @@
 
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
-@import './cmps/Home.css';
+@import 'views/Home.css';
 
 
 /* Mail Cmps */
