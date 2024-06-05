@@ -5,6 +5,13 @@
 }
 
 .note-index {
+  --side-width: 1em;
+  --main-width: 1200px;
+  --min-margin: 1em;
+  display: grid;
+  grid-template-columns:
+    minmax(var(--side-width), 1fr) minmax(auto, var(--main-width)) minmax(var(--min-margin), 1fr);
+
   font-family: roboto, arial, sans-serif;
   color: var(--n-font-clr);
   margin-block-start: 1em;
@@ -41,13 +48,17 @@
   width: 48px;
 }
 
-.note-index .menu-bar span {
+.menu-bar span {
   font-family: google-sans, Arial, sans-serif;
   font-size: 1.4em;
+
+  display: none;
+
 }
 
 .note-index .app-header-container {
   display: flex;
+  justify-self: end;
 }
 
 .note-index .app-header-container .nav-btns {

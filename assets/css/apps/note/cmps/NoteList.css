@@ -11,7 +11,11 @@
     margin: 0;
     margin-block: 0.5em 4em;
     padding: 0;
-    max-width: 80vw;
+    max-width: 100vw;
+}
+
+.note-list li {
+    background-size: cover;
 }
 
 .note-list span:not(.note-loader, .todo-list-txt) {
@@ -37,8 +41,9 @@
     cursor: pointer;
 }
 
-.note-preview iframe .iframe-small {
-    display: none;
+li article:has(iframe) {
+    display: flex;
+    flex-direction: column;
 }
 
 .note-list li:not(.todo-for-list):hover {

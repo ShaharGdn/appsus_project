@@ -29,13 +29,13 @@
         var(--side-width);
 }
 
-
 .n-content-grid {
-    --main-width: 600px;
-    --side-width: 110px;
+    --main-width: 1200px;
+    --side-width: 1em;
     --min-margin: 50px;
 
     display: grid;
     grid-template-columns:
-        minmax(var(--side-width), 1fr) minmax(350px, var(--main-width)) minmax(var(--min-margin), 1fr);
+       var(--side-width) auto var(--min-margin);
 }
+

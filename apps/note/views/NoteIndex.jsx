@@ -59,12 +59,12 @@ export function NoteIndex() {
             })
     }
 
-    return <section className="note-index n-content-grid">
+    return <section className="note-index">
         <section className="top-nav n-content-grid">
             <section className="menu-bar">
-                <button className="menu-btn">
+                {/* <button className="menu-btn">
                     <i className="fa-light fa-bars"></i>
-                </button>
+                </button> */}
                 <img src="assets/imgs/google_keep_logo.png" alt="logo" />
                 <span>Keep</span>
             </section>
