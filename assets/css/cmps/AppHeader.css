@@ -1,33 +1,3 @@
-/* header {
-    background: lightcyan;
-    border-bottom: 2px solid white;
-}
-
-.app-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 0;
-}
-
-.app-header h3 {
-    margin-inline-start: 1em;
-}
-
-nav a {
-    margin: .5em;
-}
-
-nav a:active {
-    color: purple;
-}
-
-nav a.active {
-    color: darkblue;
-    font-weight: bold;
-    text-decoration: overline;
-}
- */
-
 .app-header-btn {
     position: relative;
     background-color: transparent;
@@ -36,12 +6,14 @@ nav a.active {
     cursor: pointer;
     font-weight: 100;
     color: #5F6367;
-    border-radius: 50%;
-    padding: 0.1em 0.55em;
+    width: 2em; 
+    height: 2em;
+    border-radius: 50%; 
+    padding: 0;
 }
 
+
 .app-header-btn:hover {
-    border-radius: 100%;
     background-color: var(--gm-hover-link);
 }
 
