@@ -12,6 +12,10 @@
     padding: 0;
 }
 
+.mail-top-filter .app-header-btn:hover {
+    background-color: var(--gm-hover-link);
+}
+
 .nav-btns {
     display: flex;
     flex-direction: column;

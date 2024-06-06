@@ -380,7 +380,6 @@
     html .home-page {
         scroll-behavior: smooth;
         height: 50vh;
-        background-color: #cfcfcf;
     }
 
     .home-page .footer-img {
@@ -421,7 +420,7 @@
         display: flex;
         position: absolute;
         right: 3em;
-        top: 2.5em;
+        top: 5em;
         margin-inline-start: 3.5em;
         margin-block-start: 1em;
     }
@@ -994,7 +993,7 @@
         display: flex;
         position: absolute;
         right: 6em;
-        top: 4em;
+        top: 6em;
         margin-inline-start: 3.5em;
         margin-block-start: 1em;
     }
@@ -1082,7 +1081,7 @@
         display: flex;
         position: absolute;
         right: 6em;
-        top: 6em;
+        top: 10em;
         margin-inline-start: 3.5em;
         margin-block-start: 1em;
     }
