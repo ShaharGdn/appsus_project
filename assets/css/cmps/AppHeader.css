@@ -12,11 +12,6 @@
     padding: 0;
 }
 
-
-.app-header-btn:hover {
-    background-color: var(--gm-hover-link);
-}
-
 .nav-btns {
     display: flex;
     flex-direction: column;
