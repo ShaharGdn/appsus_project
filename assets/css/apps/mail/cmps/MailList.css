@@ -1,6 +1,7 @@
  /* mail list */
 
-.mail-list, .no-emails {
+ .mail-list,
+ .no-emails {
    background-color: white;
    padding: 1em;
    border-radius: 1em;
@@ -9,15 +10,15 @@
    overflow: scroll;
    scroll-behavior: smooth;
    overflow-x: hidden;
-}
+ }
 
-.no-emails {
-  padding: 2em;
-}
+ .no-emails {
+   padding: 2em;
+ }
 
  .mail-list ul {
-    list-style: none;
-    padding: 0;
+   list-style: none;
+   padding: 0;
  }
 
  .mail-list h3 {
@@ -32,7 +33,7 @@
    padding: 0.7em;
  }
 
- .mail-list h3 i{
+ .mail-list h3 i {
    font-size: 0.9em;
  }
 

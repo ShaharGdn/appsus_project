@@ -6,7 +6,6 @@ const { useState, useEffect } = React
 export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     const [isFold, setFold] = useState({ readFold: false, unreadFold: false })
     const [isAllChecked, setIsAllChecked] = useState(false)
-    // const [isChecked, setIsChecked] = useState(false)
     const [emailList, setEmailList] = useState(emails)
 
     useEffect(() => {
@@ -76,10 +75,10 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
         const unReadEmails = selectedEmails.filter(mail => !mail.isRead)
         for (let email of selectedEmails) {
             if (unReadEmails.length > 0) {
-            const updatedEmail = { ...email, isSelected: false, isRead: true }
-            await onUpdatedEmail(updatedEmail)
+                const updatedEmail = { ...email, isSelected: false, isRead: true }
+                await onUpdatedEmail(updatedEmail)
             } else {
-                const updatedMail = { ...email, isSelected: false, isRead : false }
+                const updatedMail = { ...email, isSelected: false, isRead: false }
                 await onUpdatedEmail(updatedMail)
             }
         }
@@ -96,18 +95,35 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
     return (
         filterBy.box === 'inbox' ? (
             <section className="mail-list">
+                {/* unread section */}
                 <MailTopActionBar onRemove={onMailRemove} onUpdatedEmail={onNewStateChange} onSelectAll={onSelectAll} onBulkRemove={onBulkRemove} isAllChecked={isAllChecked} setIsAllChecked={setIsAllChecked} emails={emails} onBulkToggleRead={onBulkToggleRead} />
                 <h3 onClick={() => onToggleFold('unreadFold')}>
                     {isFold.unreadFold ? <i className="fa-light fa-chevron-down"></i> : <i className="fa-light fa-chevron-up"></i>}
                     Unread
                 </h3>
-                <ul>
-                    {emails.filter(mail => !mail.isRead).map(mail => (
-                        <li key={mail.id}>
-                            <MailPreview mail={mail} filterBy={filterBy} type={'unread'} isFold={isFold} onMailRemove={onMailRemove} onStateChange={onNewStateChange} isAllChecked={isAllChecked} setIsAllChecked={setIsAllChecked} />
-                        </li>
-                    ))}
-                </ul>
+                {emails.filter(mail => !mail.isRead).length === 0 && !isFold.unreadFold ? (
+                    <article className="mail-preview">
+                        <span className="all-read">Woohoo! You've read all the messages in your inbox.</span>
+                    </article>
+                ) : (
+                    <ul>
+                        {emails.filter(mail => !mail.isRead).map(mail => (
+                            <li key={mail.id}>
+                                <MailPreview
+                                    mail={mail}
+                                    filterBy={filterBy}
+                                    type={'unread'}
+                                    isFold={isFold}
+                                    onMailRemove={onMailRemove}
+                                    onStateChange={onNewStateChange}
+                                    isAllChecked={isAllChecked}
+                                    setIsAllChecked={setIsAllChecked}
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                )}
+                {/* read section */}
                 <h3 onClick={() => onToggleFold('readFold')}>
                     {isFold.readFold ? <i className="fa-light fa-chevron-down"></i> : <i className="fa-light fa-chevron-up"></i>}
                     Everything else
@@ -121,7 +137,8 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
                 </ul>
             </section>
         ) : (
-            <section className="mail-list">
+            < section className="mail-list" >
+                {/* any other section */}
                 <MailTopActionBar onRemove={onMailRemove} onUpdatedEmail={onNewStateChange} onSelectAll={onSelectAll} onBulkRemove={onBulkRemove} isAllChecked={isAllChecked} setIsAllChecked={setIsAllChecked} emails={emails} onBulkToggleRead={onBulkToggleRead} />
                 <ul>
                     {emails.map(mail => (
@@ -130,7 +147,7 @@ export function MailList({ emails, filterBy, onRemove, onUpdatedEmail }) {
                         </li>
                     ))}
                 </ul>
-            </section>
+            </section >
         )
     )
 }    

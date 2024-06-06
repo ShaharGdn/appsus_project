@@ -1,4 +1,5 @@
 import { mailService } from "../services/mail.service.js"
+import { showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useParams, useNavigate } = ReactRouter
 const { useOutletContext, Link, useSearchParams } = ReactRouterDOM
@@ -84,6 +85,7 @@ export function MailCompose() {
 
     function onClose() {
         navigate(`/mail/${filterBy.box}`)
+        if (newMailRef.current.body.length >= 1 || newMailRef.current.subject.length >= 1) showSuccessMsg(`Successfully saved to drafts`)
     }
 
     function onSend() {
@@ -93,6 +95,7 @@ export function MailCompose() {
         newMailRef.current = updatedMail
         saveMail(newMailRef.current).then(() => {
             navigate(`/mail/${filterBy.box}`)
+            showSuccessMsg(`Successfully sent mail!`)
         })
     }
 
